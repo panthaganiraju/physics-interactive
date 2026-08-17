@@ -1,0 +1,2201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Schrödinger Time-Independent Wave Equation</title>
+
+<style>
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0 20px 50px;
+    background: #f3f7fb;
+    color: #202b36;
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.container {
+    max-width: 1050px;
+    margin: 25px auto;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 35px rgba(20,50,80,0.10);
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+    padding: 32px 35px 28px;
+    background: linear-gradient(135deg, #173f7a, #2868a9);
+    color: white;
+    border-radius: 18px 18px 0 0;
+}
+
+.header h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 29px;
+    line-height: 1.3;
+}
+
+.header p {
+    margin: 9px auto 0;
+    text-align: center;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+
+/* =========================================================
+   FIXED CONTROL - ALWAYS VISIBLE
+   ========================================================= */
+
+.floating-control {
+    position: fixed;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+#mainControl {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    border: none;
+
+    background: #1f6fae;
+    color: white;
+
+    font-size: 25px;
+    cursor: pointer;
+
+    box-shadow: 0 6px 20px rgba(31,111,174,0.35);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+#mainControl:hover {
+    transform: scale(1.08);
+}
+
+#mainControl:disabled {
+    cursor: default;
+    opacity: 0.65;
+}
+
+#restartControl {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+
+    border: 1px solid #d2dce6;
+    background: white;
+    color: #526273;
+
+    font-size: 18px;
+    cursor: pointer;
+
+    box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+
+    transition: 0.2s;
+}
+
+#restartControl:hover {
+    transform: scale(1.08);
+    background: #f5f8fb;
+}
+
+
+/* Tooltip */
+
+.control-label {
+    position: absolute;
+    right: 75px;
+
+    white-space: nowrap;
+
+    background: #263746;
+    color: white;
+
+    padding: 6px 10px;
+    border-radius: 6px;
+
+    font-size: 12px;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: 0.2s;
+}
+
+.floating-control:hover .control-label {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   SPEED CONTROL
+   ========================================================= */
+
+.speed-indicator {
+    position: fixed;
+
+    right: 25px;
+    bottom: 22px;
+
+    z-index: 9999;
+
+    background: white;
+
+    border: 1px solid #d8e1e9;
+
+    padding: 7px 11px;
+
+    border-radius: 8px;
+
+    font-size: 11px;
+
+    color: #667788;
+
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.speed-indicator select {
+    border: none;
+    background: transparent;
+    color: #405466;
+    font-size: 11px;
+    outline: none;
+}
+
+
+/* =========================================================
+   PROGRESS
+   ========================================================= */
+
+.progress-area {
+    padding: 18px 40px 5px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    color: #687887;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #e6edf3;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #2868a9;
+    border-radius: 10px;
+    transition: width 0.35s ease;
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.content {
+    padding: 15px 40px 50px;
+}
+
+
+/* =========================================================
+   STEP CARDS
+   ========================================================= */
+
+.step {
+    position: relative;
+
+    margin: 24px 0;
+    padding: 20px 24px;
+
+    border-radius: 12px;
+
+    border: 1px solid #e2e9ef;
+
+    background: white;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/*
+   IMPORTANT:
+
+   Previously completed steps NEVER fade.
+   They remain completely normal and readable.
+*/
+
+.step.typing {
+    border-color: #9fc5e5;
+
+    box-shadow:
+        0 4px 18px rgba(40,104,169,0.10);
+}
+
+
+/* =========================================================
+   STEP HEADING
+   ========================================================= */
+
+.step-heading {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 14px;
+}
+
+.step-number {
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #e8f1f8;
+    color: #245b91;
+
+    font-weight: bold;
+    font-size: 13px;
+
+    flex-shrink: 0;
+}
+
+.step.typing .step-number {
+    background: #2868a9;
+    color: white;
+}
+
+.step-title {
+    margin: 0;
+    font-size: 20px;
+    color: #245b91;
+}
+
+
+/* =========================================================
+   EQUATIONS
+   ========================================================= */
+
+.equation {
+    margin: 20px auto;
+
+    padding: 17px 20px;
+
+    max-width: 900px;
+
+    text-align: center;
+
+    background: #f7fafc;
+
+    border-left: 4px solid #2868a9;
+
+    border-radius: 8px;
+
+    color: #173f5f;
+
+    font-size: 1.17em;
+
+    overflow-x: auto;
+}
+
+
+/* =========================================================
+   LISTS
+   ========================================================= */
+
+ul {
+    padding-left: 25px;
+}
+
+li {
+    margin: 8px 0;
+}
+
+
+/* =========================================================
+   DIVIDERS
+   ========================================================= */
+
+hr {
+    border: none;
+    border-top: 1px solid #e4eaf0;
+    margin: 25px 0 5px;
+}
+
+
+/* =========================================================
+   COMPLETION
+   ========================================================= */
+
+.completed {
+    margin: 25px 0;
+    padding: 20px;
+
+    text-align: center;
+
+    background: #edf9f2;
+
+    border: 1px solid #bce2ca;
+
+    color: #176b3b;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+
+    display: none;
+}
+
+.completed.show {
+    display: block;
+}
+
+
+/* =========================================================
+   TYPEWRITER CURSOR
+   ========================================================= */
+
+.type-cursor {
+    display: inline-block;
+
+    width: 2px;
+    height: 1em;
+
+    background: #2868a9;
+
+    margin-left: 3px;
+
+    vertical-align: middle;
+
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    0%, 45% {
+        opacity: 1;
+    }
+
+    46%, 100% {
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 0 8px 40px;
+    }
+
+    .header {
+        padding: 25px 18px;
+    }
+
+    .header h1 {
+        font-size: 22px;
+    }
+
+    .content {
+        padding: 10px 15px 40px;
+    }
+
+    .progress-area {
+        padding: 15px 18px 5px;
+    }
+
+    .step {
+        padding: 17px;
+    }
+
+    .step-title {
+        font-size: 18px;
+    }
+
+    .floating-control {
+        right: 12px;
+        top: auto;
+        bottom: 75px;
+        transform: none;
+    }
+
+    #mainControl {
+        width: 56px;
+        height: 56px;
+        font-size: 22px;
+    }
+
+    #restartControl {
+        width: 38px;
+        height: 38px;
+    }
+
+    .speed-indicator {
+        right: 12px;
+        bottom: 18px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     FIXED CONTROLS
+     ========================================================= -->
+
+<div class="floating-control">
+
+    <span
+        class="control-label"
+        id="controlLabel">
+
+        Play Explanation
+
+    </span>
+
+
+    <button
+        id="mainControl"
+        onclick="togglePlay()"
+        aria-label="Play Explanation">
+
+        ▶
+
+    </button>
+
+
+    <button
+        id="restartControl"
+        onclick="restartLesson()"
+        aria-label="Restart Lesson">
+
+        ↺
+
+    </button>
+
+</div>
+
+
+<!-- =========================================================
+     SPEED
+     ========================================================= -->
+
+<div class="speed-indicator">
+
+    Speed:
+
+    <select id="speedSelect">
+
+        <option value="120">
+            Slow
+        </option>
+
+        <option value="80" selected>
+            Normal
+        </option>
+
+        <option value="60">
+            Fast
+        </option>
+
+        <option value="30">
+            Very Fast
+        </option>
+
+    </select>
+
+</div>
+
+
+<!-- =========================================================
+     MAIN CONTAINER
+     ========================================================= -->
+
+<div class="container">
+
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+
+<div class="header">
+
+    <h1>
+        Schrödinger Time-Independent Wave Equation
+    </h1>
+
+    <p>
+        Step-by-step guided derivation
+    </p>
+
+</div>
+
+
+<!-- =========================================================
+     PROGRESS
+     ========================================================= -->
+
+<div class="progress-area">
+
+    <div class="progress-info">
+
+        <span id="modeText">
+            Reading Mode
+        </span>
+
+        <span id="stepText">
+            Complete explanation
+        </span>
+
+    </div>
+
+
+    <div class="progress-bar">
+
+        <div
+            class="progress-fill"
+            id="progressFill">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     LESSON CONTENT
+     ========================================================= -->
+
+<div
+    class="content"
+    id="lessonContent">
+
+
+<!-- =========================================================
+     STEP 1
+     ========================================================= -->
+
+<section
+    class="step"
+    data-step="1">
+
+    <div class="step-heading">
+
+        <div class="step-number">
+            1
+        </div>
+
+        <h2 class="step-title">
+            Introduction
+        </h2>
+
+    </div>
+
+
+    <div class="step-content">
+
+        <p>
+            The <b>Schrödinger Wave Equation</b> is one of the fundamental equations of quantum mechanics. It describes the wave nature of microscopic particles such as electrons and helps determine their energy and probability of existence.
+        </p>
+
+        <p>
+            The <b>Time-Independent Schrödinger Equation</b> is applicable when the potential energy of the particle does not change with time.
+        </p>
+
+        <hr>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STEP 2
+     ========================================================= -->
+
+<section
+    class="step"
+    data-step="2">
+
+    <div class="step-heading">
+
+        <div class="step-number">
+            2
+        </div>
+
+        <h2 class="step-title">
+            Derivation of the Schrödinger Equation
+        </h2>
+
+    </div>
+
+
+    <div class="step-content">
+
+        <p>
+            Consider a particle moving along the <b>x-axis</b>. The wave function representing the particle is
+        </p>
+
+        <p class="equation">
+            <b>
+                ψ(x) = 2A sin(2πx/λ)
+            </b>
+        </p>
+
+        <p>
+            where
+        </p>
+
+        <ul>
+
+            <li>
+                <b>A</b> = Amplitude of the wave
+            </li>
+
+            <li>
+                <b>λ</b> = Wavelength associated with the particle
+            </li>
+
+        </ul>
+
+        <hr>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STEP 3
+     ========================================================= -->
+
+<section
+    class="step"
+    data-step="3">
+
+    <div class="step-heading">
+
+        <div class="step-number">
+            3
+        </div>
+
+        <h2 class="step-title">
+            Step 1: First Derivative of the Wave Function
+        </h2>
+
+    </div>
+
+
+    <div class="step-content">
+
+        <p>
+            Differentiating ψ(x) with respect to x,
+        </p>
+
+        <p class="equation">
+
+            <b>
+                dψ(x)/dx =
+                2A cos(2πx/λ) × (2π/λ)
+            </b>
+
+        </p>
+
+        <hr>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STEP 4
+     ========================================================= -->
+
+<section
+    class="step"
+    data-step="4">
+
+    <div class="step-heading">
+
+        <div class="step-number">
+            4
+        </div>
+
+        <h2 class="step-title">
+            Step 2: Second Derivative of the Wave Function
+        </h2>
+
+    </div>
+
+
+    <div class="step-content">
+
+        <p>
+            Differentiating once again,
+        </p>
+
+        <p class="equation">
+
+            <b>
+                d²ψ(x)/dx² =
+                - (4π²/λ²) ψ(x)
+            </b>
+
+        </p>
+
+        <hr>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STEP 5
+     ========================================================= -->
+
+<section
+    class="step"
+    data-step="5">
+
+    <div class="step-heading">
+
+        <div class="step-number">
+            5
+        </div>
+
+        <h2 class="step-title">
+            Step 3: Using the de Broglie Relation
+        </h2>
+
+    </div>
+
+
+    <div class="step-content">
+
+        <p>
+            According to the de Broglie hypothesis,
+        </p>
+
+        <p class="equation">
+
+            <b>
+                λ = h/mv
+            </b>
+
+        </p>
+
+        <p>
+            Substituting,
+        </p>
+
+        <p class="equation">
+
+            <b>
+                d²ψ(x)/dx² =
+                - (4π²m²v²/h²) ψ(x)
+            </b>
+
+        </p>
+
+        <hr>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STEP 6
+     ========================================================= -->
+
+<section
+    class="step"
+    data-step="6">
+
+    <div class="step-heading">
+
+        <div class="step-number">
+            6
+        </div>
+
+        <h2 class="step-title">
+            Step 4: Using the Total Energy Relation
+        </h2>
+
+    </div>
+
+
+    <div class="step-content">
+
+        <p>
+            The total energy of a particle is
+        </p>
+
+        <p class="equation">
+
+            <b>
+                E = ½mv² + V
+            </b>
+
+        </p>
+
+        <p>
+            where
+        </p>
+
+        <ul>
+
+            <li>
+                <b>E</b> = Total energy
+            </li>
+
+            <li>
+                <b>V</b> = Potential energy
+            </li>
+
+        </ul>
+
+        <p>
+            Rearranging,
+        </p>
+
+        <p class="equation">
+
+            <b>
+                mv² = 2(E − V)
+            </b>
+
+        </p>
+
+        <p>
+            Substituting into the previous equation,
+        </p>
+
+        <p class="equation">
+
+            <b>
+                d²ψ(x)/dx² =
+                - [8π²m(E − V)/h²] ψ(x)
+            </b>
+
+        </p>
+
+        <hr>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STEP 7
+     ========================================================= -->
+
+<section
+    class="step"
+    data-step="7">
+
+    <div class="step-heading">
+
+        <div class="step-number">
+            7
+        </div>
+
+        <h2 class="step-title">
+            Step 5: Rearranging the Equation
+        </h2>
+
+    </div>
+
+
+    <div class="step-content">
+
+        <p>
+            Moving all the terms to one side,
+        </p>
+
+        <p class="equation">
+
+            <b>
+                d²ψ(x)/dx² +
+                [8π²m(E − V)/h²] ψ(x) = 0
+            </b>
+
+        </p>
+
+        <p>
+            This is the
+            <b>
+                one-dimensional Schrödinger
+                Time-Independent Wave Equation
+            </b>.
+        </p>
+
+        <hr>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STEP 8
+     ========================================================= -->
+
+<section
+    class="step"
+    data-step="8">
+
+    <div class="step-heading">
+
+        <div class="step-number">
+            8
+        </div>
+
+        <h2 class="step-title">
+            Three-Dimensional Schrödinger Equation
+        </h2>
+
+    </div>
+
+
+    <div class="step-content">
+
+        <p>
+            For a particle moving in three dimensions,
+        </p>
+
+        <p class="equation">
+
+            <b>
+                d²ψ/dx² + d²ψ/dy² + d²ψ/dz²
+                + [8π²m(E − V)/h²] ψ = 0
+            </b>
+
+        </p>
+
+        <p>
+            Rearranging,
+        </p>
+
+        <p class="equation">
+
+            <b>
+                [-h²/(8π²m)]
+                (d²/dx² + d²/dy² + d²/dz²) ψ
+                + Vψ = Eψ
+            </b>
+
+        </p>
+
+        <p>
+            This is the
+            <b>
+                general three-dimensional
+                Time-Independent Schrödinger Equation
+            </b>.
+        </p>
+
+        <hr>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STEP 9
+     ========================================================= -->
+
+<section
+    class="step"
+    data-step="9">
+
+    <div class="step-heading">
+
+        <div class="step-number">
+            9
+        </div>
+
+        <h2 class="step-title">
+            Physical Significance
+        </h2>
+
+    </div>
+
+
+    <div class="step-content">
+
+        <ul>
+
+            <li>
+                The Schrödinger equation describes the wave nature of microscopic particles.
+            </li>
+
+            <li>
+                Its solution gives the <b>wave function (ψ)</b> of the particle.
+            </li>
+
+            <li>
+                The square of the wave function
+                (<b>|ψ|²</b>)
+                gives the probability of finding the particle at a particular position.
+            </li>
+
+            <li>
+                It helps determine the
+                <b>allowed energy levels</b>
+                of atoms, molecules, and solids.
+            </li>
+
+            <li>
+                It forms the basis for understanding atomic structure, chemical bonding, semiconductor physics, and nanotechnology.
+            </li>
+
+        </ul>
+
+        <hr>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STEP 10
+     ========================================================= -->
+
+<section
+    class="step"
+    data-step="10">
+
+    <div class="step-heading">
+
+        <div class="step-number">
+            10
+        </div>
+
+        <h2 class="step-title">
+            Important Equations
+        </h2>
+
+    </div>
+
+
+    <div class="step-content">
+
+        <p class="equation">
+
+            <b>
+                ψ(x) = 2A sin(2πx/λ)
+            </b>
+
+        </p>
+
+        <p class="equation">
+
+            <b>
+                d²ψ(x)/dx² =
+                - (4π²/λ²) ψ(x)
+            </b>
+
+        </p>
+
+        <p class="equation">
+
+            <b>
+                λ = h/mv
+            </b>
+
+        </p>
+
+        <p class="equation">
+
+            <b>
+                E = ½mv² + V
+            </b>
+
+        </p>
+
+        <p class="equation">
+
+            <b>
+                d²ψ(x)/dx² +
+                [8π²m(E − V)/h²] ψ(x) = 0
+            </b>
+
+        </p>
+
+        <p class="equation">
+
+            <b>
+                [-h²/(8π²m)]∇²ψ + Vψ = Eψ
+            </b>
+
+        </p>
+
+        <hr>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STEP 11
+     ========================================================= -->
+
+<section
+    class="step"
+    data-step="11">
+
+    <div class="step-heading">
+
+        <div class="step-number">
+            11
+        </div>
+
+        <h2 class="step-title">
+            Quick Revision
+        </h2>
+
+    </div>
+
+
+    <div class="step-content">
+
+        <ul>
+
+            <li>
+                The Schrödinger equation explains the behavior of microscopic particles.
+            </li>
+
+            <li>
+                It is derived using the wave function, de Broglie hypothesis, and energy relation.
+            </li>
+
+            <li>
+                The one-dimensional equation is used when the particle moves only along the x-axis.
+            </li>
+
+            <li>
+                The three-dimensional equation is the general form used in quantum mechanics.
+            </li>
+
+            <li>
+                The solution of the equation provides the wave function and the allowed energy levels.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     COMPLETION
+     ========================================================= -->
+
+<div
+    class="completed"
+    id="completed">
+
+    ✓ Explanation Completed
+
+    <br>
+
+    All steps have been explained.
+
+    <br><br>
+
+    Press ↺ to start again.
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   SCHRÖDINGER EQUATION
+   STEP-BY-STEP TYPEWRITER PRESENTATION
+
+   BEHAVIOUR:
+
+   1. Entire content visible initially.
+   2. Click Play:
+        Step 1 types.
+   3. Step 1 automatically pauses.
+   4. Click Play:
+        Step 2 types.
+   5. Step 2 automatically pauses.
+   6. Continue one step at a time.
+   7. Previous steps NEVER fade.
+   8. Manual Pause can stop typing.
+   9. Play resumes the SAME step.
+   ========================================================= */
+
+
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
+
+const steps =
+    document.querySelectorAll(".step");
+
+const mainControl =
+    document.getElementById("mainControl");
+
+const restartControl =
+    document.getElementById("restartControl");
+
+const controlLabel =
+    document.getElementById("controlLabel");
+
+const progressFill =
+    document.getElementById("progressFill");
+
+const modeText =
+    document.getElementById("modeText");
+
+const stepText =
+    document.getElementById("stepText");
+
+const completed =
+    document.getElementById("completed");
+
+const speedSelect =
+    document.getElementById("speedSelect");
+
+
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+
+let currentStep = -1;
+
+let playing = false;
+
+let stepFinished = false;
+
+let typingTimer = null;
+
+let typingProgress = 0;
+
+const totalSteps =
+    steps.length;
+
+
+/* =========================================================
+   SAVE ORIGINAL CONTENT
+   ========================================================= */
+
+const originalHTML = [];
+
+
+steps.forEach(step => {
+
+    const content =
+        step.querySelector(".step-content");
+
+    originalHTML.push(
+        content.innerHTML
+    );
+
+});
+
+
+/* =========================================================
+   STOP TYPING
+   ========================================================= */
+
+function stopTyping() {
+
+    clearInterval(
+        typingTimer
+    );
+
+    typingTimer = null;
+
+}
+
+
+/* =========================================================
+   INITIAL READING MODE
+   ========================================================= */
+
+function initialState() {
+
+    stopTyping();
+
+    playing = false;
+
+    currentStep = -1;
+
+    stepFinished = false;
+
+    typingProgress = 0;
+
+
+    /*
+       Remove teaching mode.
+    */
+
+    document.body.classList.remove(
+        "teaching-mode"
+    );
+
+
+    /*
+       Restore ALL content.
+    */
+
+    steps.forEach(
+        (step, index) => {
+
+            const content =
+                step.querySelector(
+                    ".step-content"
+                );
+
+            content.innerHTML =
+                originalHTML[index];
+
+            step.style.display =
+                "block";
+
+            step.classList.remove(
+                "typing"
+            );
+
+        }
+    );
+
+
+    /*
+       Control
+    */
+
+    mainControl.innerHTML =
+        "▶";
+
+    mainControl.disabled =
+        false;
+
+    controlLabel.innerHTML =
+        "Play Explanation";
+
+
+    /*
+       Progress
+    */
+
+    modeText.innerHTML =
+        "Reading Mode";
+
+    stepText.innerHTML =
+        "Complete explanation";
+
+    progressFill.style.width =
+        "0%";
+
+
+    completed.classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   START TEACHING
+   ========================================================= */
+
+function startTeaching() {
+
+    stopTyping();
+
+    playing = true;
+
+    currentStep = 0;
+
+    stepFinished = false;
+
+    typingProgress = 0;
+
+
+    document.body.classList.add(
+        "teaching-mode"
+    );
+
+
+    /*
+       Clear all step contents.
+
+       Only the first step remains visible.
+    */
+
+    steps.forEach(
+        (step, index) => {
+
+            const content =
+                step.querySelector(
+                    ".step-content"
+                );
+
+            content.innerHTML = "";
+
+            if (index === 0) {
+
+                step.style.display =
+                    "block";
+
+            }
+            else {
+
+                step.style.display =
+                    "none";
+
+            }
+
+            step.classList.remove(
+                "typing"
+            );
+
+        }
+    );
+
+
+    mainControl.innerHTML =
+        "⏸";
+
+    controlLabel.innerHTML =
+        "Pause";
+
+
+    modeText.innerHTML =
+        "Explaining";
+
+
+    stepText.innerHTML =
+        "Step 1 of " +
+        totalSteps;
+
+
+    typeCurrentStep();
+
+}
+
+
+/* =========================================================
+   TYPE CURRENT STEP
+   ========================================================= */
+
+function typeCurrentStep() {
+
+    stopTyping();
+
+
+    if (!playing) {
+
+        return;
+
+    }
+
+
+    const step =
+        steps[currentStep];
+
+    const content =
+        step.querySelector(
+            ".step-content"
+        );
+
+    const fullHTML =
+        originalHTML[currentStep];
+
+
+    step.style.display =
+        "block";
+
+
+    step.classList.add(
+        "typing"
+    );
+
+
+    /*
+       Start from current progress.
+
+       This is important when the user
+       pauses in the middle of a step.
+    */
+
+    typingTimer =
+        setInterval(
+            function() {
+
+                if (!playing) {
+
+                    stopTyping();
+
+                    return;
+
+                }
+
+
+                /*
+                   Increase typing progress.
+                */
+
+                typingProgress += 0.025;
+
+
+                /*
+                   Step complete.
+                */
+
+                if (
+                    typingProgress >= 1
+                ) {
+
+                    typingProgress = 1;
+
+                    content.innerHTML =
+                        fullHTML;
+
+                    step.classList.remove(
+                        "typing"
+                    );
+
+                    stopTyping();
+
+
+                    stepFinished = true;
+
+
+                    updateProgress();
+
+
+                    /*
+                       IMPORTANT:
+
+                       Automatically PAUSE.
+
+                       Do NOT start next step.
+                    */
+
+                    pauseAfterStep();
+
+                    return;
+
+                }
+
+
+                /*
+                   Create temporary DOM
+                   so equations and HTML
+                   remain correctly formatted.
+                */
+
+                const temp =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                temp.innerHTML =
+                    fullHTML;
+
+
+                revealNodes(
+                    temp,
+                    typingProgress
+                );
+
+
+                content.innerHTML =
+                    temp.innerHTML;
+
+
+            },
+            parseInt(
+                speedSelect.value
+            )
+        );
+
+}
+
+
+/* =========================================================
+   REVEAL TEXT NODES
+   ========================================================= */
+
+function revealNodes(
+    element,
+    progress
+) {
+
+    const walker =
+        document.createTreeWalker(
+            element,
+            NodeFilter.SHOW_TEXT
+        );
+
+
+    const nodes = [];
+
+    let node;
+
+
+    while (
+        node = walker.nextNode()
+    ) {
+
+        nodes.push(node);
+
+    }
+
+
+    /*
+       Calculate total characters.
+    */
+
+    let totalCharacters = 0;
+
+
+    nodes.forEach(
+        n => {
+
+            totalCharacters +=
+                n.textContent.length;
+
+        }
+    );
+
+
+    /*
+       Characters that should
+       currently be visible.
+    */
+
+    const target =
+        Math.floor(
+            totalCharacters *
+            progress
+        );
+
+
+    let used = 0;
+
+
+    nodes.forEach(
+        n => {
+
+            const length =
+                n.textContent.length;
+
+
+            if (
+                used + length <=
+                target
+            ) {
+
+                used += length;
+
+                return;
+
+            }
+
+
+            if (
+                used >= target
+            ) {
+
+                n.textContent =
+                    "";
+
+                return;
+
+            }
+
+
+            const remaining =
+                target - used;
+
+
+            n.textContent =
+                n.textContent.substring(
+                    0,
+                    remaining
+                );
+
+
+            used += remaining;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PAUSE AFTER A COMPLETED STEP
+   ========================================================= */
+
+function pauseAfterStep() {
+
+    playing = false;
+
+
+    mainControl.innerHTML =
+        "▶";
+
+
+    controlLabel.innerHTML =
+        "Play Next Step";
+
+
+    modeText.innerHTML =
+        "Step Completed";
+
+
+    stepText.innerHTML =
+        "Step " +
+        (currentStep + 1) +
+        " of " +
+        totalSteps;
+
+
+    /*
+       If this was the final step,
+       finish the lesson.
+    */
+
+    if (
+        currentStep ===
+        totalSteps - 1
+    ) {
+
+        finishLesson();
+
+    }
+
+}
+
+
+/* =========================================================
+   MANUAL PAUSE
+   ========================================================= */
+
+function manualPause() {
+
+    playing = false;
+
+    stopTyping();
+
+
+    /*
+       Whatever has already been typed
+       remains visible.
+    */
+
+    mainControl.innerHTML =
+        "▶";
+
+
+    controlLabel.innerHTML =
+        "Resume Current Step";
+
+
+    modeText.innerHTML =
+        "Paused";
+
+
+    stepText.innerHTML =
+        "Step " +
+        (currentStep + 1) +
+        " of " +
+        totalSteps;
+
+}
+
+
+/* =========================================================
+   RESUME CURRENT STEP
+   ========================================================= */
+
+function resumeCurrentStep() {
+
+    /*
+       If current step was already completed,
+       Play means NEXT STEP.
+    */
+
+    if (stepFinished) {
+
+        if (
+            currentStep <
+            totalSteps - 1
+        ) {
+
+            currentStep++;
+
+            stepFinished = false;
+
+            typingProgress = 0;
+
+
+            /*
+               Show the next step.
+            */
+
+            steps[currentStep]
+                .style.display =
+                "block";
+
+
+            /*
+               IMPORTANT:
+
+               Previous steps remain visible.
+            */
+
+            mainControl.innerHTML =
+                "⏸";
+
+            controlLabel.innerHTML =
+                "Pause";
+
+
+            modeText.innerHTML =
+                "Explaining";
+
+
+            stepText.innerHTML =
+                "Step " +
+                (currentStep + 1) +
+                " of " +
+                totalSteps;
+
+
+            playing = true;
+
+
+            typeCurrentStep();
+
+        }
+
+        return;
+
+    }
+
+
+    /*
+       Current step was paused in the
+       middle of typing.
+
+       Continue from the same position.
+    */
+
+    playing = true;
+
+
+    mainControl.innerHTML =
+        "⏸";
+
+
+    controlLabel.innerHTML =
+        "Pause";
+
+
+    modeText.innerHTML =
+        "Explaining";
+
+
+    typeCurrentStep();
+
+}
+
+
+/* =========================================================
+   MAIN PLAY / PAUSE BUTTON
+   ========================================================= */
+
+function togglePlay() {
+
+    /*
+       FIRST CLICK
+    */
+
+    if (
+        currentStep === -1
+    ) {
+
+        startTeaching();
+
+        return;
+
+    }
+
+
+    /*
+       Currently typing:
+       pause immediately.
+    */
+
+    if (playing) {
+
+        manualPause();
+
+        return;
+
+    }
+
+
+    /*
+       Currently paused:
+       resume current step OR
+       start next step.
+    */
+
+    resumeCurrentStep();
+
+}
+
+
+/* =========================================================
+   UPDATE PROGRESS
+   ========================================================= */
+
+function updateProgress() {
+
+    const percentage =
+        (
+            (currentStep + 1)
+            /
+            totalSteps
+        ) * 100;
+
+
+    progressFill.style.width =
+        percentage + "%";
+
+
+    modeText.innerHTML =
+        "Step Completed";
+
+
+    stepText.innerHTML =
+        "Step " +
+        (currentStep + 1) +
+        " of " +
+        totalSteps;
+
+}
+
+
+/* =========================================================
+   FINISH LESSON
+   ========================================================= */
+
+function finishLesson() {
+
+    stopTyping();
+
+    playing = false;
+
+    stepFinished = true;
+
+
+    /*
+       Restore all content to make sure
+       the complete lesson is available.
+    */
+
+    steps.forEach(
+        (step, index) => {
+
+            const content =
+                step.querySelector(
+                    ".step-content"
+                );
+
+            content.innerHTML =
+                originalHTML[index];
+
+            step.style.display =
+                "block";
+
+            step.classList.remove(
+                "typing"
+            );
+
+        }
+    );
+
+
+    progressFill.style.width =
+        "100%";
+
+
+    modeText.innerHTML =
+        "Explanation Completed";
+
+
+    stepText.innerHTML =
+        totalSteps +
+        " of " +
+        totalSteps;
+
+
+    completed.classList.add(
+        "show"
+    );
+
+
+    mainControl.innerHTML =
+        "✓";
+
+
+    mainControl.disabled =
+        true;
+
+
+    controlLabel.innerHTML =
+        "Completed";
+
+}
+
+
+/* =========================================================
+   RESTART
+   ========================================================= */
+
+function restartLesson() {
+
+    mainControl.disabled =
+        false;
+
+    initialState();
+
+}
+
+
+/* =========================================================
+   KEYBOARD CONTROLS
+   ========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        /*
+           SPACE:
+           Play / Pause / Next
+        */
+
+        if (
+            event.code === "Space"
+        ) {
+
+            event.preventDefault();
+
+            togglePlay();
+
+        }
+
+
+        /*
+           R:
+           Restart
+        */
+
+        if (
+            event.key === "r" ||
+            event.key === "R"
+        ) {
+
+            restartLesson();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+initialState();
+
+</script>
+
+</body>
+</html>
