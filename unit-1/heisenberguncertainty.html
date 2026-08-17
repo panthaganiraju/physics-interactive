@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Heisenberg Uncertainty Principle - Interactive Engineering Physics">
+<title>Heisenberg Uncertainty Principle | Interactive Physics</title>
+<link rel="stylesheet" href="../assets/css/physics.css">
+
+<style>
+.lesson-hero{background:linear-gradient(135deg,#102f5d,#173f7a 55%,#236795);color:#fff;padding:42px 22px 48px}
+.lesson-hero-inner{max-width:1180px;margin:auto}
+.lesson-back{color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:20px}
+.lesson-back:hover{color:#fff}
+.lesson-label{font-size:10px;letter-spacing:1.5px;opacity:.75}
+.lesson-hero h1{margin:8px 0 12px;font-size:clamp(34px,5vw,52px);line-height:1.1}
+.lesson-hero p{max-width:780px;margin:0;color:rgba(255,255,255,.8);font-size:15px}
+
+.lesson-nav{position:sticky;top:65px;z-index:100;background:#fff;border-bottom:1px solid #dfe7ee}
+.lesson-nav-inner{max-width:1180px;margin:auto;padding:0 22px;display:flex;overflow-x:auto}
+.lesson-tab{flex-shrink:0;border:none;background:transparent;padding:14px 17px;color:#687887;font-size:12px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent}
+.lesson-tab:hover{color:#173f7a}
+.lesson-tab.active{color:#173f7a;border-bottom-color:#2868a9}
+
+.lesson-container{max-width:1000px;margin:auto;padding:40px 22px 90px}
+.lesson-section{display:none}
+.lesson-section.active{display:block}
+.lesson-heading{margin-bottom:25px}
+.lesson-heading .label{color:#2868a9;font-size:10px;font-weight:700;letter-spacing:1.5px}
+.lesson-heading h2{margin:5px 0 8px;color:#173f7a;font-size:30px}
+.lesson-heading p{color:#71808d;font-size:14px}
+
+.content-card{background:#fff;border:1px solid #dfe7ee;border-radius:13px;padding:25px;margin-bottom:18px;box-shadow:0 4px 18px rgba(30,65,100,.04)}
+.content-card h3{margin:0 0 10px;color:#245b91;font-size:19px}
+.content-card p,.content-card li{color:#536575;font-size:14px;line-height:1.8}
+.content-card ul{line-height:1.9}
+
+.equation-box{margin:18px 0;padding:22px;text-align:center;border-radius:11px;background:#f5f8fb;border:1px solid #dfe7ee}
+.equation{font-family:Georgia,serif;color:#173f7a;font-size:29px}
+.equation.small{font-size:23px}
+.equation-note{color:#7a8996;font-size:11px;margin-top:6px}
+
+.statement-box{padding:25px 28px;border-radius:12px;background:#f4f8fb;border-left:5px solid #2868a9;color:#314657;font-size:17px;line-height:1.7;font-weight:600}
+.symbol-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.symbol-card{padding:18px 10px;text-align:center;background:#f5f8fb;border:1px solid #dfe7ee;border-radius:10px}
+.symbol-card strong{display:block;color:#245b91;font-family:Georgia,serif;font-size:22px}
+.symbol-card span{display:block;color:#71808d;font-size:10px;margin-top:5px}
+
+.uncertainty-visual{padding:25px;background:#f5f8fb;border:1px solid #dfe7ee;border-radius:13px}
+.uncertainty-graph{height:270px;position:relative;background:#fff;border:1px solid #dfe7ee;border-radius:10px;overflow:hidden}
+.uncertainty-axis-x{position:absolute;left:7%;right:4%;bottom:42px;height:1px;background:#aebdca}
+.uncertainty-axis-y{position:absolute;left:7%;top:25px;bottom:42px;width:1px;background:#aebdca}
+.wave-packet{position:absolute;left:12%;right:9%;bottom:43px;height:145px}
+.wave-packet svg{width:100%;height:100%}
+.packet-wave{fill:none;stroke:#2868a9;stroke-width:3}
+.packet-envelope{fill:rgba(40,104,169,.10);stroke:#8aaeca;stroke-width:2}
+.graph-label{position:absolute;color:#71808d;font-size:10px}
+.x-label{right:5%;bottom:20px}
+.y-label{left:2%;top:12px}
+.packet-note{margin-top:12px;color:#536575;font-size:12px;line-height:1.6}
+
+.sim-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:16px}
+.control-panel{background:#f4f8fb;border:1px solid #d9e6ef;border-radius:12px;padding:20px}
+.control-panel h3{margin:0 0 15px;color:#245b91;font-size:18px}
+.control-row{margin:18px 0}
+.control-row label{display:flex;justify-content:space-between;gap:10px;color:#536575;font-size:12px;margin-bottom:7px}
+.control-row input{width:100%;accent-color:#2868a9}
+.value{font-weight:700;color:#173f7a}
+.sim-output{background:#fff;border:1px solid #dfe7ee;border-radius:12px;padding:20px}
+.sim-output h3{margin:0 0 12px;color:#245b91;font-size:18px}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.result-box{padding:15px;border-radius:9px;background:#f5f8fb;border:1px solid #dfe7ee;text-align:center}
+.result-box span{display:block;color:#71808d;font-size:10px;margin-bottom:5px}
+.result-box strong{display:block;color:#173f7a;font-family:Georgia,serif;font-size:21px}
+.sim-note{margin-top:12px;color:#71808d;font-size:11px;line-height:1.6}
+
+.application-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.application-card{padding:20px;background:#fff;border:1px solid #dfe7ee;border-radius:11px}
+.application-card h3{font-size:16px;margin:0 0 7px;color:#245b91}
+.application-card p{font-size:12px;margin:0;color:#71808d;line-height:1.7}
+
+.question{padding:20px;margin-bottom:15px;border:1px solid #dfe7ee;border-radius:11px;background:#fff}
+.question p{margin:0 0 12px;color:#314657;font-weight:600;font-size:13px}
+.option{display:block;width:100%;margin:7px 0;padding:10px 12px;text-align:left;background:#f5f8fb;border:1px solid #dfe7ee;border-radius:7px;cursor:pointer;color:#536575;font-size:12px}
+.option:hover:not(:disabled){border-color:#a9c5da;background:#eef5fb}
+.option.correct{background:#e8f5ee;border-color:#8bc5a4;color:#197044}
+.option.wrong{background:#fbeeee;border-color:#d9a2a2;color:#9b4040}
+.answer{display:none;margin-top:10px;padding:9px 12px;border-radius:6px;background:#f4f8fb;color:#647586;font-size:11px}
+.answer.show{display:block}
+
+.revision-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.revision-item{padding:16px;background:#fff;border:1px solid #dfe7ee;border-radius:9px}
+.revision-item strong{color:#245b91;font-size:13px}
+.revision-item p{margin:5px 0 0;color:#71808d;font-size:11px;line-height:1.6}
+.complete-area{margin-top:35px;text-align:center}
+.complete-button{border:none;border-radius:8px;padding:12px 22px;background:#173f7a;color:#fff;font-size:13px;font-weight:600;cursor:pointer}
+.complete-button:hover{background:#2868a9}
+
+@media(max-width:760px){
+    .symbol-grid,.application-grid,.revision-grid,.sim-grid{grid-template-columns:1fr}
+    .result-grid{grid-template-columns:1fr}
+}
+@media(max-width:500px){
+    .symbol-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="nav-container">
+        <a href="../index.html" class="brand">
+            <span class="brand-icon">⚛</span>
+            <span>Interactive Physics</span>
+        </a>
+        <nav class="main-nav">
+            <a href="../index.html">Home</a>
+            <a href="index.html">Unit I</a>
+        </nav>
+    </div>
+</header>
+
+<section class="lesson-hero">
+    <div class="lesson-hero-inner">
+        <a href="index.html" class="lesson-back">← Unit I — Quantum Mechanics</a>
+        <div class="lesson-label">TOPIC 03</div>
+        <h1>Heisenberg Uncertainty Principle</h1>
+        <p>
+            Understand why the position and momentum of a microscopic particle
+            cannot both be known with unlimited accuracy, and explore the
+            uncertainty relation interactively.
+        </p>
+    </div>
+</section>
+
+<nav class="lesson-nav">
+    <div class="lesson-nav-inner">
+        <button class="lesson-tab active" data-target="learn">📖 Learn</button>
+        <button class="lesson-tab" data-target="visualize">👁 Visualize</button>
+        <button class="lesson-tab" data-target="simulate">⚙ Simulation</button>
+        <button class="lesson-tab" data-target="applications">💡 Applications</button>
+        <button class="lesson-tab" data-target="practice">✏ Practice</button>
+        <button class="lesson-tab" data-target="revision">🎯 Revision</button>
+    </div>
+</nav>
+
+<main class="lesson-container">
+
+<section class="lesson-section active" id="learn">
+    <div class="lesson-heading">
+        <span class="label">LEARN</span>
+        <h2>Heisenberg Uncertainty Principle</h2>
+        <p>The fundamental limit on simultaneous position and momentum measurements.</p>
+    </div>
+
+    <div class="content-card">
+        <h3>Introduction</h3>
+        <p>
+            The Heisenberg Uncertainty Principle was proposed by the German
+            physicist <b>Werner Heisenberg in 1927</b>.
+        </p>
+        <p>
+            According to the de Broglie hypothesis, an electron exhibits both
+            particle and wave nature. Because of this dual nature, it is
+            impossible to determine the exact position and exact momentum of
+            an electron at the same time.
+        </p>
+    </div>
+
+    <div class="content-card">
+        <h3>Statement</h3>
+        <div class="statement-box">
+            It is impossible to measure both the exact position and the exact
+            momentum of a microscopic particle simultaneously with unlimited accuracy.
+        </div>
+    </div>
+
+    <div class="content-card">
+        <h3>Mathematical Expression</h3>
+        <div class="equation-box">
+            <div class="equation">Δx × Δp ≥ h / 4π</div>
+            <div class="equation-note">Position–momentum uncertainty relation</div>
+        </div>
+
+        <div class="symbol-grid">
+            <div class="symbol-card"><strong>Δx</strong><span>Uncertainty in position</span></div>
+            <div class="symbol-card"><strong>Δp</strong><span>Uncertainty in momentum</span></div>
+            <div class="symbol-card"><strong>h</strong><span>Planck's constant</span></div>
+            <div class="symbol-card"><strong>4π</strong><span>Numerical factor</span></div>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <h3>Energy–Time Uncertainty Relation</h3>
+        <p>
+            Similarly, the uncertainty between energy and time is given by
+        </p>
+        <div class="equation-box">
+            <div class="equation">ΔE × Δt ≥ h / 4π</div>
+            <div class="equation-note">Energy–time uncertainty relation</div>
+        </div>
+        <p>
+            Here <b>ΔE</b> is the uncertainty in energy and <b>Δt</b> is the
+            uncertainty in time.
+        </p>
+    </div>
+</section>
+
+<section class="lesson-section" id="visualize">
+    <div class="lesson-heading">
+        <span class="label">VISUALIZE</span>
+        <h2>Position–Momentum Trade-off</h2>
+        <p>A visual way to understand the meaning of uncertainty.</p>
+    </div>
+
+    <div class="content-card">
+        <div class="uncertainty-visual">
+            <div class="uncertainty-graph">
+                <div class="uncertainty-axis-x"></div>
+                <div class="uncertainty-axis-y"></div>
+
+                <div class="wave-packet">
+                    <svg viewBox="0 0 800 180" preserveAspectRatio="none">
+                        <path class="packet-envelope"
+                              d="M0,90 C120,15 240,15 400,90 C560,165 680,165 800,90 L800,90 L0,90 Z"></path>
+                        <path class="packet-wave"
+                              d="M0,90 C30,85 30,55 60,60 C90,65 90,115 120,120
+                                 C150,125 150,55 180,50 C210,45 210,125 240,130
+                                 C270,135 270,45 300,40 C330,35 330,135 360,140
+                                 C390,145 390,35 420,30 C450,25 450,145 480,150
+                                 C510,155 510,45 540,40 C570,35 570,135 600,140
+                                 C630,145 630,55 660,50 C690,45 690,125 720,120
+                                 C750,115 750,65 800,90"></path>
+                    </svg>
+                </div>
+
+                <span class="graph-label y-label">Probability amplitude</span>
+                <span class="graph-label x-label">Position x →</span>
+            </div>
+
+            <div class="packet-note">
+                A localized wave packet gives a better idea of where a particle
+                may be found, but making the packet narrower requires a broader
+                range of wavelengths and therefore a larger uncertainty in momentum.
+            </div>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <h3>The key idea</h3>
+        <ul>
+            <li><b>Small Δx</b> → position is known more precisely.</li>
+            <li><b>Large Δp</b> → momentum becomes less precise.</li>
+            <li><b>Large Δx</b> → position is less precise.</li>
+            <li><b>Small Δp</b> → momentum becomes more precise.</li>
+        </ul>
+        <div class="equation-box">
+            <div class="equation">Δx Δp ≥ h / 4π</div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson-section" id="simulate">
+    <div class="lesson-heading">
+        <span class="label">SIMULATION</span>
+        <h2>Uncertainty Calculator</h2>
+        <p>
+            Choose an uncertainty in position and see the minimum possible
+            uncertainty in momentum.
+        </p>
+    </div>
+
+    <div class="content-card">
+        <div class="sim-grid">
+            <div class="control-panel">
+                <h3>Choose Position Uncertainty</h3>
+
+                <div class="control-row">
+                    <label>
+                        <span>Δx</span>
+                        <span class="value" id="dxValue">1.00 × 10⁻¹⁰ m</span>
+                    </label>
+                    <input type="range" id="dxSlider" min="-14" max="-6" step="0.01" value="-10">
+                </div>
+
+                <div class="control-row">
+                    <label>
+                        <span>Particle scale</span>
+                        <span class="value" id="scaleText">Atomic scale</span>
+                    </label>
+                </div>
+
+                <div class="sim-note">
+                    The slider uses a logarithmic scale because quantum
+                    uncertainties span many orders of magnitude.
+                </div>
+            </div>
+
+            <div class="sim-output">
+                <h3>Minimum Momentum Uncertainty</h3>
+
+                <div class="result-grid">
+                    <div class="result-box">
+                        <span>Position uncertainty</span>
+                        <strong id="dxResult">1.00 × 10⁻¹⁰ m</strong>
+                    </div>
+
+                    <div class="result-box">
+                        <span>Minimum Δp</span>
+                        <strong id="dpResult">5.27 × 10⁻²⁵ kg·m/s</strong>
+                    </div>
+                </div>
+
+                <div class="equation-box">
+                    <div class="equation small" id="uncertaintyEquation">
+                        Δp ≥ h/(4πΔx)
+                    </div>
+                </div>
+
+                <div class="sim-note" id="simMessage">
+                    Smaller position uncertainty requires larger momentum uncertainty.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <h3>Try this in class</h3>
+        <p>
+            Move Δx toward a very small value and ask students what happens
+            to Δp. Then increase Δx and observe that the minimum momentum
+            uncertainty decreases.
+        </p>
+    </div>
+</section>
+
+<section class="lesson-section" id="applications">
+    <div class="lesson-heading">
+        <span class="label">APPLICATIONS</span>
+        <h2>Physical Significance and Applications</h2>
+        <p>The consequences of uncertainty in microscopic systems.</p>
+    </div>
+
+    <div class="content-card">
+        <h3>Physical Significance</h3>
+        <ul>
+            <li>The uncertainty principle is significant mainly for microscopic particles such as electrons, protons and atoms.</li>
+            <li>For macroscopic objects, the uncertainties are extremely small and can usually be neglected.</li>
+            <li>The uncertainty arises from the wave nature of matter and is a fundamental property of nature.</li>
+            <li>It is not caused by defects in measuring instruments.</li>
+        </ul>
+    </div>
+
+    <div class="application-grid">
+        <div class="application-card">
+            <h3>1. Electrons in the nucleus</h3>
+            <p>
+                The uncertainty principle helps explain why electrons cannot
+                simply be treated as confined classical particles inside the nucleus.
+            </p>
+        </div>
+
+        <div class="application-card">
+            <h3>2. Stability of microscopic systems</h3>
+            <p>
+                Quantum uncertainty contributes to the behavior and stability
+                of microscopic bound systems.
+            </p>
+        </div>
+
+        <div class="application-card">
+            <h3>3. Binding energy</h3>
+            <p>
+                The uncertainty principle can be used to estimate characteristic
+                energy scales associated with confinement.
+            </p>
+        </div>
+
+        <div class="application-card">
+            <h3>4. Bohr orbit estimation</h3>
+            <p>
+                The uncertainty relation can be used to obtain an estimate of
+                the characteristic size of an atomic orbit.
+            </p>
+        </div>
+    </div>
+
+    <div class="content-card" style="margin-top:16px">
+        <h3>Important distinction</h3>
+        <p>
+            The uncertainty principle does <b>not</b> mean that instruments are
+            simply too inaccurate. It describes a fundamental limit built into
+            the quantum description of microscopic particles.
+        </p>
+    </div>
+</section>
+
+<section class="lesson-section" id="practice">
+    <div class="lesson-heading">
+        <span class="label">PRACTICE</span>
+        <h2>Quick Check</h2>
+        <p>Check whether you can apply the uncertainty relation.</p>
+    </div>
+
+    <div class="question">
+        <p>1. Who proposed the Heisenberg Uncertainty Principle?</p>
+        <button class="option" onclick="answer(this,true,'a1')">A. Werner Heisenberg</button>
+        <button class="option" onclick="answer(this,false,'a1')">B. Louis de Broglie</button>
+        <button class="option" onclick="answer(this,false,'a1')">C. Max Born</button>
+        <button class="option" onclick="answer(this,false,'a1')">D. Erwin Schrödinger</button>
+        <div class="answer" id="a1">Correct: <b>A</b>. The principle was proposed by Werner Heisenberg in 1927.</div>
+    </div>
+
+    <div class="question">
+        <p>2. The position–momentum uncertainty relation is:</p>
+        <button class="option" onclick="answer(this,false,'a2')">A. ΔxΔp = 0</button>
+        <button class="option" onclick="answer(this,true,'a2')">B. ΔxΔp ≥ h/4π</button>
+        <button class="option" onclick="answer(this,false,'a2')">C. Δx/Δp = h</button>
+        <button class="option" onclick="answer(this,false,'a2')">D. ΔxΔp ≤ h/4π</button>
+        <div class="answer" id="a2">Correct: <b>B</b>.</div>
+    </div>
+
+    <div class="question">
+        <p>3. If Δx becomes smaller, the minimum possible Δp:</p>
+        <button class="option" onclick="answer(this,true,'a3')">A. Increases</button>
+        <button class="option" onclick="answer(this,false,'a3')">B. Decreases</button>
+        <button class="option" onclick="answer(this,false,'a3')">C. Becomes zero</button>
+        <button class="option" onclick="answer(this,false,'a3')">D. Is unchanged</button>
+        <div class="answer" id="a3">Correct: <b>A</b>. From Δp ≥ h/(4πΔx), Δp increases when Δx decreases.</div>
+    </div>
+
+    <div class="question">
+        <p>4. The energy–time uncertainty relation is:</p>
+        <button class="option" onclick="answer(this,false,'a4')">A. ΔEΔt = 0</button>
+        <button class="option" onclick="answer(this,true,'a4')">B. ΔEΔt ≥ h/4π</button>
+        <button class="option" onclick="answer(this,false,'a4')">C. ΔE/Δt = h</button>
+        <button class="option" onclick="answer(this,false,'a4')">D. ΔEΔt ≤ h/4π</button>
+        <div class="answer" id="a4">Correct: <b>B</b>.</div>
+    </div>
+
+    <div class="question">
+        <p>5. For macroscopic objects, quantum uncertainties are generally:</p>
+        <button class="option" onclick="answer(this,false,'a5')">A. Very large</button>
+        <button class="option" onclick="answer(this,true,'a5')">B. Extremely small and usually negligible</button>
+        <button class="option" onclick="answer(this,false,'a5')">C. Infinite</button>
+        <button class="option" onclick="answer(this,false,'a5')">D. Always zero</button>
+        <div class="answer" id="a5">Correct: <b>B</b>.</div>
+    </div>
+</section>
+
+<section class="lesson-section" id="revision">
+    <div class="lesson-heading">
+        <span class="label">QUICK REVISION</span>
+        <h2>Remember These Points</h2>
+        <p>Compact examination-oriented revision.</p>
+    </div>
+
+    <div class="revision-grid">
+        <div class="revision-item"><strong>Proposed by</strong><p>Werner Heisenberg in 1927.</p></div>
+        <div class="revision-item"><strong>Basic idea</strong><p>Exact position and exact momentum cannot be known simultaneously with unlimited accuracy.</p></div>
+        <div class="revision-item"><strong>Position–momentum relation</strong><p>Δx × Δp ≥ h/4π</p></div>
+        <div class="revision-item"><strong>Energy–time relation</strong><p>ΔE × Δt ≥ h/4π</p></div>
+        <div class="revision-item"><strong>Microscopic significance</strong><p>Important for electrons, protons, atoms and other microscopic systems.</p></div>
+        <div class="revision-item"><strong>Macroscopic objects</strong><p>Uncertainties are extremely small and can usually be neglected.</p></div>
+        <div class="revision-item"><strong>Fundamental nature</strong><p>Uncertainty is not simply an instrument error.</p></div>
+        <div class="revision-item"><strong>Next topic</strong><p>Physical significance of the wave function (Born's interpretation).</p></div>
+    </div>
+
+    <div class="content-card" style="margin-top:18px">
+        <h3>Important Formulae</h3>
+        <div class="equation-box"><div class="equation small">Δx × Δp ≥ h / 4π</div></div>
+        <div class="equation-box"><div class="equation small">ΔE × Δt ≥ h / 4π</div></div>
+    </div>
+
+    <div class="complete-area">
+        <button class="complete-button" onclick="completeUncertainty()">✓ Mark Topic as Completed</button>
+    </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+    <div>
+        <strong>Interactive Engineering Physics</strong>
+        <p>Unit I • Topic 03 • Quantum Mechanics</p>
+    </div>
+    <div class="footer-right">
+        <a href="index.html" style="text-decoration:none;">← Unit I</a>
+    </div>
+</footer>
+
+<script>
+/* =========================================================
+   IN-PAGE MENU
+   The current scroll position is deliberately preserved.
+   ========================================================= */
+const tabs = document.querySelectorAll(".lesson-tab");
+const sections = document.querySelectorAll(".lesson-section");
+
+tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+        const target = tab.dataset.target;
+
+        tabs.forEach(t => t.classList.remove("active"));
+        sections.forEach(s => s.classList.remove("active"));
+
+        tab.classList.add("active");
+        document.getElementById(target).classList.add("active");
+    });
+});
+
+/* =========================================================
+   UNCERTAINTY SIMULATION
+   ========================================================= */
+const h = 6.62607015e-34;
+const dxSlider = document.getElementById("dxSlider");
+const dxValue = document.getElementById("dxValue");
+const dxResult = document.getElementById("dxResult");
+const dpResult = document.getElementById("dpResult");
+const scaleText = document.getElementById("scaleText");
+const simMessage = document.getElementById("simMessage");
+
+function sci(value) {
+    if (!isFinite(value) || value === 0) return "0";
+
+    const exponent = Math.floor(Math.log10(Math.abs(value)));
+    const mantissa = value / Math.pow(10, exponent);
+
+    const superscript = String(exponent)
+        .replace(/-/g,"⁻")
+        .replace(/0/g,"⁰")
+        .replace(/1/g,"¹")
+        .replace(/2/g,"²")
+        .replace(/3/g,"³")
+        .replace(/4/g,"⁴")
+        .replace(/5/g,"⁵")
+        .replace(/6/g,"⁶")
+        .replace(/7/g,"⁷")
+        .replace(/8/g,"⁸")
+        .replace(/9/g,"⁹");
+
+    return mantissa.toFixed(2) + " × 10" + superscript;
+}
+
+function updateUncertainty() {
+    const dx = Math.pow(10, Number(dxSlider.value));
+
+    const dp = h / (4 * Math.PI * dx);
+
+    dxValue.textContent = sci(dx) + " m";
+    dxResult.textContent = sci(dx) + " m";
+    dpResult.textContent = sci(dp) + " kg·m/s";
+
+    if (dx <= 1e-12) {
+        scaleText.textContent = "Very small scale";
+        simMessage.textContent =
+            "Very precise position → very large minimum momentum uncertainty.";
+    } else if (dx <= 1e-9) {
+        scaleText.textContent = "Atomic scale";
+        simMessage.textContent =
+            "Atomic-scale localization makes quantum uncertainty important.";
+    } else if (dx <= 1e-6) {
+        scaleText.textContent = "Microscopic scale";
+        simMessage.textContent =
+            "As Δx increases, the minimum Δp decreases.";
+    } else {
+        scaleText.textContent = "Macroscopic scale";
+        simMessage.textContent =
+            "For larger position uncertainties, the minimum momentum uncertainty becomes very small.";
+    }
+}
+
+dxSlider.addEventListener("input", updateUncertainty);
+updateUncertainty();
+
+/* =========================================================
+   QUIZ
+   ========================================================= */
+function answer(button, correct, id) {
+    const question = button.closest(".question");
+    const options = question.querySelectorAll(".option");
+
+    options.forEach(option => option.disabled = true);
+
+    button.classList.add(correct ? "correct" : "wrong");
+    document.getElementById(id).classList.add("show");
+}
+
+/* =========================================================
+   PROGRESS
+   ========================================================= */
+function completeUncertainty() {
+    if (typeof completeTopic === "function") {
+        completeTopic("unit1","heisenberg-uncertainty");
+    } else {
+        localStorage.setItem("physics-unit1-heisenberg-uncertainty","true");
+        alert("Topic completed ✓");
+    }
+}
+</script>
+
+</body>
+</html>
