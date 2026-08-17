@@ -1550,3 +1550,76 @@ a {
     }
 
 }
+/* =========================================================
+   LESSON MESSAGE
+   ========================================================= */
+
+.lesson-message {
+
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 25px;
+
+    transform:
+        translate(
+            -50%,
+            20px
+        );
+
+    z-index: 99999;
+
+    padding:
+        11px 18px;
+
+    border-radius:
+        8px;
+
+    background:
+        #263746;
+
+    color:
+        white;
+
+    font-size:
+        13px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(
+            0,
+            0,
+            0,
+            0.18
+        );
+
+    opacity:
+        0;
+
+    transition:
+        0.3s ease;
+
+}
+
+
+.lesson-message.show {
+
+    opacity:
+        1;
+
+    transform:
+        translate(
+            -50%,
+            0
+        );
+
+}
+
+
+.lesson-message.success {
+
+    background:
+        #197044;
+
+}
