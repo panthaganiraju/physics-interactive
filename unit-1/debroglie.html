@@ -162,86 +162,135 @@
     margin-top:5px;
 }
 
-.derivation-control {
-    position:fixed;
-    right:22px;
-    top:50%;
-    transform:translateY(-50%);
-    z-index:1000;
-    width:120px;
-    padding:10px;
-    background:rgba(255,255,255,.97);
-    backdrop-filter:blur(10px);
-    border:1px solid #d7e3ec;
-    border-radius:12px;
-    box-shadow:0 8px 30px rgba(30,65,100,.15);
-    text-align:center;
-}
-.derivation-control-row {
-    display:flex;
-    flex-direction:column;
-    align-items:stretch;
-    gap:7px;
-}
-.play-button {
-    border:none;
+.derivation-intro {
+    margin-bottom:18px;
+    padding:16px 18px;
+    background:#f5f8fb;
+    border-left:4px solid #2868a9;
     border-radius:8px;
-    padding:11px 12px;
-    cursor:pointer;
-    font-size:12px;
-    font-weight:700;
-    background:#173f7a;
-    color:white;
-}
-.play-button:hover { background:#2868a9; }
-.reset-button { display:none; }
-.speed-select {
-    width:100%;
-    border:1px solid #d7e1e9;
-    border-radius:7px;
-    padding:7px 5px;
     color:#536575;
-    background:white;
-    font-size:10px;
-}
-.derivation-status {
-    text-align:center;
-    margin-top:7px;
-    color:#71808d;
-    font-size:9px;
-    line-height:1.35;
-}
-.derivation-step {
-    display:block;
-    opacity:1;
-    transform:none;
-    transition:box-shadow .3s ease,border-color .3s ease,background .3s ease;
-}
-.derivation-step.active-step {
-    border-color:#2868a9;
-    box-shadow:0 0 0 3px rgba(40,104,169,.10),0 8px 25px rgba(30,65,100,.08);
-    background:#fbfdff;
-}
-.derivation-step.completed-step {
-    border-color:#cfdde8;
-}
-.derivation-complete {
-    display:none;
-    padding:18px;
-    text-align:center;
-    border-radius:10px;
-    background:#e8f5ee;
-    color:#197044;
     font-size:13px;
-    margin-top:18px;
+    line-height:1.7;
 }
+
+.derivation-list {
+    position:relative;
+    margin:0;
+    padding:0;
+}
+
+.derivation-step {
+    position:relative;
+    display:block;
+    margin:0 0 16px;
+    padding:22px 24px 22px 72px;
+    background:#fff;
+    border:1px solid #dfe7ee;
+    border-radius:12px;
+    box-shadow:0 3px 12px rgba(30,65,100,.035);
+}
+
+.derivation-step::before {
+    content:attr(data-step);
+    position:absolute;
+    left:20px;
+    top:22px;
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#173f7a;
+    color:#fff;
+    font-size:11px;
+    font-weight:700;
+}
+
+.derivation-step::after {
+    content:"";
+    position:absolute;
+    left:36px;
+    top:56px;
+    bottom:-17px;
+    width:1px;
+    background:#d7e3ec;
+}
+
+.derivation-step:last-child::after {
+    display:none;
+}
+
+.derivation-step h3.step-title {
+    margin:0 0 8px;
+    color:#173f7a;
+    font-size:18px;
+}
+
+.derivation-step .step-text {
+    margin:6px 0;
+    color:#536575;
+    font-size:13px;
+    line-height:1.7;
+}
+
+.derivation-step .equation-box {
+    margin:12px 0;
+    padding:15px 18px;
+    background:#f8fafc;
+    border:1px solid #e2e9ef;
+    border-radius:8px;
+}
+
+.derivation-step .equation {
+    font-size:25px;
+}
+
+.derivation-step.final-step {
+    border:2px solid #2868a9;
+    background:#f5f9fd;
+}
+
+.derivation-step.final-step::before {
+    background:#2868a9;
+}
+
+.derivation-section-title {
+    margin:30px 0 14px;
+    color:#245b91;
+    font-size:17px;
+    padding-bottom:8px;
+    border-bottom:1px solid #dfe7ee;
+}
+
+.derivation-result {
+    margin-top:10px;
+    padding:13px 16px;
+    border-radius:8px;
+    background:#eef6fb;
+    color:#245b91;
+    font-size:12px;
+    font-weight:600;
+}
+
 @media(max-width:760px) {
-    .derivation-control {
-        right:12px;
-        top:auto;
-        bottom:12px;
-        transform:none;
-        width:105px;
+    .derivation-step {
+        padding:20px 18px 20px 58px;
+    }
+
+    .derivation-step::before {
+        left:14px;
+        top:20px;
+        width:32px;
+        height:32px;
+    }
+
+    .derivation-step::after {
+        left:30px;
+    }
+
+    .derivation-step .equation {
+        font-size:21px;
     }
 }
 
@@ -536,139 +585,289 @@ input[type=range] {
 </section>
 
 <section class="lesson-section" id="derive">
+
     <div class="lesson-heading">
         <span class="label">DERIVATION</span>
         <h2>Derivation of de Broglie Wavelength</h2>
         <p>
-            The mathematical sequence follows the prescribed GCET/AEP
-            Unit-I derivation. Each step appears and then pauses so you
-            can explain it before pressing Play again.
+            The derivation is presented in a clean, continuous form so that
+            the complete mathematical sequence can be followed from beginning
+            to end.
         </p>
     </div>
 
-    <div class="derivation-control" aria-label="Derivation controls">
-        <div class="derivation-control-row">
-            <button class="play-button" id="playDerivation" type="button">▶ Play</button>
-            <select class="speed-select" id="derivationSpeed" aria-label="Explanation speed">
-                <option value="3000">Slow</option>
-                <option value="2000">Medium</option>
-                <option value="1200">Fast</option>
-            </select>
-        </div>
-        <div class="derivation-status" id="derivationStatus">
-            Click Play to highlight Step 1
-        </div>
+    <div class="derivation-intro">
+        <b>Teaching approach:</b> Each step is kept separate, previous
+        equations remain visible, and the final result is clearly identified.
+        This same clean format will be used for the remaining derivations in Unit I.
     </div>
 
-    <div id="derivationSteps">
+    <div class="derivation-list">
 
-        <article class="content-card derivation-step">
-            <span class="step-badge">STEP 1</span>
+        <article class="derivation-step" data-step="1">
             <h3 class="step-title">According to Planck's quantum theory</h3>
-            <p class="step-text">The energy of a photon is</p>
-            <div class="equation-box"><div class="equation">E = hν = hc/λ &nbsp;&nbsp; .......... (1)</div></div>
+
             <p class="step-text">
-                Here h is Planck's constant, ν is frequency, c is the speed
-                of light and λ is wavelength.
+                The energy of a photon is
+            </p>
+
+            <div class="equation-box">
+                <div class="equation">
+                    E = hν = hc/λ &nbsp;&nbsp; .......... (1)
+                </div>
+            </div>
+
+            <p class="step-text">
+                Here <b>h</b> is Planck's constant, <b>ν</b> is frequency,
+                <b>c</b> is the speed of light and <b>λ</b> is wavelength.
             </p>
         </article>
 
-        <article class="content-card derivation-step">
-            <span class="step-badge">STEP 2</span>
-            <h3 class="step-title">Einstein's mass–energy relation</h3>
-            <p class="step-text">According to Einstein,</p>
-            <div class="equation-box"><div class="equation">E = mc² &nbsp;&nbsp; .......... (2)</div></div>
+
+        <article class="derivation-step" data-step="2">
+            <h3 class="step-title">According to Einstein's mass–energy relation</h3>
+
+            <p class="step-text">
+                The energy of a particle is given by
+            </p>
+
+            <div class="equation-box">
+                <div class="equation">
+                    E = mc² &nbsp;&nbsp; .......... (2)
+                </div>
+            </div>
         </article>
 
-        <article class="content-card derivation-step">
-            <span class="step-badge">STEP 3</span>
+
+        <article class="derivation-step" data-step="3">
             <h3 class="step-title">Equating equations (1) and (2)</h3>
-            <div class="equation-box">
-                <div class="equation">hc/λ = mc²</div>
-            </div>
-            <div class="equation-box">
-                <div class="equation">h/λ = mc</div>
-            </div>
-            <div class="equation-box">
-                <div class="equation">λ = h/mc</div>
-            </div>
-        </article>
 
-        <article class="content-card derivation-step">
-            <span class="step-badge">STEP 4</span>
-            <h3 class="step-title">Apply the idea to a material particle</h3>
-            <p class="step-text">
-                For a material particle moving with velocity v, the prescribed
-                derivation replaces c by v:
-            </p>
-            <div class="equation-box"><div class="equation">λ = h/mv</div></div>
-        </article>
+            <div class="equation-box">
+                <div class="equation">
+                    hc/λ = mc²
+                </div>
+            </div>
 
-        <article class="content-card derivation-step">
-            <span class="step-badge">STEP 5</span>
-            <h3 class="step-title">Use the momentum relation</h3>
-            <p class="step-text">Since</p>
-            <div class="equation-box"><div class="equation">p = mv</div></div>
+            <p class="step-text">Cancelling c from both sides,</p>
+
+            <div class="equation-box">
+                <div class="equation">
+                    h/λ = mc
+                </div>
+            </div>
+
             <p class="step-text">Therefore,</p>
-            <div class="equation-box"><div class="equation">λ = h/p</div></div>
+
+            <div class="equation-box">
+                <div class="equation">
+                    λ = h/mc
+                </div>
+            </div>
+        </article>
+
+
+        <article class="derivation-step" data-step="4">
+            <h3 class="step-title">Extension to a material particle</h3>
+
             <p class="step-text">
-                This is the expression for the de Broglie wavelength.
+                By extending the wave–particle concept to a material particle
+                moving with velocity <b>v</b>,
             </p>
+
+            <div class="equation-box">
+                <div class="equation">
+                    λ = h/mv
+                </div>
+            </div>
         </article>
 
-        <article class="content-card derivation-step">
-            <span class="step-badge">APPLICATION 1</span>
-            <h3 class="step-title">de Broglie Wavelength in Terms of Kinetic Energy</h3>
-            <p class="step-text">The kinetic energy of a particle is</p>
-            <div class="equation-box"><div class="equation">E = ½mv²</div></div>
-            <p class="step-text">Since</p>
-            <div class="equation-box"><div class="equation">p = mv</div></div>
-            <p class="step-text">Squaring both sides,</p>
-            <div class="equation-box"><div class="equation">p² = m²v²</div></div>
-            <p class="step-text">From the kinetic energy equation,</p>
-            <div class="equation-box"><div class="equation">m²v² = 2mE</div></div>
-            <p class="step-text">Therefore,</p>
-            <div class="equation-box"><div class="equation">p = √(2mE)</div></div>
+
+        <article class="derivation-step final-step" data-step="5">
+            <h3 class="step-title">de Broglie wavelength</h3>
+
+            <p class="step-text">
+                Since the momentum of a particle is
+            </p>
+
+            <div class="equation-box">
+                <div class="equation">
+                    p = mv
+                </div>
+            </div>
+
+            <p class="step-text">
+                Therefore,
+            </p>
+
+            <div class="equation-box">
+                <div class="equation">
+                    λ = h/p
+                </div>
+            </div>
+
+            <div class="derivation-result">
+                <b>Hence, the de Broglie wavelength is</b>
+                &nbsp;&nbsp; λ = h/p = h/mv
+            </div>
         </article>
 
-        <article class="content-card derivation-step">
-            <span class="step-badge">APPLICATION 1 — CONTINUED</span>
-            <h3 class="step-title">Substitute momentum into the de Broglie equation</h3>
-            <div class="equation-box"><div class="equation">λ = h / √(2mE)</div></div>
+
+        <h3 class="derivation-section-title">
+            de Broglie Wavelength in Terms of Kinetic Energy
+        </h3>
+
+
+        <article class="derivation-step" data-step="6">
+            <h3 class="step-title">Kinetic energy relation</h3>
+
+            <p class="step-text">
+                The kinetic energy of a particle is
+            </p>
+
+            <div class="equation-box">
+                <div class="equation">
+                    E = ½mv²
+                </div>
+            </div>
+
+            <p class="step-text">
+                Since
+            </p>
+
+            <div class="equation-box">
+                <div class="equation">
+                    p = mv
+                </div>
+            </div>
+
+            <p class="step-text">
+                Squaring both sides,
+            </p>
+
+            <div class="equation-box">
+                <div class="equation">
+                    p² = m²v²
+                </div>
+            </div>
+
+            <p class="step-text">
+                From the kinetic-energy equation,
+            </p>
+
+            <div class="equation-box">
+                <div class="equation">
+                    m²v² = 2mE
+                </div>
+            </div>
         </article>
 
-        <article class="content-card derivation-step">
-            <span class="step-badge">APPLICATION 2</span>
-            <h3 class="step-title">de Broglie Wavelength in Terms of Accelerating Potential</h3>
+
+        <article class="derivation-step" data-step="7">
+            <h3 class="step-title">Momentum in terms of kinetic energy</h3>
+
+            <div class="equation-box">
+                <div class="equation">
+                    p = √(2mE)
+                </div>
+            </div>
+
+            <p class="step-text">
+                Substituting this in λ = h/p,
+            </p>
+
+            <div class="equation-box">
+                <div class="equation">
+                    λ = h/√(2mE)
+                </div>
+            </div>
+        </article>
+
+
+        <h3 class="derivation-section-title">
+            de Broglie Wavelength in Terms of Accelerating Potential
+        </h3>
+
+
+        <article class="derivation-step" data-step="8">
+            <h3 class="step-title">Particle accelerated through potential V</h3>
+
             <p class="step-text">
                 When a charged particle is accelerated through a potential
-                difference V, it gains kinetic energy equal to
+                difference <b>V</b>, its kinetic energy is
             </p>
-            <div class="equation-box"><div class="equation">E = eV</div></div>
-            <p class="step-text">Substituting into the previous relation,</p>
-            <div class="equation-box"><div class="equation">λ = h / √(2meV)</div></div>
+
+            <div class="equation-box">
+                <div class="equation">
+                    E = eV
+                </div>
+            </div>
+
+            <p class="step-text">
+                Substituting E = eV in
+                λ = h/√(2mE),
+            </p>
+
+            <div class="equation-box">
+                <div class="equation">
+                    λ = h/√(2meV)
+                </div>
+            </div>
         </article>
 
-        <article class="content-card derivation-step">
-            <span class="step-badge">APPLICATION 2 — ELECTRON</span>
-            <h3 class="step-title">For electrons</h3>
-            <div class="equation-box"><div class="equation">λ = 12.26 / √V Å</div></div>
+
+        <article class="derivation-step final-step" data-step="9">
+            <h3 class="step-title">For an electron</h3>
+
+            <div class="equation-box">
+                <div class="equation">
+                    λ = 12.26/√V Å
+                </div>
+            </div>
+
+            <div class="derivation-result">
+                For an electron accelerated through V volts,
+                the de Broglie wavelength is expressed in Ångström.
+            </div>
         </article>
 
-        <article class="content-card derivation-step">
-            <span class="step-badge">APPLICATION 3</span>
-            <h3 class="step-title">de Broglie Wavelength in Terms of Temperature</h3>
-            <p class="step-text">For a particle in thermal equilibrium,</p>
-            <div class="equation-box"><div class="equation">E = (3/2)k<sub>B</sub>T</div></div>
-            <p class="step-text">Substituting into the de Broglie equation gives</p>
-            <div class="equation-box"><div class="equation">λ = h / √(3mk<sub>B</sub>T)</div></div>
+
+        <h3 class="derivation-section-title">
+            de Broglie Wavelength in Terms of Temperature
+        </h3>
+
+
+        <article class="derivation-step" data-step="10">
+            <h3 class="step-title">Thermal energy relation</h3>
+
+            <p class="step-text">
+                For a particle in thermal equilibrium,
+            </p>
+
+            <div class="equation-box">
+                <div class="equation">
+                    E = (3/2)k<sub>B</sub>T
+                </div>
+            </div>
+
+            <p class="step-text">
+                Substituting this into the kinetic-energy form of the
+                de Broglie relation,
+            </p>
+
+            <div class="equation-box">
+                <div class="equation">
+                    λ = h/√(3mk<sub>B</sub>T)
+                </div>
+            </div>
+
+            <div class="derivation-result">
+                <b>Temperature form:</b>
+                &nbsp;&nbsp; λ = h/√(3mk<sub>B</sub>T)
+            </div>
         </article>
 
     </div>
 
-    <div class="derivation-complete" id="derivationComplete">
-        ✓ Derivation completed. Press Reset to start again.
-    </div>
 </section>
 
 <section class="lesson-section" id="simulate">
@@ -914,11 +1113,11 @@ tabs.forEach(tab => {
    One step is added and remains visible.
    The next step is NOT shown until Play is pressed again.
    ========================================================= */
-const derivationSteps = Array.from(document.querySelectorAll(".derivation-step"));
-const playButton = document.getElementById("playDerivation");
-const speedSelect = document.getElementById("derivationSpeed");
-const derivationStatus = document.getElementById("derivationStatus");
-const derivationComplete = document.getElementById("derivationComplete");
+
+
+
+
+
 
 let currentStep = 0;
 let playing = false;
