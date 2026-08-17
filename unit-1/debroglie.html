@@ -299,6 +299,1087 @@ input[type=range] {
     font-size:21px;
     margin-bottom:14px;
 }
+.wave-visual {
+    width:100%;
+    height:240px;
+    border:1px solid #dfe7ee;
+    border-radius:9px;
+    background:white;
+    overflow:hidden;
+}
+.wave-visual svg {
+    display:block;
+    width:100%;
+    height:100%;
+}
+.wave-axis {
+    stroke:#dfe7ee;
+    stroke-width:1.5;
+}
+.wave-line {
+    fill:none;
+    stroke:#2868a9;
+    stroke-width:4;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+.wave-label {
+    fill:#71808d;
+    font-family:Segoe UI,Arial,sans-serif;
+    font-size:16px;
+}
+.sim-note {
+    margin-top:10px;
+    color:#71808d;
+    font-size:11px;
+}
+
+.characteristic-grid {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+.characteristic {
+    padding:17px;
+    background:white;
+    border:1px solid #dfe7ee;
+    border-radius:10px;
+}
+.characteristic strong {
+    color:#245b91;
+    font-size:13px;
+}
+.characteristic p {
+    margin:5px 0 0;
+    color:#71808d;
+    font-size:12px;
+}
+
+.question {
+    padding:20px;
+    margin-bottom:15px;
+    border:1px solid #dfe7ee;
+    border-radius:11px;
+    background:white;
+}
+.question p {
+    margin:0 0 12px;
+    color:#314657;
+    font-weight:600;
+    font-size:13px;
+}
+.option {
+    display:block;
+    width:100%;
+    margin:7px 0;
+    padding:10px 12px;
+    text-align:left;
+    background:#f5f8fb;
+    border:1px solid #dfe7ee;
+    border-radius:7px;
+    cursor:pointer;
+    color:#536575;
+    font-size:12px;
+}
+.option:hover:not(:disabled) {
+    border-color:#a9c5da;
+    background:#eef5fb;
+}
+.option.correct {
+    background:#e8f5ee;
+    border-color:#8bc5a4;
+    color:#197044;
+}
+.option.wrong {
+    background:#fbeeee;
+    border-color:#d9a2a2;
+    color:#9b4040;
+}
+.answer {
+    display:none;
+    margin-top:10px;
+    padding:9px 12px;
+    border-radius:6px;
+    background:#f4f8fb;
+    color:#647586;
+    font-size:11px;
+}
+.answer.show { display:block; }
+
+.revision-grid {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+.revision-item {
+    padding:16px;
+    background:white;
+    border:1px solid #dfe7ee;
+    border-radius:9px;
+}
+.revision-item strong {
+    color:#245b91;
+    font-size:13px;
+}
+.revision-item p {
+    margin:5px 0 0;
+    color:#71808d;
+    font-size:11px;
+}
+
+.complete-area {
+    margin-top:35px;
+    text-align:center;
+}
+.complete-button {
+    border:none;
+    border-radius:8px;
+    padding:12px 22px;
+    background:#173f7a;
+    color:white;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+}
+.complete-button:hover { background:#2868a9; }
+
+@media(max-width:760px) {
+    .sim-grid,
+    .characteristic-grid,
+    .revision-grid { grid-template-columns:1fr; }
+    .symbol-grid { grid-template-columns:repeat(2,1fr); }
+}
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="nav-container">
+        <a href="../index.html" class="brand">
+            <span class="brand-icon">⚛</span>
+            <span>Interactive Physics</span>
+        </a>
+        <nav class="main-nav">
+            <a href="../index.html">Home</a>
+            <a href="index.html">Unit I</a>
+        </nav>
+    </div>
+</header>
+
+<section class="lesson-hero">
+    <div class="lesson-hero-inner">
+        <a href="index.html" class="lesson-back">← Unit I — Quantum Mechanics</a>
+        <div class="lesson-label">TOPIC 02</div>
+        <h1>de Broglie Hypothesis</h1>
+        <p>
+            Understand matter waves, derive the de Broglie wavelength,
+            explore how wavelength changes with momentum, kinetic energy,
+            accelerating potential and temperature.
+        </p>
+    </div>
+</section>
+
+<nav class="lesson-nav">
+    <div class="lesson-nav-inner">
+        <button class="lesson-tab active" data-target="learn">📖 Learn</button>
+        <button class="lesson-tab" data-target="derive">✍ Derivation</button>
+        <button class="lesson-tab" data-target="simulate">⚙ Simulation</button>
+        <button class="lesson-tab" data-target="characteristics">💡 Characteristics</button>
+        <button class="lesson-tab" data-target="practice">✏ Practice</button>
+        <button class="lesson-tab" data-target="revision">🎯 Revision</button>
+    </div>
+</nav>
+
+<main class="lesson-container">
+
+<section class="lesson-section active" id="learn">
+    <div class="lesson-heading">
+        <span class="label">LEARN</span>
+        <h2>What is the de Broglie Hypothesis?</h2>
+        <p>From wave–particle duality to matter waves.</p>
+    </div>
+
+    <div class="content-card">
+        <h3>Basic Idea</h3>
+        <p>
+            Light shows both wave-like and particle-like behavior.
+            In 1924, Louis de Broglie extended this idea to moving
+            material particles. He proposed that a moving microscopic
+            particle is associated with a wave called a <b>matter wave</b>
+            or <b>de Broglie wave</b>.
+        </p>
+        <div class="equation-box">
+            <div class="equation">λ = h / mv = h / p</div>
+            <div class="equation-note">de Broglie wavelength</div>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <h3>Meaning of the Symbols</h3>
+        <div class="symbol-grid">
+            <div class="symbol-card"><strong>λ</strong><span>de Broglie wavelength</span></div>
+            <div class="symbol-card"><strong>h</strong><span>Planck's constant</span></div>
+            <div class="symbol-card"><strong>m</strong><span>Mass of particle</span></div>
+            <div class="symbol-card"><strong>v</strong><span>Velocity of particle</span></div>
+        </div>
+        <p>
+            Since momentum is <b>p = mv</b>, the relation can also be
+            written as <b>λ = h/p</b>.
+        </p>
+    </div>
+
+    <div class="content-card">
+        <h3>Why is this important?</h3>
+        <ul>
+            <li>It assigns a wave nature to moving material particles.</li>
+            <li>It connects particle momentum with wavelength.</li>
+            <li>It provides a foundation for wave mechanics.</li>
+            <li>It explains why wave effects are important for microscopic particles.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="lesson-section" id="derive">
+    <div class="lesson-heading">
+        <span class="label">DERIVATION</span>
+        <h2>Derivation of de Broglie Wavelength</h2>
+        <p>
+            The mathematical sequence follows the prescribed GCET/AEP
+            Unit-I derivation. Each step appears and then pauses so you
+            can explain it before pressing Play again.
+        </p>
+    </div>
+
+    <div class="derivation-control">
+        <div class="derivation-control-row">
+            <button class="play-button" id="playDerivation">▶ Play</button>
+            <button class="reset-button" id="resetDerivation">↺ Reset</button>
+            <select class="speed-select" id="derivationSpeed" aria-label="Derivation speed">
+                <option value="5200">Slow</option>
+                <option value="4000">Medium</option>
+                <option value="2800">Fast</option>
+            </select>
+        </div>
+        <div class="derivation-status" id="derivationStatus">
+            Press Play. The explanation pauses after every step.
+        </div>
+    </div>
+
+    <div id="derivationSteps">
+
+        <article class="content-card derivation-step">
+            <span class="step-badge">STEP 1</span>
+            <h3 class="step-title">According to Planck's quantum theory</h3>
+            <p class="step-text">The energy of a photon is</p>
+            <div class="equation-box"><div class="equation">E = hν = hc/λ &nbsp;&nbsp; .......... (1)</div></div>
+            <p class="step-text">
+                Here h is Planck's constant, ν is frequency, c is the speed
+                of light and λ is wavelength.
+            </p>
+        </article>
+
+        <article class="content-card derivation-step">
+            <span class="step-badge">STEP 2</span>
+            <h3 class="step-title">Einstein's mass–energy relation</h3>
+            <p class="step-text">According to Einstein,</p>
+            <div class="equation-box"><div class="equation">E = mc² &nbsp;&nbsp; .......... (2)</div></div>
+        </article>
+
+        <article class="content-card derivation-step">
+            <span class="step-badge">STEP 3</span>
+            <h3 class="step-title">Equating equations (1) and (2)</h3>
+            <div class="equation-box">
+                <div class="equation">hc/λ = mc²</div>
+            </div>
+            <div class="equation-box">
+                <div class="equation">h/λ = mc</div>
+            </div>
+            <div class="equation-box">
+                <div class="equation">λ = h/mc</div>
+            </div>
+        </article>
+
+        <article class="content-card derivation-step">
+            <span class="step-badge">STEP 4</span>
+            <h3 class="step-title">Apply the idea to a material particle</h3>
+            <p class="step-text">
+                For a material particle moving with velocity v, the prescribed
+                derivation replaces c by v:
+            </p>
+            <div class="equation-box"><div class="equation">λ = h/mv</div></div>
+        </article>
+
+        <article class="content-card derivation-step">
+            <span class="step-badge">STEP 5</span>
+            <h3 class="step-title">Use the momentum relation</h3>
+            <p class="step-text">Since</p>
+            <div class="equation-box"><div class="equation">p = mv</div></div>
+            <p class="step-text">Therefore,</p>
+            <div class="equation-box"><div class="equation">λ = h/p</div></div>
+            <p class="step-text">
+                This is the expression for the de Broglie wavelength.
+            </p>
+        </article>
+
+        <article class="content-card derivation-step">
+            <span class="step-badge">APPLICATION 1</span>
+            <h3 class="step-title">de Broglie Wavelength in Terms of Kinetic Energy</h3>
+            <p class="step-text">The kinetic energy of a particle is</p>
+            <div class="equation-box"><div class="equation">E = ½mv²</div></div>
+            <p class="step-text">Since</p>
+            <div class="equation-box"><div class="equation">p = mv</div></div>
+            <p class="step-text">Squaring both sides,</p>
+            <div class="equation-box"><div class="equation">p² = m²v²</div></div>
+            <p class="step-text">From the kinetic energy equation,</p>
+            <div class="equation-box"><div class="equation">m²v² = 2mE</div></div>
+            <p class="step-text">Therefore,</p>
+            <div class="equation-box"><div class="equation">p = √(2mE)</div></div>
+        </article>
+
+        <article class="content-card derivation-step">
+            <span class="step-badge">APPLICATION 1 — CONTINUED</span>
+            <h3 class="step-title">Substitute momentum into the de Broglie equation</h3>
+            <div class="equation-box"><div class="equation">λ = h / √(2mE)</div></div>
+        </article>
+
+        <article class="content-card derivation-step">
+            <span class="step-badge">APPLICATION 2</span>
+            <h3 class="step-title">de Broglie Wavelength in Terms of Accelerating Potential</h3>
+            <p class="step-text">
+                When a charged particle is accelerated through a potential
+                difference V, it gains kinetic energy equal to
+            </p>
+            <div class="equation-box"><div class="equation">E = eV</div></div>
+            <p class="step-text">Substituting into the previous relation,</p>
+            <div class="equation-box"><div class="equation">λ = h / √(2meV)</div></div>
+        </article>
+
+        <article class="content-card derivation-step">
+            <span class="step-badge">APPLICATION 2 — ELECTRON</span>
+            <h3 class="step-title">For electrons</h3>
+            <div class="equation-box"><div class="equation">λ = 12.26 / √V Å</div></div>
+        </article>
+
+        <article class="content-card derivation-step">
+            <span class="step-badge">APPLICATION 3</span>
+            <h3 class="step-title">de Broglie Wavelength in Terms of Temperature</h3>
+            <p class="step-text">For a particle in thermal equilibrium,</p>
+            <div class="equation-box"><div class="equation">E = (3/2)k<sub>B</sub>T</div></div>
+            <p class="step-text">Substituting into the de Broglie equation gives</p>
+            <div class="equation-box"><div class="equation">λ = h / √(3mk<sub>B</sub>T)</div></div>
+        </article>
+
+    </div>
+
+    <div class="derivation-complete" id="derivationComplete">
+        ✓ Derivation completed. Press Reset to start again.
+    </div>
+</section>
+
+<section class="lesson-section" id="simulate">
+    <div class="lesson-heading">
+        <span class="label">SIMULATION</span>
+        <h2>Matter-Wave Simulator</h2>
+        <p>
+            Change the particle's mass and velocity and observe how its
+            de Broglie wavelength changes.
+        </p>
+    </div>
+
+    <div class="content-card">
+        <div class="sim-grid">
+            <div class="control-panel">
+                <h3>Particle Parameters</h3>
+
+                <div class="control-row">
+                    <label>
+                        <span>Mass</span>
+                        <span class="value" id="massValue">1.00 × 10⁻³⁰ kg</span>
+                    </label>
+                    <input type="range" id="massSlider" min="-32" max="-27" step="0.01" value="-30">
+                </div>
+
+                <div class="control-row">
+                    <label>
+                        <span>Velocity</span>
+                        <span class="value" id="velocityValue">1.00 × 10⁶ m/s</span>
+                    </label>
+                    <input type="range" id="velocitySlider" min="3" max="8" step="0.01" value="6">
+                </div>
+
+                <div class="sim-note">
+                    The sliders use logarithmic scales so that microscopic
+                    and larger particle values can be explored easily.
+                </div>
+            </div>
+
+            <div class="sim-output">
+                <h3>Calculated de Broglie Wavelength</h3>
+                <div class="sim-equation" id="lambdaOutput">λ = 7.27 × 10⁻¹⁰ m</div>
+                <div class="wave-visual" id="waveVisual">
+    <svg id="waveSvg" viewBox="0 0 800 240" preserveAspectRatio="none" aria-label="Matter wave visualization">
+        <line x1="0" y1="120" x2="800" y2="120" class="wave-axis"></line>
+        <path id="wavePath" class="wave-line" d=""></path>
+        <text x="18" y="25" class="wave-label">matter-wave representation</text>
+    </svg>
+</div>
+                <div class="sim-note" id="simMessage">
+                    Higher momentum produces a shorter wavelength.
+                </div>
+                <div class="sim-note">
+                    <b>Note:</b> The numerical wavelength is exact. The wave
+                    drawing is visually scaled so students can clearly see
+                    the wavelength change.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <h3>What should you observe?</h3>
+        <ul>
+            <li>Increasing mass decreases the wavelength when velocity is fixed.</li>
+            <li>Increasing velocity decreases the wavelength when mass is fixed.</li>
+            <li>The wavelength depends on momentum through λ = h/p.</li>
+            <li>For ordinary macroscopic objects, the wavelength is extremely small.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="lesson-section" id="characteristics">
+    <div class="lesson-heading">
+        <span class="label">CHARACTERISTICS</span>
+        <h2>Characteristics of de Broglie Waves</h2>
+        <p>Important points for understanding and examination revision.</p>
+    </div>
+
+    <div class="characteristic-grid">
+        <div class="characteristic">
+            <strong>1. Inversely proportional to mass</strong>
+            <p>For a fixed velocity, λ decreases as particle mass increases.</p>
+        </div>
+        <div class="characteristic">
+            <strong>2. Inversely proportional to velocity</strong>
+            <p>For a fixed mass, λ decreases as velocity increases.</p>
+        </div>
+        <div class="characteristic">
+            <strong>3. Not electromagnetic waves</strong>
+            <p>Matter waves are associated with material particles and are not electromagnetic radiation.</p>
+        </div>
+        <div class="characteristic">
+            <strong>4. Associated with motion</strong>
+            <p>The prescribed treatment associates matter waves with a moving particle.</p>
+        </div>
+        <div class="characteristic">
+            <strong>5. Rest case</strong>
+            <p>In the ideal relation λ = h/mv, as v approaches zero, λ tends toward infinity.</p>
+        </div>
+        <div class="characteristic">
+            <strong>6. Independent of charge</strong>
+            <p>The basic de Broglie relation depends on momentum, not directly on particle charge.</p>
+        </div>
+        <div class="characteristic">
+            <strong>7. Momentum dependence</strong>
+            <p>The most general form is λ = h/p.</p>
+        </div>
+        <div class="characteristic">
+            <strong>8. Microscopic significance</strong>
+            <p>Matter-wave effects become especially important when the wavelength is comparable with relevant dimensions.</p>
+        </div>
+    </div>
+
+    <div class="content-card" style="margin-top:16px;">
+        <h3>Important Formulae</h3>
+        <div class="equation-box"><div class="equation small">λ = h/mv</div></div>
+        <div class="equation-box"><div class="equation small">λ = h/p</div></div>
+        <div class="equation-box"><div class="equation small">λ = h/√(2mE)</div></div>
+        <div class="equation-box"><div class="equation small">λ = h/√(2meV)</div></div>
+        <div class="equation-box"><div class="equation small">λ = 12.26/√V Å</div></div>
+        <div class="equation-box"><div class="equation small">λ = h/√(3mk<sub>B</sub>T)</div></div>
+    </div>
+</section>
+
+<section class="lesson-section" id="practice">
+    <div class="lesson-heading">
+        <span class="label">PRACTICE</span>
+        <h2>Quick Check</h2>
+        <p>Test your understanding of matter waves and the de Broglie relation.</p>
+    </div>
+
+    <div class="question">
+        <p>1. The de Broglie wavelength of a particle is:</p>
+        <button class="option" onclick="answer(this,false,'a1')">A. λ = p/h</button>
+        <button class="option" onclick="answer(this,true,'a1')">B. λ = h/p</button>
+        <button class="option" onclick="answer(this,false,'a1')">C. λ = hp</button>
+        <button class="option" onclick="answer(this,false,'a1')">D. λ = h + p</button>
+        <div class="answer" id="a1">Correct: <b>B</b>. Since p = mv, λ = h/p = h/mv.</div>
+    </div>
+
+    <div class="question">
+        <p>2. If the momentum of a particle increases, its de Broglie wavelength:</p>
+        <button class="option" onclick="answer(this,false,'a2')">A. Increases</button>
+        <button class="option" onclick="answer(this,true,'a2')">B. Decreases</button>
+        <button class="option" onclick="answer(this,false,'a2')">C. Remains unchanged</button>
+        <button class="option" onclick="answer(this,false,'a2')">D. Becomes zero immediately</button>
+        <div class="answer" id="a2">Correct: <b>B</b>. From λ = h/p, wavelength is inversely proportional to momentum.</div>
+    </div>
+
+    <div class="question">
+        <p>3. The de Broglie wavelength in terms of kinetic energy E is:</p>
+        <button class="option" onclick="answer(this,false,'a3')">A. h/√(mE)</button>
+        <button class="option" onclick="answer(this,true,'a3')">B. h/√(2mE)</button>
+        <button class="option" onclick="answer(this,false,'a3')">C. h√(2mE)</button>
+        <button class="option" onclick="answer(this,false,'a3')">D. √(2mE)/h</button>
+        <div class="answer" id="a3">Correct: <b>B</b>.</div>
+    </div>
+
+    <div class="question">
+        <p>4. For an electron accelerated through potential V, the wavelength is proportional to:</p>
+        <button class="option" onclick="answer(this,false,'a4')">A. √V</button>
+        <button class="option" onclick="answer(this,true,'a4')">B. 1/√V</button>
+        <button class="option" onclick="answer(this,false,'a4')">C. V</button>
+        <button class="option" onclick="answer(this,false,'a4')">D. V²</button>
+        <div class="answer" id="a4">Correct: <b>B</b>. λ = 12.26/√V Å.</div>
+    </div>
+
+    <div class="question">
+        <p>5. Matter waves are:</p>
+        <button class="option" onclick="answer(this,false,'a5')">A. Electromagnetic waves</button>
+        <button class="option" onclick="answer(this,true,'a5')">B. Waves associated with moving material particles</button>
+        <button class="option" onclick="answer(this,false,'a5')">C. Sound waves</button>
+        <button class="option" onclick="answer(this,false,'a5')">D. Stationary light waves only</button>
+        <div class="answer" id="a5">Correct: <b>B</b>.</div>
+    </div>
+</section>
+
+<section class="lesson-section" id="revision">
+    <div class="lesson-heading">
+        <span class="label">QUICK REVISION</span>
+        <h2>Remember These Points</h2>
+        <p>Compact examination-oriented revision.</p>
+    </div>
+
+    <div class="revision-grid">
+        <div class="revision-item"><strong>de Broglie Hypothesis</strong><p>Every moving microscopic particle is associated with a matter wave.</p></div>
+        <div class="revision-item"><strong>Main Formula</strong><p>λ = h/mv = h/p</p></div>
+        <div class="revision-item"><strong>Kinetic Energy Form</strong><p>λ = h/√(2mE)</p></div>
+        <div class="revision-item"><strong>Potential Form</strong><p>λ = h/√(2meV)</p></div>
+        <div class="revision-item"><strong>Electron Form</strong><p>λ = 12.26/√V Å</p></div>
+        <div class="revision-item"><strong>Thermal Form</strong><p>λ = h/√(3mkBT)</p></div>
+        <div class="revision-item"><strong>Momentum Effect</strong><p>Higher momentum means shorter wavelength.</p></div>
+        <div class="revision-item"><strong>Next Topic</strong><p>Heisenberg Uncertainty Principle.</p></div>
+    </div>
+
+    <div class="complete-area">
+        <button class="complete-button" onclick="completeDeBroglie()">✓ Mark Topic as Completed</button>
+    </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+    <div>
+        <strong>Interactive Engineering Physics</strong>
+        <p>Unit I • Topic 02 • Quantum Mechanics</p>
+    </div>
+    <div class="footer-right">
+        <a href="index.html" style="text-decoration:none;">← Unit I</a>
+    </div>
+</footer>
+
+<script src="../assets/js/lesson.js"></script>
+
+<script>
+/* =========================================================
+   TAB SYSTEM
+   ========================================================= */
+const tabs = document.querySelectorAll(".lesson-tab");
+const sections = document.querySelectorAll(".lesson-section");
+
+tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+        const target = tab.dataset.target;
+
+        tabs.forEach(t => t.classList.remove("active"));
+        sections.forEach(s => s.classList.remove("active"));
+
+        tab.classList.add("active");
+        document.getElementById(target).classList.add("active");
+
+        window.scrollTo({top:0, behavior:"smooth"});
+
+        if (target !== "derive") {
+            pauseDerivation();
+        }
+    });
+});
+
+/* =========================================================
+   STEP-BY-STEP DERIVATION
+   One step is added and remains visible.
+   The next step is NOT shown until Play is pressed again.
+   ========================================================= */
+const derivationSteps = Array.from(document.querySelectorAll(".derivation-step"));
+const playButton = document.getElementById("playDerivation");
+const resetButton = document.getElementById("resetDerivation");
+const speedSelect = document.getElementById("derivationSpeed");
+const derivationStatus = document.getElementById("derivationStatus");
+const derivationComplete = document.getElementById("derivationComplete");
+
+let currentStep = 0;
+let isPlaying = false;
+let timer = null;
+
+function showStep(index) {
+    if (index >= derivationSteps.length) {
+        isPlaying = false;
+        playButton.textContent = "✓ Completed";
+        derivationStatus.textContent = "All derivation steps are visible.";
+        derivationComplete.style.display = "block";
+        return;
+    }
+
+    const step = derivationSteps[index];
+    step.classList.add("visible");
+
+    requestAnimationFrame(() => {
+        step.classList.add("show");
+    });
+
+    currentStep = index + 1;
+
+    derivationStatus.textContent =
+        "Step " + currentStep + " displayed. Press Play to continue.";
+
+    isPlaying = false;
+    playButton.textContent =
+        currentStep >= derivationSteps.length ? "✓ Completed" : "▶ Play";
+}
+
+function playNextStep() {
+    if (currentStep >= derivationSteps.length) {
+        return;
+    }
+
+    showStep(currentStep);
+}
+
+function pauseDerivation() {
+    isPlaying = false;
+    if (timer) {
+        clearTimeout(timer);
+        timer = null;
+    }
+    if (currentStep < derivationSteps.length) {
+        playButton.textContent = "▶ Play";
+    }
+}
+
+playButton.addEventListener("click", () => {
+    if (currentStep >= derivationSteps.length) {
+        return;
+    }
+
+    /*
+      Each click displays ONE additional step.
+      A short delay is used before the next step is
+      prepared, but there is no automatic progression.
+    */
+    playNextStep();
+});
+
+resetButton.addEventListener("click", () => {
+    pauseDerivation();
+
+    derivationSteps.forEach(step => {
+        step.classList.remove("visible","show");
+    });
+
+    currentStep = 0;
+    derivationComplete.style.display = "none";
+    playButton.textContent = "▶ Play";
+    derivationStatus.textContent =
+        "Press Play. The explanation pauses after every step.";
+});
+
+/* =========================================================
+   DE BROGLIE SIMULATION
+   ========================================================= */
+const h = 6.62607015e-34;
+
+const massSlider = document.getElementById("massSlider");
+const velocitySlider = document.getElementById("velocitySlider");
+const massValue = document.getElementById("massValue");
+const velocityValue = document.getElementById("velocityValue");
+const lambdaOutput = document.getElementById("lambdaOutput");
+const simMessage = document.getElementById("simMessage");
+const waveSvg = document.getElementById("waveSvg");
+const wavePath = document.getElementById("wavePath");
+
+function formatSci(value) {
+    if (!isFinite(value) || value === 0) return "0";
+    const exponent = Math.floor(Math.log10(Math.abs(value)));
+    const mantissa = value / Math.pow(10, exponent);
+    return mantissa.toFixed(2) + " × 10" + toSuperscript(exponent);
+}
+
+function toSuperscript(value) {
+    const map = {
+        "-":"⁻","0":"⁰","1":"¹","2":"²","3":"³","4":"⁴",
+        "5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹"
+    };
+    return String(value).split("").map(c => map[c] || c).join("");
+}
+
+function updateSimulation() {
+    const mass = Math.pow(10, parseFloat(massSlider.value));
+    const velocity = Math.pow(10, parseFloat(velocitySlider.value));
+    const momentum = mass * velocity;
+    const lambda = h / momentum;
+
+    massValue.textContent = formatSci(mass) + " kg";
+    velocityValue.textContent = formatSci(velocity) + " m/s";
+    lambdaOutput.textContent = "λ = " + formatSci(lambda) + " m";
+
+    if (velocity > 1e7) {
+        simMessage.textContent = "Very high momentum → very short wavelength.";
+    } else if (velocity < 1e4) {
+        simMessage.textContent = "Lower momentum → longer wavelength.";
+    } else {
+        simMessage.textContent = "Higher momentum produces a shorter wavelength.";
+    }
+
+    drawWave(lambda);
+}
+
+function drawWave(lambda) {
+    /*
+      The numerical de Broglie wavelength remains exact.
+      The displayed wave is normalized so its shape remains
+      clearly visible on a classroom screen.
+    */
+    const logLambda = Math.log10(lambda);
+
+    // Higher momentum (smaller lambda) gives more visible cycles.
+    const cycles = Math.max(1.5, Math.min(12, 7.5 - (logLambda + 10)));
+
+    const width = 800;
+    const center = 120;
+    const amplitude = 42;
+    const points = 320;
+
+    let d = "";
+
+    for (let i = 0; i <= points; i++) {
+        const x = width * i / points;
+        const y = center -
+            amplitude * Math.sin((i / points) * cycles * Math.PI * 2);
+
+        d += (i === 0 ? "M " : " L ") +
+             x.toFixed(2) + " " + y.toFixed(2);
+    }
+
+    wavePath.setAttribute("d", d);
+}
+
+massSlider.addEventListener("input", updateSimulation);
+velocitySlider.addEventListener("input", updateSimulation);
+
+updateSimulation();
+
+/* =========================================================
+   QUIZ
+   ========================================================= */
+function answer(button, correct, id) {
+    const question = button.closest(".question");
+    const options = question.querySelectorAll(".option");
+
+    options.forEach(option => option.disabled = true);
+
+    button.classList.add(correct ? "correct" : "wrong");
+    document.getElementById(id).classList.add("show");
+}
+
+/* =========================================================
+   PROGRESS
+   ========================================================= */
+function completeDeBroglie() {
+    if (typeof completeTopic === "function") {
+        completeTopic("unit1","de-broglie");
+    } else {
+        localStorage.setItem("physics-unit1-de-broglie", "true");
+        alert("Topic completed ✓");
+    }
+}
+</script>
+
+</body>
+</html>    max-width:760px;
+    margin:0;
+    color:rgba(255,255,255,.8);
+    font-size:15px;
+}
+
+.lesson-nav {
+    position:sticky;
+    top:65px;
+    z-index:100;
+    background:white;
+    border-bottom:1px solid #dfe7ee;
+}
+.lesson-nav-inner {
+    max-width:1180px;
+    margin:auto;
+    padding:0 22px;
+    display:flex;
+    overflow-x:auto;
+}
+.lesson-tab {
+    flex-shrink:0;
+    border:none;
+    background:transparent;
+    padding:14px 17px;
+    color:#687887;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    border-bottom:3px solid transparent;
+}
+.lesson-tab:hover { color:#173f7a; }
+.lesson-tab.active {
+    color:#173f7a;
+    border-bottom-color:#2868a9;
+}
+
+.lesson-container {
+    max-width:1000px;
+    margin:auto;
+    padding:40px 22px 90px;
+}
+.lesson-section { display:none; }
+.lesson-section.active { display:block; }
+
+.lesson-heading { margin-bottom:25px; }
+.lesson-heading .label {
+    color:#2868a9;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.5px;
+}
+.lesson-heading h2 {
+    margin:5px 0 8px;
+    color:#173f7a;
+    font-size:30px;
+}
+.lesson-heading p {
+    color:#71808d;
+    font-size:14px;
+}
+
+.content-card {
+    background:white;
+    border:1px solid #dfe7ee;
+    border-radius:13px;
+    padding:25px;
+    margin-bottom:18px;
+    box-shadow:0 4px 18px rgba(30,65,100,.04);
+}
+.content-card h3 {
+    margin:0 0 10px;
+    color:#245b91;
+    font-size:19px;
+}
+.content-card p,
+.content-card li {
+    color:#536575;
+    font-size:14px;
+    line-height:1.8;
+}
+.content-card ul { line-height:1.9; }
+
+.equation-box {
+    margin:18px 0;
+    padding:22px;
+    text-align:center;
+    border-radius:11px;
+    background:#f5f8fb;
+    border:1px solid #dfe7ee;
+}
+.equation {
+    font-family:Georgia,serif;
+    color:#173f7a;
+    font-size:28px;
+}
+.equation.small { font-size:23px; }
+.equation-note {
+    color:#7a8996;
+    font-size:11px;
+    margin-top:6px;
+}
+
+.symbol-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+}
+.symbol-card {
+    padding:17px 10px;
+    text-align:center;
+    background:#f5f8fb;
+    border:1px solid #dfe7ee;
+    border-radius:10px;
+}
+.symbol-card strong {
+    display:block;
+    color:#245b91;
+    font-size:20px;
+    font-family:Georgia,serif;
+}
+.symbol-card span {
+    display:block;
+    color:#71808d;
+    font-size:10px;
+    margin-top:5px;
+}
+
+.derivation-control {
+    position:sticky;
+    bottom:18px;
+    z-index:20;
+    margin:0 auto 20px;
+    max-width:700px;
+    padding:10px;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(10px);
+    border:1px solid #d7e3ec;
+    border-radius:12px;
+    box-shadow:0 8px 30px rgba(30,65,100,.12);
+}
+.derivation-control-row {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+.play-button,.reset-button {
+    border:none;
+    border-radius:8px;
+    padding:10px 17px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:700;
+}
+.play-button { background:#173f7a; color:white; }
+.reset-button { background:#edf2f6; color:#536575; }
+.speed-select {
+    border:1px solid #d7e1e9;
+    border-radius:7px;
+    padding:8px;
+    color:#536575;
+    background:white;
+}
+.derivation-status {
+    text-align:center;
+    margin-top:7px;
+    color:#71808d;
+    font-size:11px;
+}
+
+.derivation-step {
+    display:none;
+    opacity:0;
+    transform:translateY(8px);
+    transition:opacity .45s ease,transform .45s ease;
+}
+.derivation-step.visible {
+    display:block;
+}
+.derivation-step.show {
+    opacity:1;
+    transform:translateY(0);
+}
+.step-badge {
+    display:inline-block;
+    padding:4px 8px;
+    border-radius:5px;
+    background:#eaf3fb;
+    color:#245b91;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.7px;
+}
+.step-title {
+    margin:8px 0 8px;
+    color:#173f7a;
+    font-size:18px;
+}
+.step-text {
+    color:#536575;
+    font-size:13px;
+    line-height:1.7;
+}
+.derivation-complete {
+    display:none;
+    padding:18px;
+    text-align:center;
+    border-radius:10px;
+    background:#e8f5ee;
+    color:#197044;
+    font-size:13px;
+    margin-top:18px;
+}
+
+.sim-grid {
+    display:grid;
+    grid-template-columns:1fr 1.3fr;
+    gap:16px;
+}
+.control-panel {
+    background:#f4f8fb;
+    border:1px solid #d9e6ef;
+    border-radius:12px;
+    padding:20px;
+}
+.control-row { margin:16px 0; }
+.control-row label {
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    color:#536575;
+    font-size:12px;
+    margin-bottom:7px;
+}
+input[type=range] {
+    width:100%;
+    accent-color:#2868a9;
+}
+.value {
+    font-weight:700;
+    color:#173f7a;
+}
+.sim-output {
+    background:white;
+    border:1px solid #dfe7ee;
+    border-radius:12px;
+    padding:18px;
+}
+.sim-output h3 {
+    margin:0 0 10px;
+    color:#245b91;
+    font-size:17px;
+}
+.sim-equation {
+    padding:12px;
+    text-align:center;
+    background:#f5f8fb;
+    border-radius:8px;
+    color:#173f7a;
+    font-family:Georgia,serif;
+    font-size:21px;
+    margin-bottom:14px;
+}
 .wave-canvas {
     width:100%;
     height:220px;
