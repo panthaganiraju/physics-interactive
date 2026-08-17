@@ -1,1 +1,2438 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<meta name="description"
+      content="Introduction to Quantum Mechanics - Interactive Engineering Physics">
+
+<title>Introduction to Quantum Mechanics | Interactive Physics</title>
+
+<link rel="stylesheet"
+      href="../assets/css/physics.css">
+
+
+<style>
+
+/* =========================================================
+   LESSON PAGE
+   ========================================================= */
+
+.lesson-hero {
+
+    background:
+        linear-gradient(
+            135deg,
+            #102f5d,
+            #173f7a 55%,
+            #236795
+        );
+
+    color: white;
+
+    padding: 42px 22px 48px;
+
+}
+
+
+.lesson-hero-inner {
+
+    max-width: 1180px;
+
+    margin: auto;
+
+}
+
+
+.lesson-back {
+
+    color:
+        rgba(255,255,255,0.75);
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    display: inline-block;
+
+    margin-bottom: 20px;
+
+}
+
+
+.lesson-back:hover {
+
+    color: white;
+
+}
+
+
+.lesson-label {
+
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+
+    opacity: .75;
+
+}
+
+
+.lesson-hero h1 {
+
+    margin: 8px 0 12px;
+
+    font-size:
+        clamp(34px,5vw,52px);
+
+    line-height: 1.1;
+
+}
+
+
+.lesson-hero p {
+
+    max-width: 720px;
+
+    margin: 0;
+
+    color:
+        rgba(255,255,255,.78);
+
+    font-size: 15px;
+
+}
+
+
+/* =========================================================
+   LESSON NAVIGATION
+   ========================================================= */
+
+.lesson-nav {
+
+    position: sticky;
+
+    top: 65px;
+
+    z-index: 100;
+
+    background: white;
+
+    border-bottom:
+        1px solid #dfe7ee;
+
+}
+
+
+.lesson-nav-inner {
+
+    max-width: 1180px;
+
+    margin: auto;
+
+    padding: 0 22px;
+
+    display: flex;
+
+    overflow-x: auto;
+
+}
+
+
+.lesson-tab {
+
+    flex-shrink: 0;
+
+    border: none;
+
+    background: transparent;
+
+    padding: 14px 18px;
+
+    color: #687887;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    border-bottom: 3px solid transparent;
+
+}
+
+
+.lesson-tab:hover {
+
+    color: #173f7a;
+
+}
+
+
+.lesson-tab.active {
+
+    color: #173f7a;
+
+    border-bottom-color:
+        #2868a9;
+
+}
+
+
+/* =========================================================
+   LESSON CONTENT
+   ========================================================= */
+
+.lesson-container {
+
+    max-width: 1000px;
+
+    margin: auto;
+
+    padding:
+        40px 22px 80px;
+
+}
+
+
+.lesson-section {
+
+    display: none;
+
+}
+
+
+.lesson-section.active {
+
+    display: block;
+
+}
+
+
+.lesson-heading {
+
+    margin-bottom: 25px;
+
+}
+
+
+.lesson-heading .label {
+
+    color: #2868a9;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+}
+
+
+.lesson-heading h2 {
+
+    margin:
+        5px 0 8px;
+
+    color: #173f7a;
+
+    font-size: 30px;
+
+}
+
+
+.lesson-heading p {
+
+    color: #71808d;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   CONTENT CARDS
+   ========================================================= */
+
+.content-card {
+
+    background: white;
+
+    border:
+        1px solid #dfe7ee;
+
+    border-radius: 13px;
+
+    padding: 25px;
+
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 4px 18px
+        rgba(30,65,100,.04);
+
+}
+
+
+.content-card h3 {
+
+    margin:
+        0 0 10px;
+
+    color: #245b91;
+
+    font-size: 19px;
+
+}
+
+
+.content-card p {
+
+    color: #536575;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+}
+
+
+.content-card ul {
+
+    color: #536575;
+
+    font-size: 14px;
+
+    line-height: 1.9;
+
+}
+
+
+/* =========================================================
+   CONCEPT FLOW
+   ========================================================= */
+
+.concept-flow {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 10px;
+
+    margin:
+        25px 0;
+
+}
+
+
+.concept-box {
+
+    text-align: center;
+
+    padding: 20px 10px;
+
+    background: #f5f8fb;
+
+    border:
+        1px solid #dfe7ee;
+
+    border-radius: 10px;
+
+}
+
+
+.concept-box .icon {
+
+    font-size: 25px;
+
+    margin-bottom: 7px;
+
+}
+
+
+.concept-box strong {
+
+    display: block;
+
+    color: #245b91;
+
+    font-size: 13px;
+
+}
+
+
+.concept-box span {
+
+    display: block;
+
+    color: #7a8996;
+
+    font-size: 10px;
+
+    margin-top: 4px;
+
+}
+
+
+/* =========================================================
+   CLASSICAL VS QUANTUM
+   ========================================================= */
+
+.compare {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 15px;
+
+}
+
+
+.compare-card {
+
+    padding: 22px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid #dfe7ee;
+
+}
+
+
+.compare-card.classical {
+
+    background:
+        #f7f8fa;
+
+}
+
+
+.compare-card.quantum {
+
+    background:
+        #eef5fb;
+
+}
+
+
+.compare-card h3 {
+
+    margin:
+        0 0 12px;
+
+    color: #173f7a;
+
+}
+
+
+.compare-card ul {
+
+    margin: 0;
+
+    padding-left: 20px;
+
+}
+
+
+/* =========================================================
+   DUALITY VISUAL
+   ========================================================= */
+
+.duality {
+
+    position: relative;
+
+    min-height: 320px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f4f8fb,
+            #eaf3fb
+        );
+
+    border:
+        1px solid #d8e5ef;
+
+    border-radius: 14px;
+
+}
+
+
+.wave {
+
+    position: absolute;
+
+    width: 100%;
+
+    height: 130px;
+
+    left: 0;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+}
+
+
+.wave svg {
+
+    width: 100%;
+
+    height: 100%;
+
+}
+
+
+.wave-path {
+
+    fill: none;
+
+    stroke: #2868a9;
+
+    stroke-width: 3;
+
+}
+
+
+.particle {
+
+    position: absolute;
+
+    width: 20px;
+
+    height: 20px;
+
+    border-radius: 50%;
+
+    background: #173f7a;
+
+    box-shadow:
+        0 0 0 7px
+        rgba(23,63,122,.1);
+
+    left: 15%;
+
+    animation:
+        particleMove 5s
+        linear infinite;
+
+}
+
+
+@keyframes particleMove {
+
+    0% {
+        left: 12%;
+    }
+
+    50% {
+        left: 78%;
+    }
+
+    100% {
+        left: 12%;
+    }
+
+}
+
+
+.duality-center {
+
+    position: relative;
+
+    z-index: 5;
+
+    width: 105px;
+
+    height: 105px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    border:
+        2px solid #2868a9;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    box-shadow:
+        0 10px 30px
+        rgba(30,65,100,.12);
+
+}
+
+
+.duality-center strong {
+
+    color: #173f7a;
+
+    font-size: 17px;
+
+}
+
+
+.duality-center span {
+
+    color: #71808d;
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================================
+   PLANCK
+   ========================================================= */
+
+.equation-box {
+
+    margin:
+        20px 0;
+
+    padding:
+        25px;
+
+    text-align: center;
+
+    border-radius: 11px;
+
+    background:
+        #f5f8fb;
+
+    border:
+        1px solid #dfe7ee;
+
+}
+
+
+.equation {
+
+    font-family:
+        Georgia,
+        serif;
+
+    color:
+        #173f7a;
+
+    font-size:
+        29px;
+
+}
+
+
+.equation-note {
+
+    color:
+        #7a8996;
+
+    font-size:
+        11px;
+
+    margin-top:
+        7px;
+
+}
+
+
+/* =========================================================
+   INTERACTIVE SLIDER
+   ========================================================= */
+
+.interactive-box {
+
+    padding:
+        25px;
+
+    background:
+        #f4f8fb;
+
+    border:
+        1px solid #d9e6ef;
+
+    border-radius:
+        13px;
+
+}
+
+
+.slider-row {
+
+    margin:
+        20px 0;
+
+}
+
+
+.slider-row label {
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    color:
+        #536575;
+
+    font-size:
+        12px;
+
+    margin-bottom:
+        8px;
+
+}
+
+
+input[type="range"] {
+
+    width: 100%;
+
+    accent-color:
+        #2868a9;
+
+}
+
+
+.wave-display {
+
+    height:
+        100px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        9px;
+
+    background:
+        white;
+
+    border:
+        1px solid #dfe7ee;
+
+}
+
+
+.wave-display svg {
+
+    width: 100%;
+
+    height: 100%;
+
+}
+
+
+#interactiveWave {
+
+    fill: none;
+
+    stroke: #2868a9;
+
+    stroke-width: 3;
+
+}
+
+
+/* =========================================================
+   QUICK CHECK
+   ========================================================= */
+
+.question {
+
+    padding:
+        20px;
+
+    margin-bottom:
+        15px;
+
+    border:
+        1px solid #dfe7ee;
+
+    border-radius:
+        11px;
+
+    background: white;
+
+}
+
+
+.question p {
+
+    margin:
+        0 0 12px;
+
+    color:
+        #314657;
+
+    font-weight:
+        600;
+
+    font-size:
+        13px;
+
+}
+
+
+.option {
+
+    display: block;
+
+    width: 100%;
+
+    margin:
+        7px 0;
+
+    padding:
+        10px 12px;
+
+    text-align: left;
+
+    background:
+        #f5f8fb;
+
+    border:
+        1px solid #dfe7ee;
+
+    border-radius:
+        7px;
+
+    cursor: pointer;
+
+    color:
+        #536575;
+
+    font-size:
+        12px;
+
+}
+
+
+.option:hover {
+
+    border-color:
+        #a9c5da;
+
+    background:
+        #eef5fb;
+
+}
+
+
+.option.correct {
+
+    background:
+        #e8f5ee;
+
+    border-color:
+        #8bc5a4;
+
+    color:
+        #197044;
+
+}
+
+
+.option.wrong {
+
+    background:
+        #fbeeee;
+
+    border-color:
+        #d9a2a2;
+
+    color:
+        #9b4040;
+
+}
+
+
+.answer {
+
+    display: none;
+
+    margin-top:
+        10px;
+
+    padding:
+        9px 12px;
+
+    border-radius:
+        6px;
+
+    background:
+        #f4f8fb;
+
+    color:
+        #647586;
+
+    font-size:
+        11px;
+
+}
+
+
+.answer.show {
+
+    display: block;
+
+}
+
+
+/* =========================================================
+   REVISION
+   ========================================================= */
+
+.revision-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 12px;
+
+}
+
+
+.revision-item {
+
+    padding:
+        16px;
+
+    background:
+        white;
+
+    border:
+        1px solid #dfe7ee;
+
+    border-radius:
+        9px;
+
+}
+
+
+.revision-item strong {
+
+    color:
+        #245b91;
+
+    font-size:
+        13px;
+
+}
+
+
+.revision-item p {
+
+    margin:
+        5px 0 0;
+
+    color:
+        #71808d;
+
+    font-size:
+        11px;
+
+}
+
+
+/* =========================================================
+   COMPLETE BUTTON
+   ========================================================= */
+
+.complete-area {
+
+    margin-top:
+        35px;
+
+    text-align:
+        center;
+
+}
+
+
+.complete-button {
+
+    border: none;
+
+    border-radius: 8px;
+
+    padding:
+        12px 22px;
+
+    background:
+        #173f7a;
+
+    color:
+        white;
+
+    font-size:
+        13px;
+
+    font-weight:
+        600;
+
+    cursor:
+        pointer;
+
+}
+
+
+.complete-button:hover {
+
+    background:
+        #2868a9;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width:700px) {
+
+    .concept-flow {
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
+
+    .compare {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .revision-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .lesson-nav {
+
+        top: 65px;
+
+    }
+
+}
+
+
+@media (max-width:480px) {
+
+    .concept-flow {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
+
+<header class="site-header">
+
+    <div class="nav-container">
+
+        <a href="../index.html"
+           class="brand">
+
+            <span class="brand-icon">
+                ⚛
+            </span>
+
+            <span>
+                Interactive Physics
+            </span>
+
+        </a>
+
+
+        <nav class="main-nav">
+
+            <a href="../index.html">
+                Home
+            </a>
+
+            <a href="index.html">
+                Unit I
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     HERO
+     ===================================================== -->
+
+<section class="lesson-hero">
+
+    <div class="lesson-hero-inner">
+
+        <a href="index.html"
+           class="lesson-back">
+
+            ← Unit I — Quantum Mechanics
+
+        </a>
+
+
+        <div class="lesson-label">
+            TOPIC 01
+        </div>
+
+
+        <h1>
+            Introduction to Quantum Mechanics
+        </h1>
+
+
+        <p>
+
+            Understand why quantum mechanics was developed,
+            how classical physics differs from the microscopic
+            world, and how wave–particle duality forms one of
+            its foundations.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     LESSON NAVIGATION
+     ===================================================== -->
+
+<nav class="lesson-nav">
+
+    <div class="lesson-nav-inner">
+
+        <button class="lesson-tab active"
+                data-target="learn">
+
+            📖 Learn
+
+        </button>
+
+
+        <button class="lesson-tab"
+                data-target="visualize">
+
+            👁 Visualize
+
+        </button>
+
+
+        <button class="lesson-tab"
+                data-target="concepts">
+
+            💡 Key Concepts
+
+        </button>
+
+
+        <button class="lesson-tab"
+                data-target="practice">
+
+            ✏ Practice
+
+        </button>
+
+
+        <button class="lesson-tab"
+                data-target="revision">
+
+            🎯 Revision
+
+        </button>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     MAIN LESSON
+     ===================================================== -->
+
+<main class="lesson-container">
+
+
+
+<!-- =====================================================
+     LEARN
+     ===================================================== -->
+
+<section class="lesson-section active"
+         id="learn">
+
+
+    <div class="lesson-heading">
+
+        <span class="label">
+            LEARN
+        </span>
+
+        <h2>
+            Why Quantum Mechanics?
+        </h2>
+
+        <p>
+            Start with the physical ideas that led
+            to the development of quantum mechanics.
+        </p>
+
+    </div>
+
+
+
+    <div class="content-card">
+
+        <h3>
+            What is Quantum Mechanics?
+        </h3>
+
+
+        <p>
+
+            Quantum mechanics is the branch of physics
+            used to describe the behavior and properties
+            of microscopic systems such as electrons,
+            atoms, molecules and nuclei.
+
+        </p>
+
+
+        <p>
+
+            At the microscopic scale, several physical
+            phenomena cannot be adequately explained using
+            the laws of classical physics. Quantum mechanics
+            provides a framework for describing these
+            phenomena.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="content-card">
+
+        <h3>
+            From Classical Physics to Quantum Physics
+        </h3>
+
+
+        <p>
+
+            Classical physics provides an excellent
+            description of many macroscopic systems.
+            However, phenomena observed at atomic and
+            subatomic scales revealed that a different
+            description was necessary.
+
+        </p>
+
+
+        <div class="concept-flow">
+
+
+            <div class="concept-box">
+
+                <div class="icon">
+                    🌍
+                </div>
+
+                <strong>
+                    Classical World
+                </strong>
+
+                <span>
+                    Macroscopic objects
+                </span>
+
+            </div>
+
+
+            <div class="concept-box">
+
+                <div class="icon">
+                    🔬
+                </div>
+
+                <strong>
+                    Microscopic World
+                </strong>
+
+                <span>
+                    Atoms & electrons
+                </span>
+
+            </div>
+
+
+            <div class="concept-box">
+
+                <div class="icon">
+                    ⚠
+                </div>
+
+                <strong>
+                    Classical Limits
+                </strong>
+
+                <span>
+                    New phenomena
+                </span>
+
+            </div>
+
+
+            <div class="concept-box">
+
+                <div class="icon">
+                    ⚛
+                </div>
+
+                <strong>
+                    Quantum Mechanics
+                </strong>
+
+                <span>
+                    New framework
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <div class="content-card">
+
+        <h3>
+            Planck's Quantum Idea
+        </h3>
+
+
+        <p>
+
+            One of the important foundations of quantum
+            theory was Planck's proposal that electromagnetic
+            radiation is exchanged in discrete packets of
+            energy called quanta.
+
+        </p>
+
+
+        <div class="equation-box">
+
+            <div class="equation">
+                E = hν
+            </div>
+
+            <div class="equation-note">
+
+                Energy of a quantum of electromagnetic radiation
+
+            </div>
+
+        </div>
+
+
+        <p>
+
+            Here, <b>h</b> is Planck's constant and
+            <b>ν</b> is the frequency of radiation.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="content-card">
+
+        <h3>
+            Wave–Particle Duality
+        </h3>
+
+
+        <p>
+
+            Electromagnetic radiation shows both wave-like
+            and particle-like behavior. Wave phenomena such
+            as interference and diffraction demonstrate its
+            wave nature, while phenomena such as the
+            photoelectric effect demonstrate particle-like
+            behavior.
+
+        </p>
+
+
+        <p>
+
+            The recognition of this dual nature of radiation
+            was an important step toward the development of
+            quantum mechanics.
+
+        </p>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     VISUALIZE
+     ===================================================== -->
+
+<section class="lesson-section"
+         id="visualize">
+
+
+    <div class="lesson-heading">
+
+        <span class="label">
+            VISUALIZE
+        </span>
+
+        <h2>
+            Wave–Particle Duality
+        </h2>
+
+        <p>
+            A simple visual representation of the two
+            complementary descriptions of microscopic matter.
+        </p>
+
+    </div>
+
+
+
+    <div class="content-card">
+
+        <div class="duality">
+
+
+            <div class="wave">
+
+                <svg viewBox="0 0 800 130"
+                     preserveAspectRatio="none">
+
+                    <path
+                        class="wave-path"
+                        d="
+                        M0,65
+                        C40,10 80,120 120,65
+                        C160,10 200,120 240,65
+                        C280,10 320,120 360,65
+                        C400,10 440,120 480,65
+                        C520,10 560,120 600,65
+                        C640,10 680,120 720,65
+                        C760,10 800,120 840,65
+                        "
+                    />
+
+                </svg>
+
+            </div>
+
+
+            <div class="particle"></div>
+
+
+            <div class="duality-center">
+
+                <strong>
+                    Matter
+                </strong>
+
+                <span>
+                    wave + particle
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <div class="content-card">
+
+        <h3>
+            Wave Nature
+        </h3>
+
+
+        <ul>
+
+            <li>
+                A wave is spread over a region of space.
+            </li>
+
+            <li>
+                It is characterized by wavelength,
+                frequency, amplitude and phase.
+            </li>
+
+            <li>
+                Interference and diffraction are examples
+                of wave behavior.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+
+    <div class="content-card">
+
+        <h3>
+            Particle Nature
+        </h3>
+
+
+        <ul>
+
+            <li>
+                A particle has mass and momentum.
+            </li>
+
+            <li>
+                It carries energy.
+            </li>
+
+            <li>
+                A particle can be associated with a definite
+                position in a classical description.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+
+    <div class="content-card">
+
+        <h3>
+            Why This Matters
+        </h3>
+
+
+        <p>
+
+            The idea of wave–particle duality leads naturally
+            to the next topic: the <b>de Broglie hypothesis</b>,
+            according to which moving material particles are
+            also associated with waves.
+
+        </p>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     KEY CONCEPTS
+     ===================================================== -->
+
+<section class="lesson-section"
+         id="concepts">
+
+
+    <div class="lesson-heading">
+
+        <span class="label">
+            KEY CONCEPTS
+        </span>
+
+        <h2>
+            Classical vs Quantum Description
+        </h2>
+
+        <p>
+            Compare the two descriptions before moving
+            to matter waves.
+        </p>
+
+    </div>
+
+
+
+    <div class="compare">
+
+
+        <div class="compare-card classical">
+
+            <h3>
+                Classical Physics
+            </h3>
+
+            <ul>
+
+                <li>
+                    Mainly describes macroscopic systems.
+                </li>
+
+                <li>
+                    Position and momentum are treated
+                    as measurable quantities.
+                </li>
+
+                <li>
+                    Energy can often vary continuously.
+                </li>
+
+                <li>
+                    Particle and wave descriptions are
+                    traditionally treated separately.
+                </li>
+
+            </ul>
+
+        </div>
+
+
+
+        <div class="compare-card quantum">
+
+            <h3>
+                Quantum Mechanics
+            </h3>
+
+            <ul>
+
+                <li>
+                    Describes microscopic systems.
+                </li>
+
+                <li>
+                    Particles are represented using
+                    quantum states and wave functions.
+                </li>
+
+                <li>
+                    Physical quantities can have
+                    quantized values.
+                </li>
+
+                <li>
+                    Wave–particle duality becomes important.
+                </li>
+
+            </ul>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="content-card"
+         style="margin-top:15px;">
+
+        <h3>
+            Connection to the Next Topic
+        </h3>
+
+
+        <p>
+
+            If light can display both wave and particle
+            characteristics, Louis de Broglie proposed that
+            moving material particles should also possess
+            wave-like properties.
+
+        </p>
+
+
+        <div class="equation-box">
+
+            <div class="equation">
+                λ = h / p
+            </div>
+
+            <div class="equation-note">
+
+                de Broglie wavelength — explored in Topic 02
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     PRACTICE
+     ===================================================== -->
+
+<section class="lesson-section"
+         id="practice">
+
+
+    <div class="lesson-heading">
+
+        <span class="label">
+            PRACTICE
+        </span>
+
+        <h2>
+            Quick Check
+        </h2>
+
+        <p>
+            Test your understanding before moving ahead.
+        </p>
+
+    </div>
+
+
+
+    <!-- QUESTION 1 -->
+
+    <div class="question">
+
+        <p>
+            1. Quantum mechanics primarily deals with:
+        </p>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,true,'answer1')">
+
+            A. Only planets and stars
+
+        </button>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,false,'answer1')">
+
+            B. Microscopic particles and systems
+
+        </button>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,false,'answer1')">
+
+            C. Only mechanical machines
+
+        </button>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,false,'answer1')">
+
+            D. Only sound waves
+
+        </button>
+
+
+        <div class="answer"
+             id="answer1">
+
+            Correct answer: <b>B</b>.
+            Quantum mechanics describes microscopic
+            systems such as electrons, atoms and molecules.
+
+        </div>
+
+    </div>
+
+
+
+    <!-- QUESTION 2 -->
+
+    <div class="question">
+
+        <p>
+            2. According to Planck's quantum idea,
+            electromagnetic energy is exchanged in:
+        </p>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,false,'answer2')">
+
+            A. Arbitrarily large continuous amounts
+
+        </button>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,true,'answer2')">
+
+            B. Discrete packets called quanta
+
+        </button>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,false,'answer2')">
+
+            C. Mechanical waves only
+
+        </button>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,false,'answer2')">
+
+            D. Static fields
+
+        </button>
+
+
+        <div class="answer"
+             id="answer2">
+
+            Correct answer: <b>B</b>.
+            Planck proposed that energy is exchanged
+            in discrete packets.
+
+        </div>
+
+    </div>
+
+
+
+    <!-- QUESTION 3 -->
+
+    <div class="question">
+
+        <p>
+            3. Which phenomenon demonstrates the
+            wave nature of light?
+        </p>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,true,'answer3')">
+
+            A. Interference
+
+        </button>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,false,'answer3')">
+
+            B. Photoelectric effect
+
+        </button>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,false,'answer3')">
+
+            C. Electron emission only
+
+        </button>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,false,'answer3')">
+
+            D. Mass-energy relation
+
+        </button>
+
+
+        <div class="answer"
+             id="answer3">
+
+            Correct answer: <b>A</b>.
+            Interference is a characteristic wave phenomenon.
+
+        </div>
+
+    </div>
+
+
+
+    <!-- QUESTION 4 -->
+
+    <div class="question">
+
+        <p>
+            4. Which statement represents wave–particle duality?
+        </p>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,false,'answer4')">
+
+            A. Light behaves only as a wave
+
+        </button>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,false,'answer4')">
+
+            B. Light behaves only as particles
+
+        </button>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,true,'answer4')">
+
+            C. Light can exhibit both wave and
+            particle characteristics
+
+        </button>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,false,'answer4')">
+
+            D. Light has no physical properties
+
+        </button>
+
+
+        <div class="answer"
+             id="answer4">
+
+            Correct answer: <b>C</b>.
+            Wave–particle duality is a fundamental idea
+            leading to quantum mechanics.
+
+        </div>
+
+    </div>
+
+
+
+    <!-- QUESTION 5 -->
+
+    <div class="question">
+
+        <p>
+            5. Planck's quantum relation is:
+        </p>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,true,'answer5')">
+
+            A. E = hν
+
+        </button>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,false,'answer5')">
+
+            B. E = mc
+
+        </button>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,false,'answer5')">
+
+            C. E = mv
+
+        </button>
+
+
+        <button class="option"
+                onclick="checkAnswer(this,false,'answer5')">
+
+            D. E = h/m
+
+        </button>
+
+
+        <div class="answer"
+             id="answer5">
+
+            Correct answer: <b>A</b>.
+            Planck's relation is E = hν.
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     REVISION
+     ===================================================== -->
+
+<section class="lesson-section"
+         id="revision">
+
+
+    <div class="lesson-heading">
+
+        <span class="label">
+            QUICK REVISION
+        </span>
+
+        <h2>
+            Remember These Points
+        </h2>
+
+        <p>
+            A compact revision sheet for examination preparation.
+        </p>
+
+    </div>
+
+
+
+    <div class="revision-grid">
+
+
+        <div class="revision-item">
+
+            <strong>
+                Quantum Mechanics
+            </strong>
+
+            <p>
+                Describes microscopic particles and systems.
+            </p>
+
+        </div>
+
+
+        <div class="revision-item">
+
+            <strong>
+                Planck's Quantum Idea
+            </strong>
+
+            <p>
+                Energy is exchanged in discrete packets
+                called quanta.
+            </p>
+
+        </div>
+
+
+        <div class="revision-item">
+
+            <strong>
+                Quantum Relation
+            </strong>
+
+            <p>
+                E = hν
+            </p>
+
+        </div>
+
+
+        <div class="revision-item">
+
+            <strong>
+                Wave Nature
+            </strong>
+
+            <p>
+                Interference and diffraction demonstrate
+                wave behavior.
+            </p>
+
+        </div>
+
+
+        <div class="revision-item">
+
+            <strong>
+                Particle Nature
+            </strong>
+
+            <p>
+                Photoelectric and Compton effects demonstrate
+                particle-like behavior of radiation.
+            </p>
+
+        </div>
+
+
+        <div class="revision-item">
+
+            <strong>
+                Wave–Particle Duality
+            </strong>
+
+            <p>
+                Microscopic phenomena require both
+                wave and particle descriptions.
+            </p>
+
+        </div>
+
+
+        <div class="revision-item">
+
+            <strong>
+                de Broglie Connection
+            </strong>
+
+            <p>
+                Moving material particles are associated
+                with matter waves.
+            </p>
+
+        </div>
+
+
+        <div class="revision-item">
+
+            <strong>
+                Next Topic
+            </strong>
+
+            <p>
+                de Broglie hypothesis and matter-wave
+                wavelength.
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="complete-area">
+
+        <button class="complete-button"
+                onclick="completeIntroduction()">
+
+            ✓ Mark Topic as Completed
+
+        </button>
+
+    </div>
+
+
+</section>
+
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer class="site-footer">
+
+    <div>
+
+        <strong>
+            Interactive Engineering Physics
+        </strong>
+
+        <p>
+            Unit I • Topic 01 • Quantum Mechanics
+        </p>
+
+    </div>
+
+
+    <div class="footer-right">
+
+        <a href="index.html"
+           style="text-decoration:none;">
+
+            ← Unit I
+
+        </a>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
+
+<script src="../assets/js/lesson.js"></script>
+
+
+<script>
+
+/* =========================================================
+   TAB SYSTEM
+   ========================================================= */
+
+const tabs =
+    document.querySelectorAll(
+        ".lesson-tab"
+    );
+
+
+const sections =
+    document.querySelectorAll(
+        ".lesson-section"
+    );
+
+
+tabs.forEach(
+    function(tab) {
+
+        tab.addEventListener(
+            "click",
+            function() {
+
+                const target =
+                    tab.dataset.target;
+
+
+                tabs.forEach(
+                    function(item) {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                sections.forEach(
+                    function(section) {
+
+                        section.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                tab.classList.add(
+                    "active"
+                );
+
+
+                document
+                    .getElementById(target)
+                    .classList.add(
+                        "active"
+                    );
+
+
+                window.scrollTo({
+
+                    top: 0,
+
+                    behavior: "smooth"
+
+                });
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   QUICK CHECK
+   ========================================================= */
+
+function checkAnswer(
+    button,
+    correct,
+    answerID
+) {
+
+    const question =
+        button.closest(
+            ".question"
+        );
+
+
+    const options =
+        question.querySelectorAll(
+            ".option"
+        );
+
+
+    options.forEach(
+        function(option) {
+
+            option.disabled = true;
+
+        }
+    );
+
+
+    if (correct) {
+
+        button.classList.add(
+            "correct"
+        );
+
+    }
+
+    else {
+
+        button.classList.add(
+            "wrong"
+        );
+
+
+        options.forEach(
+            function(option) {
+
+                /*
+                 * The correct option is identified
+                 * from the answer text rather than
+                 * exposing the answer immediately.
+                 */
+
+            }
+        );
+
+    }
+
+
+    document
+        .getElementById(answerID)
+        .classList.add(
+            "show"
+        );
+
+}
+
+
+/* =========================================================
+   COMPLETE TOPIC
+   ========================================================= */
+
+function completeIntroduction() {
+
+    if (
+        typeof completeTopic ===
+        "function"
+    ) {
+
+        completeTopic(
+            "unit1",
+            "introduction"
+        );
+
+    }
+
+    else {
+
+        localStorage.setItem(
+            "unit1-introduction-completed",
+            "true"
+        );
+
+        alert(
+            "Topic completed ✓"
+        );
+
+    }
+
+}
+
+</script>
+
+
+</body>
+
+</html>
