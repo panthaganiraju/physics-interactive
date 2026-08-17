@@ -8,413 +8,13 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>Interactive Physics</title>
+<meta name="description"
+      content="Interactive Engineering Physics learning resources">
 
+<title>Interactive Engineering Physics</title>
 
-<style>
-
-/* =========================================================
-   GLOBAL
-   ========================================================= */
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-
-    margin: 0;
-
-    font-family:
-        "Segoe UI",
-        Arial,
-        sans-serif;
-
-    background:
-        linear-gradient(
-            135deg,
-            #eef5fb,
-            #ffffff
-        );
-
-    color: #263238;
-}
-
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.header {
-
-    background:
-        linear-gradient(
-            135deg,
-            #173f7a,
-            #2868a9
-        );
-
-    color: white;
-
-    padding:
-        55px 20px 50px;
-
-    text-align: center;
-}
-
-.header h1 {
-
-    margin: 0;
-
-    font-size: 42px;
-
-    letter-spacing: 0.5px;
-}
-
-.header p {
-
-    margin:
-        12px auto 0;
-
-    max-width: 700px;
-
-    font-size: 17px;
-
-    opacity: 0.92;
-
-    line-height: 1.6;
-}
-
-
-/* =========================================================
-   MAIN CONTENT
-   ========================================================= */
-
-.container {
-
-    max-width: 1100px;
-
-    margin:
-        35px auto;
-
-    padding:
-        0 20px 50px;
-}
-
-
-/* =========================================================
-   INTRO
-   ========================================================= */
-
-.intro {
-
-    text-align: center;
-
-    max-width: 800px;
-
-    margin:
-        0 auto 35px;
-
-    color: #526273;
-}
-
-.intro h2 {
-
-    color: #173f7a;
-
-    margin-bottom: 8px;
-}
-
-
-/* =========================================================
-   UNIT GRID
-   ========================================================= */
-
-.unit-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(
-                280px,
-                1fr
-            )
-        );
-
-    gap: 22px;
-}
-
-
-/* =========================================================
-   UNIT CARD
-   ========================================================= */
-
-.unit-card {
-
-    background: white;
-
-    border:
-        1px solid #dce6ef;
-
-    border-radius: 16px;
-
-    padding: 25px;
-
-    box-shadow:
-        0 6px 22px
-        rgba(
-            30,
-            70,
-            110,
-            0.08
-        );
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.unit-card:hover {
-
-    transform:
-        translateY(
-            -5px
-        );
-
-    box-shadow:
-        0 12px 30px
-        rgba(
-            30,
-            70,
-            110,
-            0.14
-        );
-}
-
-
-/* =========================================================
-   UNIT NUMBER
-   ========================================================= */
-
-.unit-number {
-
-    display: inline-block;
-
-    background:
-        #e6f0f8;
-
-    color:
-        #245b91;
-
-    padding:
-        5px 10px;
-
-    border-radius:
-        6px;
-
-    font-size:
-        12px;
-
-    font-weight:
-        bold;
-
-    letter-spacing:
-        0.5px;
-}
-
-
-/* =========================================================
-   UNIT TITLE
-   ========================================================= */
-
-.unit-card h3 {
-
-    color:
-        #173f7a;
-
-    margin:
-        13px 0 15px;
-
-    font-size:
-        21px;
-}
-
-
-/* =========================================================
-   TOPIC LIST
-   ========================================================= */
-
-.topic-list {
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    gap:
-        9px;
-}
-
-
-/* =========================================================
-   TOPIC LINK
-   ========================================================= */
-
-.topic {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        space-between;
-
-    text-decoration:
-        none;
-
-    color:
-        #334e68;
-
-    background:
-        #f7fafc;
-
-    border:
-        1px solid #e3eaf0;
-
-    border-radius:
-        9px;
-
-    padding:
-        10px 12px;
-
-    font-size:
-        14px;
-
-    transition:
-        0.2s ease;
-}
-
-.topic:hover {
-
-    background:
-        #edf5fb;
-
-    color:
-        #1d5c9e;
-
-    border-color:
-        #b9d3e8;
-
-    transform:
-        translateX(
-            3px
-        );
-}
-
-
-/* =========================================================
-   ARROW
-   ========================================================= */
-
-.arrow {
-
-    color:
-        #2868a9;
-
-    font-weight:
-        bold;
-
-    font-size:
-        16px;
-}
-
-
-/* =========================================================
-   COMING SOON
-   ========================================================= */
-
-.coming-soon {
-
-    opacity:
-        0.58;
-
-    cursor:
-        default;
-}
-
-.coming-soon:hover {
-
-    transform:
-        none;
-
-    background:
-        #f7fafc;
-
-    color:
-        #334e68;
-
-    border-color:
-        #e3eaf0;
-}
-
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-.footer {
-
-    text-align:
-        center;
-
-    padding:
-        25px 15px;
-
-    border-top:
-        1px solid #dfe7ee;
-
-    color:
-        #718096;
-
-    font-size:
-        13px;
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (
-    max-width: 600px
-) {
-
-    .header h1 {
-
-        font-size:
-            30px;
-    }
-
-    .header p {
-
-        font-size:
-            15px;
-    }
-
-    .container {
-
-        padding:
-            0 12px 40px;
-    }
-
-}
-
-</style>
+<link rel="stylesheet"
+      href="assets/css/physics.css">
 
 </head>
 
@@ -422,488 +22,842 @@ body {
 <body>
 
 
-<!-- =========================================================
-     HEADER
-     ========================================================= -->
+<!-- =====================================================
+     TOP NAVIGATION
+     ===================================================== -->
 
-<header class="header">
+<header class="site-header">
 
-    <h1>
-        Interactive Physics
-    </h1>
+    <div class="nav-container">
 
-    <p>
-        Engineering Physics – Interactive Learning Resources
-    </p>
+        <a href="index.html"
+           class="brand">
+
+            <span class="brand-icon">⚛</span>
+
+            <span>
+                Interactive Physics
+            </span>
+
+        </a>
+
+
+        <nav class="main-nav">
+
+            <a href="#units">
+                Units
+            </a>
+
+            <a href="#features">
+                Features
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+        </nav>
+
+    </div>
 
 </header>
 
 
-<!-- =========================================================
-     MAIN
-     ========================================================= -->
 
-<main class="container">
+<!-- =====================================================
+     HERO
+     ===================================================== -->
 
+<section class="hero">
 
-<div class="intro">
+    <div class="hero-content">
 
-    <h2>
-        Explore Physics Interactively
-    </h2>
+        <div class="hero-badge">
 
-    <p>
-        Step-by-step explanations, derivations,
-        animations and interactive learning resources
-        for Engineering Physics.
-    </p>
+            ENGINEERING PHYSICS
 
-</div>
+        </div>
 
 
-<!-- =========================================================
-     UNIT GRID
-     ========================================================= -->
+        <h1>
 
-<div class="unit-grid">
+            Learn Physics.
+            <br>
 
+            <span>See It. Explore It. Understand It.</span>
 
-<!-- =======================================================
-     UNIT I
-     ======================================================= -->
-
-<div class="unit-card">
-
-    <span class="unit-number">
-        UNIT I
-    </span>
-
-    <h3>
-        Quantum Physics
-    </h3>
+        </h1>
 
 
-    <div class="topic-list">
+        <p class="hero-description">
+
+            An interactive learning platform for
+            Engineering students — combining concepts,
+            visualizations, derivations, simulations,
+            practice and revision.
+
+        </p>
 
 
-        <a
-            class="topic"
-            href="schrodinger-time-independent.html">
+        <div class="hero-actions">
 
-            <span>
-                Schrödinger Time-Independent
-                Wave Equation
-            </span>
+            <a href="#units"
+               class="btn btn-primary">
 
-            <span class="arrow">
-                →
-            </span>
+                Start Learning
 
-        </a>
+                <span>→</span>
+
+            </a>
 
 
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
+            <a href="#features"
+               class="btn btn-secondary">
 
-            <span>
-                de Broglie Hypothesis
-            </span>
+                Explore Features
 
-            <span class="arrow">
-                →
-            </span>
+            </a>
 
-        </a>
-
-
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
-
-            <span>
-                Heisenberg Uncertainty Principle
-            </span>
-
-            <span class="arrow">
-                →
-            </span>
-
-        </a>
-
-
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
-
-            <span>
-                Dual Nature of Matter
-            </span>
-
-            <span class="arrow">
-                →
-            </span>
-
-        </a>
-
+        </div>
 
     </div>
 
-</div>
+
+    <!-- Decorative physics graphic -->
+
+    <div class="hero-visual">
+
+        <div class="orbit orbit-1"></div>
+
+        <div class="orbit orbit-2"></div>
+
+        <div class="orbit orbit-3"></div>
+
+        <div class="atom-core">
+
+            ψ
+
+        </div>
+
+    </div>
+
+</section>
 
 
-<!-- =======================================================
+
+<!-- =====================================================
+     LEARNING PHILOSOPHY
+     ===================================================== -->
+
+<section class="learning-strip">
+
+    <div class="learning-item">
+
+        <span class="learning-icon">📖</span>
+
+        <div>
+
+            <strong>Learn</strong>
+
+            <small>
+                Understand the concept
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="learning-arrow">
+        →
+    </div>
+
+
+    <div class="learning-item">
+
+        <span class="learning-icon">👁</span>
+
+        <div>
+
+            <strong>Visualize</strong>
+
+            <small>
+                See the physics
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="learning-arrow">
+        →
+    </div>
+
+
+    <div class="learning-item">
+
+        <span class="learning-icon">⚙</span>
+
+        <div>
+
+            <strong>Experiment</strong>
+
+            <small>
+                Interact with it
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="learning-arrow">
+        →
+    </div>
+
+
+    <div class="learning-item">
+
+        <span class="learning-icon">✏</span>
+
+        <div>
+
+            <strong>Practice</strong>
+
+            <small>
+                Test yourself
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="learning-arrow">
+        →
+    </div>
+
+
+    <div class="learning-item">
+
+        <span class="learning-icon">🎯</span>
+
+        <div>
+
+            <strong>Revise</strong>
+
+            <small>
+                Remember the essentials
+            </small>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+     ===================================================== -->
+
+<main class="main-container"
+      id="units">
+
+
+<!-- =====================================================
+     SECTION TITLE
+     ===================================================== -->
+
+<section class="section-heading">
+
+    <div>
+
+        <span class="section-label">
+            COURSE CONTENT
+        </span>
+
+        <h2>
+            Engineering Physics
+        </h2>
+
+    </div>
+
+
+    <p>
+
+        Select a unit to explore concepts,
+        derivations, simulations and practice.
+
+    </p>
+
+</section>
+
+
+
+<!-- =====================================================
+     UNIT GRID
+     ===================================================== -->
+
+<section class="unit-grid">
+
+
+
+<!-- =====================================================
+     UNIT I
+     ===================================================== -->
+
+<article class="unit-card unit-active">
+
+    <div class="unit-top">
+
+        <span class="unit-number">
+            I
+        </span>
+
+        <span class="unit-status active">
+            Available
+        </span>
+
+    </div>
+
+
+    <div class="unit-icon">
+        ⚛
+    </div>
+
+
+    <h3>
+        Quantum Mechanics
+    </h3>
+
+
+    <p>
+
+        Wave-particle duality, uncertainty principle,
+        wave functions, Schrödinger equation,
+        energy bands and quantum confinement.
+
+    </p>
+
+
+    <div class="unit-meta">
+
+        <span>
+            11 Topics
+        </span>
+
+        <span>
+            •
+        </span>
+
+        <span>
+            Interactive
+        </span>
+
+    </div>
+
+
+    <a href="unit-1/index.html"
+       class="unit-button">
+
+        Explore Unit I
+
+        <span>→</span>
+
+    </a>
+
+</article>
+
+
+
+<!-- =====================================================
      UNIT II
-     ======================================================= -->
+     ===================================================== -->
 
-<div class="unit-card">
+<article class="unit-card">
 
-    <span class="unit-number">
-        UNIT II
-    </span>
+    <div class="unit-top">
+
+        <span class="unit-number">
+            II
+        </span>
+
+        <span class="unit-status">
+            Coming Soon
+        </span>
+
+    </div>
+
+
+    <div class="unit-icon">
+        ◈
+    </div>
+
 
     <h3>
         Semiconductor Physics
     </h3>
 
 
-    <div class="topic-list">
+    <p>
+
+        Semiconductor fundamentals, carrier
+        concentration, Fermi level, junctions,
+        devices and applications.
+
+    </p>
 
 
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
+    <div class="unit-meta">
 
-            <span>
-                Intrinsic Semiconductor
-            </span>
-
-            <span class="arrow">
-                →
-            </span>
-
-        </a>
-
-
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
-
-            <span>
-                Extrinsic Semiconductor
-            </span>
-
-            <span class="arrow">
-                →
-            </span>
-
-        </a>
-
-
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
-
-            <span>
-                Fermi Level
-            </span>
-
-            <span class="arrow">
-                →
-            </span>
-
-        </a>
-
-
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
-
-            <span>
-                Semiconductor Devices
-            </span>
-
-            <span class="arrow">
-                →
-            </span>
-
-        </a>
-
+        <span>
+            In Development
+        </span>
 
     </div>
 
-</div>
+
+    <button class="unit-button disabled">
+
+        Coming Soon
+
+    </button>
+
+</article>
 
 
-<!-- =======================================================
+
+<!-- =====================================================
      UNIT III
-     ======================================================= -->
+     ===================================================== -->
 
-<div class="unit-card">
+<article class="unit-card">
 
-    <span class="unit-number">
-        UNIT III
-    </span>
+    <div class="unit-top">
+
+        <span class="unit-number">
+            III
+        </span>
+
+        <span class="unit-status">
+            Coming Soon
+        </span>
+
+    </div>
+
+
+    <div class="unit-icon">
+        ◉
+    </div>
+
 
     <h3>
         Laser & Fibre Optics
     </h3>
 
 
-    <div class="topic-list">
+    <p>
+
+        Laser principles, Einstein coefficients,
+        Ruby and He-Ne lasers, semiconductor lasers
+        and optical fibre communication.
+
+    </p>
 
 
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
+    <div class="unit-meta">
 
-            <span>
-                Ruby Laser
-            </span>
-
-            <span class="arrow">
-                →
-            </span>
-
-        </a>
-
-
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
-
-            <span>
-                He-Ne Laser
-            </span>
-
-            <span class="arrow">
-                →
-            </span>
-
-        </a>
-
-
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
-
-            <span>
-                Semiconductor Laser
-            </span>
-
-            <span class="arrow">
-                →
-            </span>
-
-        </a>
-
-
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
-
-            <span>
-                Optical Fibre
-            </span>
-
-            <span class="arrow">
-                →
-            </span>
-
-        </a>
-
+        <span>
+            In Development
+        </span>
 
     </div>
 
-</div>
+
+    <button class="unit-button disabled">
+
+        Coming Soon
+
+    </button>
+
+</article>
 
 
-<!-- =======================================================
+
+<!-- =====================================================
      UNIT IV
-     ======================================================= -->
+     ===================================================== -->
 
-<div class="unit-card">
+<article class="unit-card">
 
-    <span class="unit-number">
-        UNIT IV
-    </span>
+    <div class="unit-top">
+
+        <span class="unit-number">
+            IV
+        </span>
+
+        <span class="unit-status">
+            Coming Soon
+        </span>
+
+    </div>
+
+
+    <div class="unit-icon">
+        ⬡
+    </div>
+
 
     <h3>
         Magnetic & Dielectric Materials
     </h3>
 
 
-    <div class="topic-list">
+    <p>
+
+        Magnetic properties, hysteresis, ferrites,
+        dielectric materials, ferroelectricity,
+        piezoelectricity and applications.
+
+    </p>
 
 
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
+    <div class="unit-meta">
 
-            <span>
-                Magnetic Materials
-            </span>
-
-            <span class="arrow">
-                →
-            </span>
-
-        </a>
-
-
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
-
-            <span>
-                Ferroelectricity
-            </span>
-
-            <span class="arrow">
-                →
-            </span>
-
-        </a>
-
-
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
-
-            <span>
-                Piezoelectric & Pyroelectric Materials
-            </span>
-
-            <span class="arrow">
-                →
-            </span>
-
-        </a>
-
-
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
-
-            <span>
-                Ferrites & Applications
-            </span>
-
-            <span class="arrow">
-                →
-            </span>
-
-        </a>
-
+        <span>
+            In Development
+        </span>
 
     </div>
 
-</div>
+
+    <button class="unit-button disabled">
+
+        Coming Soon
+
+    </button>
+
+</article>
 
 
-<!-- =======================================================
+
+<!-- =====================================================
      UNIT V
-     ======================================================= -->
+     ===================================================== -->
 
-<div class="unit-card">
+<article class="unit-card">
 
-    <span class="unit-number">
-        UNIT V
-    </span>
+    <div class="unit-top">
+
+        <span class="unit-number">
+            V
+        </span>
+
+        <span class="unit-status">
+            Coming Soon
+        </span>
+
+    </div>
+
+
+    <div class="unit-icon">
+        ∞
+    </div>
+
 
     <h3>
         Modern Physics
     </h3>
 
 
-    <div class="topic-list">
+    <p>
+
+        Modern physics concepts, nanomaterials,
+        advanced materials and emerging applications.
+
+    </p>
 
 
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
+    <div class="unit-meta">
 
-            <span>
-                X-Ray Diffraction
+        <span>
+            In Development
+        </span>
+
+    </div>
+
+
+    <button class="unit-button disabled">
+
+        Coming Soon
+
+    </button>
+
+</article>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     FEATURES
+     ===================================================== -->
+
+<section class="features-section"
+         id="features">
+
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="section-label">
+                LEARNING TOOLS
             </span>
 
-            <span class="arrow">
-                →
-            </span>
+            <h2>
+                More Than Digital Notes
+            </h2>
 
-        </a>
-
-
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
-
-            <span>
-                Nanomaterials
-            </span>
-
-            <span class="arrow">
-                →
-            </span>
-
-        </a>
+        </div>
 
 
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
+        <p>
 
-            <span>
-                Energy Applications
-            </span>
+            Each topic will combine explanation
+            with interactive learning.
 
-            <span class="arrow">
-                →
-            </span>
+        </p>
 
-        </a>
+    </div>
 
 
-        <a
-            class="topic coming-soon"
-            href="javascript:void(0)">
 
-            <span>
-                Advanced Materials
-            </span>
+    <div class="feature-grid">
 
-            <span class="arrow">
-                →
-            </span>
 
-        </a>
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📖
+            </div>
+
+            <h3>
+                Concept Learning
+            </h3>
+
+            <p>
+                Clear, structured explanations
+                designed specifically for
+                Engineering students.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🎬
+            </div>
+
+            <h3>
+                Visualizations
+            </h3>
+
+            <p>
+                See wave functions, energy levels,
+                bands, fields and physical processes
+                instead of only reading about them.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                ⚙
+            </div>
+
+            <h3>
+                Simulations
+            </h3>
+
+            <p>
+                Change parameters and observe how
+                physical quantities respond.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                ✏
+            </div>
+
+            <h3>
+                Step-by-Step Derivations
+            </h3>
+
+            <p>
+                Follow mathematical derivations at
+                your own pace with pause and resume.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🧠
+            </div>
+
+            <h3>
+                Practice
+            </h3>
+
+            <p>
+                Check understanding with conceptual
+                and numerical questions.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🎯
+            </div>
+
+            <h3>
+                Quick Revision
+            </h3>
+
+            <p>
+                Important equations, definitions and
+                key points for examination preparation.
+            </p>
+
+        </div>
 
 
     </div>
 
-</div>
+</section>
 
 
-</div>
+
+<!-- =====================================================
+     ABOUT
+     ===================================================== -->
+
+<section class="about-section"
+         id="about">
+
+
+    <div class="about-content">
+
+        <span class="section-label">
+            OUR APPROACH
+        </span>
+
+
+        <h2>
+            From Memorizing Physics
+            <br>
+            to Understanding Physics
+        </h2>
+
+
+        <p>
+
+            Engineering Physics becomes much easier when
+            students can see the relationship between an
+            equation, a physical concept and its real-world
+            application.
+
+        </p>
+
+
+        <p>
+
+            This platform is being developed as an
+            interactive companion for Engineering Physics,
+            combining theory, visualization, simulation,
+            derivation and assessment in one place.
+
+        </p>
+
+    </div>
+
+
+    <div class="about-equation">
+
+        <div class="equation-symbol">
+            ψ
+        </div>
+
+        <div class="equation-line">
+            Learn
+            <span>→</span>
+            Visualize
+            <span>→</span>
+            Understand
+        </div>
+
+    </div>
+
+</section>
 
 
 </main>
 
 
-<!-- =========================================================
+
+<!-- =====================================================
      FOOTER
-     ========================================================= -->
+     ===================================================== -->
 
-<footer class="footer">
+<footer class="site-footer">
 
-    Interactive Physics Learning Resources
+    <div>
 
-    <br>
+        <strong>
+            Interactive Engineering Physics
+        </strong>
 
-    Engineering Physics
+        <p>
+            Learn • Visualize • Experiment • Practice • Revise
+        </p>
+
+    </div>
+
+
+    <div class="footer-right">
+
+        GitHub Pages
+
+    </div>
 
 </footer>
 
+
+
+<script src="assets/js/lesson.js"></script>
 
 </body>
 
