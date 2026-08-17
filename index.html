@@ -1,20 +1,910 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Interactive Physics</title>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Interactive Physics</title>
+
+
+<style>
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef5fb,
+            #ffffff
+        );
+
+    color: #263238;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+
+    background:
+        linear-gradient(
+            135deg,
+            #173f7a,
+            #2868a9
+        );
+
+    color: white;
+
+    padding:
+        55px 20px 50px;
+
+    text-align: center;
+}
+
+.header h1 {
+
+    margin: 0;
+
+    font-size: 42px;
+
+    letter-spacing: 0.5px;
+}
+
+.header p {
+
+    margin:
+        12px auto 0;
+
+    max-width: 700px;
+
+    font-size: 17px;
+
+    opacity: 0.92;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.container {
+
+    max-width: 1100px;
+
+    margin:
+        35px auto;
+
+    padding:
+        0 20px 50px;
+}
+
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.intro {
+
+    text-align: center;
+
+    max-width: 800px;
+
+    margin:
+        0 auto 35px;
+
+    color: #526273;
+}
+
+.intro h2 {
+
+    color: #173f7a;
+
+    margin-bottom: 8px;
+}
+
+
+/* =========================================================
+   UNIT GRID
+   ========================================================= */
+
+.unit-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(
+                280px,
+                1fr
+            )
+        );
+
+    gap: 22px;
+}
+
+
+/* =========================================================
+   UNIT CARD
+   ========================================================= */
+
+.unit-card {
+
+    background: white;
+
+    border:
+        1px solid #dce6ef;
+
+    border-radius: 16px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 6px 22px
+        rgba(
+            30,
+            70,
+            110,
+            0.08
+        );
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.unit-card:hover {
+
+    transform:
+        translateY(
+            -5px
+        );
+
+    box-shadow:
+        0 12px 30px
+        rgba(
+            30,
+            70,
+            110,
+            0.14
+        );
+}
+
+
+/* =========================================================
+   UNIT NUMBER
+   ========================================================= */
+
+.unit-number {
+
+    display: inline-block;
+
+    background:
+        #e6f0f8;
+
+    color:
+        #245b91;
+
+    padding:
+        5px 10px;
+
+    border-radius:
+        6px;
+
+    font-size:
+        12px;
+
+    font-weight:
+        bold;
+
+    letter-spacing:
+        0.5px;
+}
+
+
+/* =========================================================
+   UNIT TITLE
+   ========================================================= */
+
+.unit-card h3 {
+
+    color:
+        #173f7a;
+
+    margin:
+        13px 0 15px;
+
+    font-size:
+        21px;
+}
+
+
+/* =========================================================
+   TOPIC LIST
+   ========================================================= */
+
+.topic-list {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        9px;
+}
+
+
+/* =========================================================
+   TOPIC LINK
+   ========================================================= */
+
+.topic {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    text-decoration:
+        none;
+
+    color:
+        #334e68;
+
+    background:
+        #f7fafc;
+
+    border:
+        1px solid #e3eaf0;
+
+    border-radius:
+        9px;
+
+    padding:
+        10px 12px;
+
+    font-size:
+        14px;
+
+    transition:
+        0.2s ease;
+}
+
+.topic:hover {
+
+    background:
+        #edf5fb;
+
+    color:
+        #1d5c9e;
+
+    border-color:
+        #b9d3e8;
+
+    transform:
+        translateX(
+            3px
+        );
+}
+
+
+/* =========================================================
+   ARROW
+   ========================================================= */
+
+.arrow {
+
+    color:
+        #2868a9;
+
+    font-weight:
+        bold;
+
+    font-size:
+        16px;
+}
+
+
+/* =========================================================
+   COMING SOON
+   ========================================================= */
+
+.coming-soon {
+
+    opacity:
+        0.58;
+
+    cursor:
+        default;
+}
+
+.coming-soon:hover {
+
+    transform:
+        none;
+
+    background:
+        #f7fafc;
+
+    color:
+        #334e68;
+
+    border-color:
+        #e3eaf0;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+
+    text-align:
+        center;
+
+    padding:
+        25px 15px;
+
+    border-top:
+        1px solid #dfe7ee;
+
+    color:
+        #718096;
+
+    font-size:
+        13px;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (
+    max-width: 600px
+) {
+
+    .header h1 {
+
+        font-size:
+            30px;
+    }
+
+    .header p {
+
+        font-size:
+            15px;
+    }
+
+    .container {
+
+        padding:
+            0 12px 40px;
+    }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-<h1>Interactive Physics</h1>
 
-<h2>Advanced Engineering Physics</h2>
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
 
-<p>
-<a href="schrodinger-time-independent.html">
-Schrödinger Time-Independent Wave Equation
-</a>
-</p>
+<header class="header">
+
+    <h1>
+        Interactive Physics
+    </h1>
+
+    <p>
+        Engineering Physics – Interactive Learning Resources
+    </p>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
+<main class="container">
+
+
+<div class="intro">
+
+    <h2>
+        Explore Physics Interactively
+    </h2>
+
+    <p>
+        Step-by-step explanations, derivations,
+        animations and interactive learning resources
+        for Engineering Physics.
+    </p>
+
+</div>
+
+
+<!-- =========================================================
+     UNIT GRID
+     ========================================================= -->
+
+<div class="unit-grid">
+
+
+<!-- =======================================================
+     UNIT I
+     ======================================================= -->
+
+<div class="unit-card">
+
+    <span class="unit-number">
+        UNIT I
+    </span>
+
+    <h3>
+        Quantum Physics
+    </h3>
+
+
+    <div class="topic-list">
+
+
+        <a
+            class="topic"
+            href="schrodinger-time-independent.html">
+
+            <span>
+                Schrödinger Time-Independent
+                Wave Equation
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                de Broglie Hypothesis
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                Heisenberg Uncertainty Principle
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                Dual Nature of Matter
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+    </div>
+
+</div>
+
+
+<!-- =======================================================
+     UNIT II
+     ======================================================= -->
+
+<div class="unit-card">
+
+    <span class="unit-number">
+        UNIT II
+    </span>
+
+    <h3>
+        Semiconductor Physics
+    </h3>
+
+
+    <div class="topic-list">
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                Intrinsic Semiconductor
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                Extrinsic Semiconductor
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                Fermi Level
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                Semiconductor Devices
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+    </div>
+
+</div>
+
+
+<!-- =======================================================
+     UNIT III
+     ======================================================= -->
+
+<div class="unit-card">
+
+    <span class="unit-number">
+        UNIT III
+    </span>
+
+    <h3>
+        Laser & Fibre Optics
+    </h3>
+
+
+    <div class="topic-list">
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                Ruby Laser
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                He-Ne Laser
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                Semiconductor Laser
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                Optical Fibre
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+    </div>
+
+</div>
+
+
+<!-- =======================================================
+     UNIT IV
+     ======================================================= -->
+
+<div class="unit-card">
+
+    <span class="unit-number">
+        UNIT IV
+    </span>
+
+    <h3>
+        Magnetic & Dielectric Materials
+    </h3>
+
+
+    <div class="topic-list">
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                Magnetic Materials
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                Ferroelectricity
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                Piezoelectric & Pyroelectric Materials
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                Ferrites & Applications
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+    </div>
+
+</div>
+
+
+<!-- =======================================================
+     UNIT V
+     ======================================================= -->
+
+<div class="unit-card">
+
+    <span class="unit-number">
+        UNIT V
+    </span>
+
+    <h3>
+        Modern Physics
+    </h3>
+
+
+    <div class="topic-list">
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                X-Ray Diffraction
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                Nanomaterials
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                Energy Applications
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a
+            class="topic coming-soon"
+            href="javascript:void(0)">
+
+            <span>
+                Advanced Materials
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer class="footer">
+
+    Interactive Physics Learning Resources
+
+    <br>
+
+    Engineering Physics
+
+</footer>
+
 
 </body>
+
 </html>
