@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Physical Significance of Wave Function - Interactive Engineering Physics">
+<title>Physical Significance of Wave Function | Interactive Physics</title>
+<link rel="stylesheet" href="../assets/css/physics.css">
+
+<style>
+.lesson-hero{background:linear-gradient(135deg,#102f5d,#173f7a 55%,#236795);color:#fff;padding:42px 22px 48px}
+.lesson-hero-inner{max-width:1180px;margin:auto}
+.lesson-back{color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:20px}
+.lesson-back:hover{color:#fff}
+.lesson-label{font-size:10px;letter-spacing:1.5px;opacity:.75}
+.lesson-hero h1{margin:8px 0 12px;font-size:clamp(34px,5vw,52px);line-height:1.1}
+.lesson-hero p{max-width:800px;margin:0;color:rgba(255,255,255,.8);font-size:15px}
+.lesson-nav{position:sticky;top:65px;z-index:100;background:#fff;border-bottom:1px solid #dfe7ee}
+.lesson-nav-inner{max-width:1180px;margin:auto;padding:0 22px;display:flex;overflow-x:auto}
+.lesson-tab{flex-shrink:0;border:none;background:transparent;padding:14px 17px;color:#687887;font-size:12px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent}
+.lesson-tab:hover{color:#173f7a}
+.lesson-tab.active{color:#173f7a;border-bottom-color:#2868a9}
+.lesson-container{max-width:1000px;margin:auto;padding:40px 22px 90px}
+.lesson-section{display:none}
+.lesson-section.active{display:block}
+.lesson-heading{margin-bottom:25px}
+.lesson-heading .label{color:#2868a9;font-size:10px;font-weight:700;letter-spacing:1.5px}
+.lesson-heading h2{margin:5px 0 8px;color:#173f7a;font-size:30px}
+.lesson-heading p{color:#71808d;font-size:14px}
+.content-card{background:#fff;border:1px solid #dfe7ee;border-radius:13px;padding:25px;margin-bottom:18px;box-shadow:0 4px 18px rgba(30,65,100,.04)}
+.content-card h3{margin:0 0 10px;color:#245b91;font-size:19px}
+.content-card p,.content-card li{color:#536575;font-size:14px;line-height:1.8}
+.content-card ul{line-height:1.9}
+.equation-box{margin:18px 0;padding:22px;text-align:center;border-radius:11px;background:#f5f8fb;border:1px solid #dfe7ee}
+.equation{font-family:Georgia,serif;color:#173f7a;font-size:29px}
+.equation.small{font-size:22px}
+.equation-note{color:#7a8996;font-size:11px;margin-top:7px}
+.key-box{padding:23px 27px;border-left:5px solid #2868a9;background:#f4f8fb;border-radius:10px;color:#314657;font-size:16px;line-height:1.7}
+.symbol-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.symbol-card{padding:19px 12px;text-align:center;background:#f5f8fb;border:1px solid #dfe7ee;border-radius:10px}
+.symbol-card strong{display:block;color:#245b91;font-family:Georgia,serif;font-size:25px}
+.symbol-card span{display:block;color:#71808d;font-size:11px;margin-top:6px}
+.process{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.process-card{position:relative;padding:22px 17px;background:#fff;border:1px solid #dfe7ee;border-radius:11px;text-align:center}
+.process-number{width:30px;height:30px;border-radius:50%;background:#173f7a;color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:11px;font-weight:700}
+.process-card h3{font-size:15px;margin:0 0 7px;color:#245b91}
+.process-card p{font-size:11px!important;line-height:1.6!important;margin:0}
+.probability-visual{background:#f5f8fb;border:1px solid #dfe7ee;border-radius:13px;padding:20px}
+.graph-wrap{position:relative;height:330px;background:#fff;border:1px solid #dfe7ee;border-radius:10px;overflow:hidden}
+.graph-wrap svg{width:100%;height:100%;display:block}
+.axis{stroke:#aebdca;stroke-width:1.2}
+.wave-line{fill:none;stroke:#2868a9;stroke-width:3}
+.probability-fill{fill:rgba(40,104,169,.13);stroke:#6f9ec2;stroke-width:2}
+.graph-text{font-family:Arial,sans-serif;fill:#71808d;font-size:12px}
+.graph-title{font-family:Arial,sans-serif;fill:#245b91;font-size:15px;font-weight:700}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:12px;font-size:11px;color:#71808d}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend-dot{width:18px;height:3px;background:#2868a9;display:inline-block}
+.legend-fill{width:18px;height:10px;background:rgba(40,104,169,.13);border:1px solid #6f9ec2;display:inline-block}
+.sim-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:16px}
+.control-panel{background:#f4f8fb;border:1px solid #d9e6ef;border-radius:12px;padding:20px}
+.control-panel h3,.sim-output h3{margin:0 0 15px;color:#245b91;font-size:18px}
+.control-row{margin:18px 0}
+.control-row label{display:flex;justify-content:space-between;gap:10px;color:#536575;font-size:12px;margin-bottom:7px}
+.control-row input{width:100%;accent-color:#2868a9}
+.value{font-weight:700;color:#173f7a}
+.sim-output{background:#fff;border:1px solid #dfe7ee;border-radius:12px;padding:20px}
+.result-box{padding:18px;border-radius:10px;background:#f5f8fb;border:1px solid #dfe7ee;text-align:center}
+.result-box span{display:block;color:#71808d;font-size:10px;margin-bottom:6px}
+.result-box strong{display:block;color:#173f7a;font-family:Georgia,serif;font-size:23px}
+.sim-note{margin-top:12px;color:#71808d;font-size:11px;line-height:1.6}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.compare-card{padding:20px;border-radius:11px;border:1px solid #dfe7ee;background:#fff}
+.compare-card h3{font-size:16px;color:#245b91;margin:0 0 8px}
+.compare-card p{font-size:12px!important;margin:0}
+.question{padding:20px;margin-bottom:15px;border:1px solid #dfe7ee;border-radius:11px;background:#fff}
+.question p{margin:0 0 12px;color:#314657;font-weight:600;font-size:13px}
+.option{display:block;width:100%;margin:7px 0;padding:10px 12px;text-align:left;background:#f5f8fb;border:1px solid #dfe7ee;border-radius:7px;cursor:pointer;color:#536575;font-size:12px}
+.option:hover:not(:disabled){border-color:#a9c5da;background:#eef5fb}
+.option.correct{background:#e8f5ee;border-color:#8bc5a4;color:#197044}
+.option.wrong{background:#fbeeee;border-color:#d9a2a2;color:#9b4040}
+.answer{display:none;margin-top:10px;padding:9px 12px;border-radius:6px;background:#f4f8fb;color:#647586;font-size:11px}
+.answer.show{display:block}
+.revision-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.revision-item{padding:16px;background:#fff;border:1px solid #dfe7ee;border-radius:9px}
+.revision-item strong{color:#245b91;font-size:13px}
+.revision-item p{margin:5px 0 0;color:#71808d;font-size:11px;line-height:1.6}
+.complete-area{margin-top:35px;text-align:center}
+.complete-button{border:none;border-radius:8px;padding:12px 22px;background:#173f7a;color:#fff;font-size:13px;font-weight:600;cursor:pointer}
+@media(max-width:760px){
+    .symbol-grid,.process,.sim-grid,.compare,.revision-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="nav-container">
+        <a href="../index.html" class="brand">
+            <span class="brand-icon">⚛</span>
+            <span>Interactive Physics</span>
+        </a>
+        <nav class="main-nav">
+            <a href="../index.html">Home</a>
+            <a href="index.html">Unit I</a>
+        </nav>
+    </div>
+</header>
+
+<section class="lesson-hero">
+    <div class="lesson-hero-inner">
+        <a href="index.html" class="lesson-back">← Unit I — Quantum Mechanics</a>
+        <div class="lesson-label">TOPIC 04</div>
+        <h1>Physical Significance of Wave Function</h1>
+        <p>
+            Understand what the wave function ψ means physically, why ψ itself
+            is not directly observable, and how |ψ|² gives the probability
+            density of finding a particle.
+        </p>
+    </div>
+</section>
+
+<nav class="lesson-nav">
+    <div class="lesson-nav-inner">
+        <button class="lesson-tab active" data-target="learn">📖 Learn</button>
+        <button class="lesson-tab" data-target="visualize">👁 Visualize</button>
+        <button class="lesson-tab" data-target="simulate">⚙ Simulation</button>
+        <button class="lesson-tab" data-target="meaning">💡 Significance</button>
+        <button class="lesson-tab" data-target="practice">✏ Practice</button>
+        <button class="lesson-tab" data-target="revision">🎯 Revision</button>
+    </div>
+</nav>
+
+<main class="lesson-container">
+
+<section class="lesson-section active" id="learn">
+    <div class="lesson-heading">
+        <span class="label">LEARN</span>
+        <h2>Physical Significance of Wave Function</h2>
+        <p>Born's interpretation of the wave function.</p>
+    </div>
+
+    <div class="content-card">
+        <h3>What is the wave function?</h3>
+        <p>
+            In quantum mechanics, the state of a microscopic particle is
+            represented by a mathematical function called the <b>wave function</b>,
+            denoted by <b>ψ</b> (psi).
+        </p>
+        <p>
+            The wave function contains the information needed to describe the
+            quantum state of the particle. It may depend on position and time,
+            so it can be written generally as <b>ψ(x,t)</b>.
+        </p>
+    </div>
+
+    <div class="content-card">
+        <h3>Born's Interpretation</h3>
+        <div class="key-box">
+            The wave function itself does not directly represent a measurable
+            physical quantity. The quantity <b>|ψ|²</b> represents the
+            <b>probability density</b> of finding the particle at a particular
+            position.
+        </div>
+
+        <div class="equation-box">
+            <div class="equation">P(x) = |ψ(x)|²</div>
+            <div class="equation-note">Probability density at position x</div>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <h3>Probability of finding the particle</h3>
+        <p>
+            If the particle is described by ψ(x), then the probability of
+            finding it between x and x + dx is
+        </p>
+
+        <div class="equation-box">
+            <div class="equation">dP = |ψ(x)|² dx</div>
+        </div>
+
+        <p>
+            Therefore, the probability of finding the particle between two
+            positions x₁ and x₂ is
+        </p>
+
+        <div class="equation-box">
+            <div class="equation small">
+                P(x₁ ≤ x ≤ x₂) = ∫<sub>x₁</sub><sup>x₂</sup> |ψ(x)|² dx
+            </div>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <h3>Normalization Condition</h3>
+        <p>
+            Since the particle must be found somewhere in the allowed region,
+            the total probability of finding it must be equal to one.
+        </p>
+
+        <div class="equation-box">
+            <div class="equation">∫ |ψ|² dτ = 1</div>
+            <div class="equation-note">Integration is over the complete space.</div>
+        </div>
+
+        <p>
+            A wave function satisfying this condition is said to be
+            <b>normalized</b>.
+        </p>
+    </div>
+
+    <div class="content-card">
+        <h3>Probability Interpretation at a Glance</h3>
+
+        <div class="process">
+            <div class="process-card">
+                <div class="process-number">1</div>
+                <h3>Wave function</h3>
+                <p>ψ describes the quantum state mathematically.</p>
+            </div>
+
+            <div class="process-card">
+                <div class="process-number">2</div>
+                <h3>Modulus squared</h3>
+                <p>|ψ|² gives probability density.</p>
+            </div>
+
+            <div class="process-card">
+                <div class="process-number">3</div>
+                <h3>Probability</h3>
+                <p>Integrating |ψ|² gives probability over a region.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson-section" id="visualize">
+    <div class="lesson-heading">
+        <span class="label">VISUALIZE</span>
+        <h2>ψ and |ψ|²</h2>
+        <p>See how a wave function is connected to probability density.</p>
+    </div>
+
+    <div class="content-card">
+        <div class="probability-visual">
+            <div class="graph-wrap">
+                <svg viewBox="0 0 900 330" preserveAspectRatio="none">
+                    <line x1="65" y1="285" x2="860" y2="285" class="axis"/>
+                    <line x1="65" y1="30" x2="65" y2="285" class="axis"/>
+
+                    <path class="probability-fill"
+                          d="M65,285
+                             C120,205 160,95 220,75
+                             C280,55 320,160 375,215
+                             C430,270 470,260 520,180
+                             C570,100 620,55 675,90
+                             C730,125 765,210 810,235
+                             C830,245 845,260 860,285 Z"/>
+
+                    <path class="wave-line"
+                          d="M65,285
+                             C105,250 145,100 195,75
+                             C245,50 275,185 320,230
+                             C365,275 410,255 455,190
+                             C500,125 545,45 600,75
+                             C655,105 690,220 735,240
+                             C780,260 825,250 860,285"/>
+
+                    <text x="75" y="45" class="graph-title">Wave function ψ(x)</text>
+                    <text x="75" y="70" class="graph-text">Amplitude may be positive or negative</text>
+
+                    <text x="650" y="45" class="graph-title">Probability density |ψ(x)|²</text>
+                    <text x="650" y="70" class="graph-text">Always non-negative</text>
+
+                    <text x="70" y="310" class="graph-text">Position x →</text>
+                    <text x="8" y="45" class="graph-text">ψ</text>
+                    <text x="8" y="65" class="graph-text">|ψ|²</text>
+                </svg>
+            </div>
+
+            <div class="legend">
+                <span><i class="legend-dot"></i> ψ(x)</span>
+                <span><i class="legend-fill"></i> |ψ(x)|² conceptually shown as probability density</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <h3>Important observation</h3>
+        <ul>
+            <li>ψ may be positive, negative or complex.</li>
+            <li>|ψ|² is real and non-negative.</li>
+            <li>Large |ψ|² means a greater probability density.</li>
+            <li>Small |ψ|² means a smaller probability density.</li>
+            <li>At a node, ψ = 0 and therefore |ψ|² = 0.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="lesson-section" id="simulate">
+    <div class="lesson-heading">
+        <span class="label">SIMULATION</span>
+        <h2>Probability Density Explorer</h2>
+        <p>
+            Change the width of a localized wave packet and observe how
+            probability density changes.
+        </p>
+    </div>
+
+    <div class="content-card">
+        <div class="sim-grid">
+            <div class="control-panel">
+                <h3>Wave Function</h3>
+
+                <div class="control-row">
+                    <label>
+                        <span>Localization</span>
+                        <span class="value" id="widthValue">Moderate</span>
+                    </label>
+                    <input type="range" id="widthSlider" min="1" max="100" value="55">
+                </div>
+
+                <div class="control-row">
+                    <label>
+                        <span>Wave amplitude</span>
+                        <span class="value" id="ampValue">1.00</span>
+                    </label>
+                    <input type="range" id="ampSlider" min="40" max="100" value="80">
+                </div>
+
+                <div class="sim-note">
+                    The display is a teaching visualization. The actual
+                    probability is obtained by integrating |ψ|² over a region.
+                </div>
+            </div>
+
+            <div class="sim-output">
+                <h3>What changes?</h3>
+
+                <div class="result-box">
+                    <span>Current localization</span>
+                    <strong id="localizationText">Moderate</strong>
+                </div>
+
+                <div class="equation-box">
+                    <div class="equation small">Probability density = |ψ|²</div>
+                </div>
+
+                <div class="sim-note" id="simulationMessage">
+                    A localized wave packet concentrates probability in a smaller region.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <h3>Teaching point</h3>
+        <p>
+            Ask students: <b>"Where is the particle most likely to be found?"</b>
+            The answer is not obtained from the sign of ψ. We look at
+            <b>|ψ|²</b>. The region where |ψ|² is larger corresponds to a
+            greater probability density.
+        </p>
+    </div>
+</section>
+
+<section class="lesson-section" id="meaning">
+    <div class="lesson-heading">
+        <span class="label">SIGNIFICANCE</span>
+        <h2>Physical Significance</h2>
+        <p>What the wave function tells us—and what it does not.</p>
+    </div>
+
+    <div class="content-card">
+        <h3>Meaning of ψ</h3>
+        <p>
+            The wave function is a mathematical description of the quantum
+            state. It is not itself directly observed in an experiment.
+            Measurable predictions are obtained from appropriate quantities
+            constructed from the wave function.
+        </p>
+    </div>
+
+    <div class="compare">
+        <div class="compare-card">
+            <h3>ψ</h3>
+            <p>
+                The probability amplitude. It may be positive, negative or
+                complex and is not itself interpreted as a probability.
+            </p>
+        </div>
+
+        <div class="compare-card">
+            <h3>|ψ|²</h3>
+            <p>
+                The probability density. It is real, non-negative and gives
+                the probability density of finding the particle.
+            </p>
+        </div>
+    </div>
+
+    <div class="content-card" style="margin-top:16px">
+        <h3>Conditions for an acceptable wave function</h3>
+        <ul>
+            <li>It should be finite.</li>
+            <li>It should be single-valued.</li>
+            <li>It should be continuous where physically required.</li>
+            <li>Its first derivative should be continuous where the potential is finite.</li>
+            <li>It should be normalizable so that the total probability is finite and can be made equal to one.</li>
+        </ul>
+    </div>
+
+    <div class="content-card">
+        <h3>Why normalization matters</h3>
+        <p>
+            Probability must add up to one because the particle must be found
+            somewhere in the complete allowed space.
+        </p>
+        <div class="equation-box">
+            <div class="equation small">∫ |ψ|² dτ = 1</div>
+        </div>
+    </div>
+</section>
+
+<section class="lesson-section" id="practice">
+    <div class="lesson-heading">
+        <span class="label">PRACTICE</span>
+        <h2>Quick Check</h2>
+        <p>Test your understanding of ψ and |ψ|².</p>
+    </div>
+
+    <div class="question">
+        <p>1. What is the physical significance of |ψ|²?</p>
+        <button class="option" onclick="answer(this,true,'a1')">A. Probability density</button>
+        <button class="option" onclick="answer(this,false,'a1')">B. Momentum</button>
+        <button class="option" onclick="answer(this,false,'a1')">C. Energy</button>
+        <button class="option" onclick="answer(this,false,'a1')">D. Wavelength</button>
+        <div class="answer" id="a1">Correct: <b>A</b>. |ψ|² represents probability density.</div>
+    </div>
+
+    <div class="question">
+        <p>2. The wave function ψ itself is:</p>
+        <button class="option" onclick="answer(this,false,'a2')">A. Directly the probability</button>
+        <button class="option" onclick="answer(this,true,'a2')">B. A probability amplitude describing the quantum state</button>
+        <button class="option" onclick="answer(this,false,'a2')">C. Always a positive number</button>
+        <button class="option" onclick="answer(this,false,'a2')">D. Always zero</button>
+        <div class="answer" id="a2">Correct: <b>B</b>.</div>
+    </div>
+
+    <div class="question">
+        <p>3. The total probability of finding a particle in all space is:</p>
+        <button class="option" onclick="answer(this,false,'a3')">A. 0</button>
+        <button class="option" onclick="answer(this,true,'a3')">B. 1</button>
+        <button class="option" onclick="answer(this,false,'a3')">C. h</button>
+        <button class="option" onclick="answer(this,false,'a3')">D. ∞</button>
+        <div class="answer" id="a3">Correct: <b>B</b>. Hence the normalization condition ∫|ψ|²dτ = 1.</div>
+    </div>
+
+    <div class="question">
+        <p>4. Can |ψ|² be negative?</p>
+        <button class="option" onclick="answer(this,false,'a4')">A. Yes, always</button>
+        <button class="option" onclick="answer(this,true,'a4')">B. No</button>
+        <button class="option" onclick="answer(this,false,'a4')">C. Only for electrons</button>
+        <button class="option" onclick="answer(this,false,'a4')">D. Only at nodes</button>
+        <div class="answer" id="a4">Correct: <b>B</b>. Probability density is real and non-negative.</div>
+    </div>
+
+    <div class="question">
+        <p>5. The probability of finding a particle between x₁ and x₂ is:</p>
+        <button class="option" onclick="answer(this,false,'a5')">A. ψ(x₂) − ψ(x₁)</button>
+        <button class="option" onclick="answer(this,true,'a5')">B. ∫|ψ|²dx between x₁ and x₂</button>
+        <button class="option" onclick="answer(this,false,'a5')">C. ∫ψdx without modulus</button>
+        <button class="option" onclick="answer(this,false,'a5')">D. h/λ</button>
+        <div class="answer" id="a5">Correct: <b>B</b>. Probability is obtained by integrating the probability density.</div>
+    </div>
+</section>
+
+<section class="lesson-section" id="revision">
+    <div class="lesson-heading">
+        <span class="label">QUICK REVISION</span>
+        <h2>Remember These Points</h2>
+        <p>Compact examination-oriented revision.</p>
+    </div>
+
+    <div class="revision-grid">
+        <div class="revision-item"><strong>Wave function</strong><p>ψ represents the quantum state mathematically.</p></div>
+        <div class="revision-item"><strong>Born interpretation</strong><p>|ψ|² gives the probability density of finding the particle.</p></div>
+        <div class="revision-item"><strong>Probability in dx</strong><p>dP = |ψ|²dx</p></div>
+        <div class="revision-item"><strong>Probability in a region</strong><p>P = ∫|ψ|²dx over the specified region.</p></div>
+        <div class="revision-item"><strong>Normalization</strong><p>∫|ψ|²dτ = 1 for a normalized wave function.</p></div>
+        <div class="revision-item"><strong>Nature of |ψ|²</strong><p>It is real and non-negative.</p></div>
+        <div class="revision-item"><strong>Node</strong><p>At a node, ψ = 0 and hence |ψ|² = 0.</p></div>
+        <div class="revision-item"><strong>Next topic</strong><p>Postulates of quantum mechanics: operators, eigenvalues, eigenfunctions and expectation value.</p></div>
+    </div>
+
+    <div class="content-card" style="margin-top:18px">
+        <h3>Important Equations</h3>
+        <div class="equation-box"><div class="equation small">dP = |ψ|² dx</div></div>
+        <div class="equation-box"><div class="equation small">P(x₁≤x≤x₂) = ∫<sub>x₁</sub><sup>x₂</sup>|ψ|²dx</div></div>
+        <div class="equation-box"><div class="equation small">∫|ψ|²dτ = 1</div></div>
+    </div>
+
+    <div class="complete-area">
+        <button class="complete-button" onclick="completeWaveFunction()">✓ Mark Topic as Completed</button>
+    </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+    <div>
+        <strong>Interactive Engineering Physics</strong>
+        <p>Unit I • Topic 04 • Quantum Mechanics</p>
+    </div>
+    <div class="footer-right">
+        <a href="index.html" style="text-decoration:none;">← Unit I</a>
+    </div>
+</footer>
+
+<script>
+/* =========================================================
+   IN-PAGE MENU
+   The current scroll position is deliberately preserved.
+   ========================================================= */
+const tabs = document.querySelectorAll(".lesson-tab");
+const sections = document.querySelectorAll(".lesson-section");
+
+tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+        const target = tab.dataset.target;
+
+        tabs.forEach(t => t.classList.remove("active"));
+        sections.forEach(s => s.classList.remove("active"));
+
+        tab.classList.add("active");
+        document.getElementById(target).classList.add("active");
+    });
+});
+
+/* =========================================================
+   PROBABILITY DENSITY SIMULATION
+   ========================================================= */
+const widthSlider = document.getElementById("widthSlider");
+const ampSlider = document.getElementById("ampSlider");
+const widthValue = document.getElementById("widthValue");
+const ampValue = document.getElementById("ampValue");
+const localizationText = document.getElementById("localizationText");
+const simulationMessage = document.getElementById("simulationMessage");
+
+function updateWaveFunctionSimulation() {
+    const width = Number(widthSlider.value);
+    const amplitude = Number(ampSlider.value) / 80;
+
+    let label;
+    let message;
+
+    if (width < 30) {
+        label = "Highly localized";
+        message = "A narrow packet represents a more localized position distribution.";
+    } else if (width < 70) {
+        label = "Moderate";
+        message = "The probability is distributed over a moderate region.";
+    } else {
+        label = "Broad";
+        message = "A broad packet represents greater positional spread.";
+    }
+
+    widthValue.textContent = label;
+    ampValue.textContent = amplitude.toFixed(2);
+    localizationText.textContent = label;
+    simulationMessage.textContent = message;
+}
+
+widthSlider.addEventListener("input", updateWaveFunctionSimulation);
+ampSlider.addEventListener("input", updateWaveFunctionSimulation);
+updateWaveFunctionSimulation();
+
+/* =========================================================
+   QUIZ
+   ========================================================= */
+function answer(button, correct, id) {
+    const question = button.closest(".question");
+    const options = question.querySelectorAll(".option");
+
+    options.forEach(option => option.disabled = true);
+
+    button.classList.add(correct ? "correct" : "wrong");
+    document.getElementById(id).classList.add("show");
+}
+
+/* =========================================================
+   PROGRESS
+   ========================================================= */
+function completeWaveFunction() {
+    if (typeof completeTopic === "function") {
+        completeTopic("unit1","physical-significance-wave-function");
+    } else {
+        localStorage.setItem("physics-unit1-wave-function","true");
+        alert("Topic completed ✓");
+    }
+}
+</script>
+
+</body>
+</html>
