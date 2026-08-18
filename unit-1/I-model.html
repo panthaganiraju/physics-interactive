@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kronig-Penney Model | Interactive Physics</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7f9fb;color:#314657}
+header{height:65px;background:#fff;border-bottom:1px solid #dfe7ee;display:flex;align-items:center}.nav{width:min(1180px,100%);margin:auto;padding:0 22px;display:flex;justify-content:space-between;align-items:center}.brand{font-size:20px;font-weight:700;color:#173f7a;text-decoration:none}.brand span{display:inline-flex;width:40px;height:40px;background:#173f7a;color:#fff;border-radius:11px;align-items:center;justify-content:center;margin-right:10px}
+.hero{background:linear-gradient(135deg,#102f5d,#173f7a 55%,#236795);color:#fff;padding:42px 22px 48px}.hero>div,.nav-inner,.container{max-width:1180px;margin:auto}.back{color:#dce7f2;text-decoration:none;font-size:13px}.label{font-size:10px;letter-spacing:1.6px;opacity:.75;margin-top:20px}.hero h1{font-size:clamp(32px,5vw,50px);line-height:1.1;margin:8px 0 12px}.hero p{max-width:850px;color:#dce7f2;font-size:15px;line-height:1.7}
+.menu{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #dfe7ee}.menu-inner{max-width:1180px;margin:auto;display:flex;overflow-x:auto;padding:0 22px}.tab{border:0;background:none;white-space:nowrap;padding:14px 15px;color:#687887;font-size:12px;font-weight:700;border-bottom:3px solid transparent;cursor:pointer}.tab.active{color:#173f7a;border-color:#2868a9}
+.container{padding:40px 22px 90px}.section{display:none}.section.active{display:block}.heading{margin-bottom:25px}.heading .tag{color:#2868a9;font-size:10px;font-weight:700;letter-spacing:1.5px}.heading h2{color:#173f7a;font-size:30px;margin:5px 0 8px}.heading p,.card p,.card li{font-size:14px;line-height:1.8;color:#536575}
+.card{background:#fff;border:1px solid #dfe7ee;border-radius:13px;padding:25px;margin-bottom:18px;box-shadow:0 4px 18px rgba(30,65,100,.04)}.card h3{color:#245b91;font-size:19px;margin:0 0 10px}.key{padding:20px 24px;border-left:5px solid #2868a9;background:#f4f8fb;border-radius:10px;line-height:1.7}
+.eq{margin:17px 0;padding:19px;text-align:center;border-radius:11px;background:#f5f8fb;border:1px solid #dfe7ee;font:26px Georgia,serif;color:#173f7a}.eq.small{font-size:20px}.note{text-align:center;color:#7b8995;font:12px Arial}
+.figure{padding:18px;border:1px solid #dfe7ee;border-radius:12px;background:#fff;text-align:center;margin:22px 0}.figure svg{display:block;width:100%;height:auto}.caption{font-size:12px!important;color:#687887!important;text-align:center;margin:10px 0 0!important}
+.derivation{position:relative;padding:22px 24px 22px 72px;border:1px solid #dfe7ee;border-radius:12px;background:#fff;margin-bottom:16px}.derivation:before{content:attr(data-step);position:absolute;left:20px;top:22px;width:34px;height:34px;border-radius:50%;background:#173f7a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}.derivation h3{margin:0 0 8px;color:#173f7a;font-size:18px}.final{border:2px solid #2868a9;background:#f5f9fd}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.mini{padding:18px;background:#f7fafc;border:1px solid #dfe7ee;border-radius:10px}.mini strong{display:block;color:#245b91;text-align:center;font-size:18px}.mini p{font-size:12px!important;text-align:center}
+.simgrid{display:grid;grid-template-columns:1fr 1.3fr;gap:16px}.controls{background:#f4f8fb;border:1px solid #d9e6ef;border-radius:12px;padding:20px}.controls h3,.output h3{color:#245b91;font-size:18px;margin:0 0 15px}.row{margin:18px 0}.row label{display:flex;justify-content:space-between;color:#536575;font-size:12px;margin-bottom:7px}.row input{width:100%;accent-color:#2868a9}.value{font-weight:700;color:#173f7a}.output{border:1px solid #dfe7ee;border-radius:12px;padding:20px}.simsvg{width:100%;border:1px solid #dfe7ee;border-radius:10px;background:#fbfdff}.simsvg svg{display:block;width:100%;height:auto}.result{margin-top:12px;padding:13px;background:#eef6fb;border-radius:8px;color:#245b91;font-size:12px;line-height:1.7}
+.question{padding:20px;border:1px solid #dfe7ee;border-radius:11px;margin-bottom:15px}.question p{font-size:13px;font-weight:700}.option{display:block;width:100%;margin:7px 0;padding:10px;border:1px solid #dfe7ee;border-radius:7px;background:#f5f8fb;color:#536575;text-align:left;cursor:pointer;font-size:12px}.correct{background:#e8f5ee!important;color:#197044!important}.wrong{background:#fbeeee!important;color:#9b4040!important}.answer{display:none;margin-top:10px;padding:9px;background:#f4f8fb;color:#647586;font-size:11px}.show{display:block}
+.revision{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.revision div{padding:16px;border:1px solid #dfe7ee;border-radius:9px}.revision strong{color:#245b91;font-size:13px}.revision p{margin:5px 0 0!important;font-size:11px!important}
+footer{background:#173f7a;color:#dce7f2;padding:25px;text-align:center;font-size:12px}
+@media(max-width:760px){.grid,.simgrid,.revision{grid-template-columns:1fr}.hero h1{font-size:34px}.eq{font-size:21px}}
+</style>
+</head>
+<body>
+
+<header><div class="nav"><a class="brand" href="index.html"><span>⚛</span>Interactive Physics</a><nav><a href="../index.html" style="color:#687887;text-decoration:none;font-size:12px;margin-right:18px">Home</a><a href="index.html" style="color:#687887;text-decoration:none;font-size:12px">Unit I</a></nav></div></header>
+
+<section class="hero"><div>
+<a class="back" href="index.html">← Unit I — Quantum Mechanics</a>
+<div class="label">TOPIC 09</div>
+<h1>Kronig–Penney Model</h1>
+<p>A qualitative model of electrons in a periodic crystal potential and the origin of allowed energy bands and forbidden energy gaps.</p>
+</div></section>
+
+<nav class="menu"><div class="menu-inner">
+<button class="tab active" data-target="learn">📖 Learn</button>
+<button class="tab" data-target="model">🔲 Model</button>
+<button class="tab" data-target="derivation">∫ Derivation</button>
+<button class="tab" data-target="bands">⚡ E–k & Bands</button>
+<button class="tab" data-target="visualize">👁 Visualize</button>
+<button class="tab" data-target="significance">💡 Significance</button>
+<button class="tab" data-target="practice">✏ Practice</button>
+<button class="tab" data-target="revision">🎯 Revision</button>
+</div></nav>
+
+<main class="container">
+
+<section class="section active" id="learn">
+<div class="heading"><span class="tag">LEARN</span><h2>Kronig–Penney Model</h2><p>A qualitative model used to understand how the periodic arrangement of atoms produces energy bands in a crystal.</p></div>
+<div class="card"><h3>Why is the model needed?</h3><p>In a crystal, atoms are arranged periodically. Therefore an electron does not move in free space; it moves through a periodic potential produced by the ion cores. The Kronig–Penney model replaces the complicated crystal potential with a simple repeating one-dimensional potential.</p><div class="key"><b>Main idea:</b> periodic potential + Schrödinger equation → allowed energies separated by forbidden energy regions.</div></div>
+<div class="card"><h3>What the model explains</h3><div class="grid"><div class="mini"><strong>Allowed bands</strong><p>Ranges of energy for which electron wave solutions can exist.</p></div><div class="mini"><strong>Forbidden gaps</strong><p>Energy ranges in which no propagating electron state is allowed.</p></div></div></div>
+<div class="card"><h3>Connection with Bloch's theorem</h3><p>The Kronig–Penney model uses a periodic potential, so its wave functions obey the Bloch form:</p><div class="eq">ψ<sub>k</sub>(x) = e<sup>ikx</sup>U<sub>k</sub>(x)</div><p>This makes the model a natural continuation of the previous topic.</p></div>
+</section>
+
+<section class="section" id="model">
+<div class="heading"><span class="tag">MODEL</span><h2>Periodic Potential Model</h2><p>The complicated crystal potential is approximated by a simple periodic potential.</p></div>
+<div class="card">
+<div class="figure">
+<svg viewBox="0 0 1100 520" role="img" aria-label="Kronig Penney periodic rectangular potential">
+<rect width="1100" height="520" fill="#fff"/>
+<g font-family="Arial">
+<text x="550" y="35" text-anchor="middle" font-size="24" font-weight="700" fill="#173f7a">Kronig–Penney Periodic Potential</text>
+<text x="550" y="63" text-anchor="middle" font-size="14" fill="#687887">Alternating regions of low and high potential repeat throughout the crystal</text>
+<line x1="90" y1="420" x2="1010" y2="420" stroke="#596b79" stroke-width="2"/>
+<line x1="90" y1="95" x2="90" y2="420" stroke="#596b79" stroke-width="2"/>
+<text x="68" y="105" font-size="16" fill="#536575">V</text><text x="1015" y="427" font-size="16" fill="#536575">x</text>
+<!-- high barriers -->
+<g fill="#173f7a" opacity=".18" stroke="#173f7a" stroke-width="2">
+<rect x="170" y="180" width="75" height="240"/><rect x="370" y="180" width="75" height="240"/>
+<rect x="570" y="180" width="75" height="240"/><rect x="770" y="180" width="75" height="240"/>
+</g>
+<!-- potential line -->
+<path d="M90 360 L170 360 L170 180 L245 180 L245 360 L370 360 L370 180 L445 180 L445 360 L570 360 L570 180 L645 180 L645 360 L770 360 L770 180 L845 180 L845 360 L1010 360" fill="none" stroke="#2868a9" stroke-width="5"/>
+<!-- dimensions -->
+<g stroke="#245b91" stroke-width="2">
+<line x1="245" y1="455" x2="370" y2="455"/><line x1="245" y1="447" x2="245" y2="463"/><line x1="370" y1="447" x2="370" y2="463"/>
+<line x1="370" y1="485" x2="445" y2="485"/><line x1="370" y1="477" x2="370" y2="493"/><line x1="445" y1="477" x2="445" y2="493"/>
+</g>
+<g font-size="16" fill="#245b91" text-anchor="middle">
+<text x="307" y="475">a</text><text x="407" y="505">b</text>
+</g>
+<g font-size="14" fill="#687887">
+<text x="207" y="165" text-anchor="middle">barrier</text><text x="307" y="345" text-anchor="middle">well</text>
+<text x="600" y="145">V₀</text><text x="307" y="405">0</text>
+</g>
+<text x="550" y="515" text-anchor="middle" font-size="14" fill="#687887">The pattern repeats: periodic potential V(x + a + b) = V(x)</text>
+</g>
+</svg>
+<p class="caption"><b>Fig. 1:</b> Idealized periodic rectangular potential used in the Kronig–Penney model.</p>
+</div>
+</div>
+<div class="card"><h3>Qualitative assumptions</h3><ul><li>The crystal is represented as a one-dimensional periodic structure.</li><li>Each unit cell contains a low-potential region (well) and a high-potential region (barrier).</li><li>The same potential pattern repeats throughout the crystal.</li><li>The electron is treated quantum mechanically using Schrödinger's equation.</li></ul></div>
+<div class="card"><h3>Important idea</h3><div class="eq small">V(x + d) = V(x)</div><p>where <b>d</b> is the period of the model potential. The exact notation for the cell dimensions can vary; the essential requirement is periodicity.</p></div>
+</section>
+
+
+<section class="section" id="derivation">
+<div class="heading"><span class="tag">DERIVATION</span><h2>Kronig–Penney Model — Derivation</h2>
+<p>The derivation is presented in the same sequence as the AEP GCET Unit-I material, while keeping the qualitative nature of the topic clear.</p></div>
+
+<div class="card">
+<h3>Assumptions of the Kronig–Penney Model</h3>
+<ul>
+<li>The crystal consists of a large number of atoms arranged periodically.</li>
+<li>The electron moves in a one-dimensional periodic potential.</li>
+<li>The periodic potential is represented by a series of rectangular potential wells and barriers.</li>
+<li>The width of each potential well is <b>a</b>.</li>
+<li>The width of each potential barrier is <b>b</b>.</li>
+<li>The height of each potential barrier is <b>V<sub>0</sub></b>.</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>Periodic Potential</h3>
+<div class="figure">
+<svg viewBox="0 0 1100 470" role="img" aria-label="Kronig Penney rectangular periodic potential with well width a, barrier width b and barrier height V0">
+<rect width="1100" height="470" fill="#fff"/>
+<g font-family="Arial">
+<text x="550" y="35" text-anchor="middle" font-size="24" font-weight="700" fill="#173f7a">Kronig–Penney Periodic Potential</text>
+<line x1="90" y1="380" x2="1010" y2="380" stroke="#596b79" stroke-width="2"/>
+<line x1="90" y1="380" x2="90" y2="80" stroke="#596b79" stroke-width="2"/>
+<text x="68" y="95" font-size="17" fill="#536575">V</text><text x="1015" y="387" font-size="17" fill="#536575">x</text>
+<path d="M90 320 L180 320 L180 145 L255 145 L255 320 L365 320 L365 145 L440 145 L440 320 L550 320 L550 145 L625 145 L625 320 L735 320 L735 145 L810 145 L810 320 L1010 320" fill="none" stroke="#2868a9" stroke-width="5"/>
+<g fill="#173f7a" opacity=".15"><rect x="180" y="145" width="75" height="175"/><rect x="365" y="145" width="75" height="175"/><rect x="550" y="145" width="75" height="175"/><rect x="735" y="145" width="75" height="175"/></g>
+<g stroke="#245b91" stroke-width="2">
+<line x1="255" y1="410" x2="365" y2="410"/><line x1="255" y1="402" x2="255" y2="418"/><line x1="365" y1="402" x2="365" y2="418"/>
+<line x1="365" y1="445" x2="440" y2="445"/><line x1="365" y1="437" x2="365" y2="453"/><line x1="440" y1="437" x2="440" y2="453"/>
+</g>
+<g font-size="16" fill="#245b91" text-anchor="middle"><text x="310" y="430">a</text><text x="402" y="465">b</text></g>
+<g font-size="15" fill="#687887"><text x="217" y="130" text-anchor="middle">V₀</text><text x="310" y="305" text-anchor="middle">V = 0</text><text x="402" y="130" text-anchor="middle">barrier</text><text x="310" y="300" text-anchor="middle">well</text></g>
+</g>
+</svg>
+<p class="caption"><b>Fig. 1:</b> Rectangular periodic potential used in the Kronig–Penney model.</p>
+</div>
+<p>The potential energy is</p>
+<div class="eq small">V(x) = 0 &nbsp; for &nbsp; 0 &lt; x &lt; a</div>
+<div class="eq small">V(x) = V<sub>0</sub> &nbsp; for &nbsp; −b &lt; x &lt; 0</div>
+</div>
+
+<div class="derivation" data-step="1">
+<h3>Step 1: Schrödinger Equation Inside the Potential Well</h3>
+<p>Inside the potential well, <b>V = 0</b>. The time-independent Schrödinger equation becomes</p>
+<div class="eq small">d²ψ/dx² + (2mE/ℏ²)ψ = 0</div>
+</div>
+
+<div class="derivation" data-step="2">
+<h3>Step 2: Schrödinger Equation Inside the Potential Barrier</h3>
+<p>Inside the potential barrier, <b>V = V<sub>0</sub></b>. Therefore</p>
+<div class="eq small">d²ψ/dx² + [2m(E − V<sub>0</sub>)/ℏ²]ψ = 0</div>
+</div>
+
+<div class="derivation" data-step="3">
+<h3>Step 3: Introducing α and β</h3>
+<p>For simplicity, define</p>
+<div class="eq small">α² = 2mE/ℏ²</div>
+<div class="eq small">β² = 2m(V<sub>0</sub> − E)/ℏ²</div>
+<p>The two equations therefore become</p>
+<div class="eq small">d²ψ/dx² + α²ψ = 0 &nbsp;&nbsp; for &nbsp; 0 &lt; x &lt; a</div>
+<div class="eq small">d²ψ/dx² − β²ψ = 0 &nbsp;&nbsp; for &nbsp; −b &lt; x &lt; 0</div>
+</div>
+
+<div class="derivation final">
+<h3>Step 4: Applying Bloch's Theorem</h3>
+<p>Because the potential is periodic, the wave function must satisfy the Bloch condition. Applying Bloch's theorem to the solutions in the well and barrier regions, and matching the wave function and its derivative at the boundaries, gives the fundamental Kronig–Penney relation.</p>
+<div class="eq">P (sin αa / αa) + cos αa = cos ka</div>
+<p>where <b>P</b> is the scattering power of the potential barrier, <b>k</b> is the wave vector, <b>a</b> is the width of the potential well, and <b>α</b> is the wave number inside the well.</p>
+</div>
+
+<div class="derivation" data-step="5">
+<h3>Step 5: Condition for Allowed Energy Bands</h3>
+<p>Since</p>
+<div class="eq small">−1 ≤ cos ka ≤ +1</div>
+<p>the left-hand side of the Kronig–Penney equation must also lie between −1 and +1.</p>
+
+<div class="figure">
+<svg viewBox="0 0 1100 560" role="img" aria-label="Kronig Penney equation graph showing allowed and forbidden regions">
+<rect width="1100" height="560" fill="#fff"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="550" y="35" text-anchor="middle" font-size="23" font-weight="700" fill="#173f7a">Allowed and Forbidden Energy Regions</text>
+<text x="550" y="64" text-anchor="middle" font-size="14" fill="#687887">Graph of P(sin αa / αa) + cos αa versus αa</text>
+<!-- axes -->
+<line x1="80" y1="290" x2="1030" y2="290" stroke="#536575" stroke-width="2"/>
+<line x1="550" y1="90" x2="550" y2="500" stroke="#536575" stroke-width="2"/>
+<polygon points="1030,290 1017,284 1017,296" fill="#536575"/>
+<polygon points="550,90 544,103 556,103" fill="#536575"/>
+<!-- +/-1 -->
+<line x1="80" y1="220" x2="1030" y2="220" stroke="#2868a9" stroke-width="2"/>
+<line x1="80" y1="360" x2="1030" y2="360" stroke="#2868a9" stroke-width="2"/>
+<text x="45" y="226" font-size="17" font-weight="700" fill="#245b91">+1</text>
+<text x="45" y="366" font-size="17" font-weight="700" fill="#245b91">−1</text>
+<!-- allowed strip -->
+<rect x="80" y="220" width="950" height="140" fill="#eaf4fb" opacity=".65"/>
+<!-- representative K-P curve -->
+<path d="M90 305
+C125 270 145 180 185 205
+C220 228 210 330 250 380
+C290 430 330 405 350 350
+C370 295 365 225 410 215
+C455 205 475 270 500 310
+C525 350 545 400 575 410
+C610 420 640 370 665 320
+C690 270 705 215 750 215
+C795 215 805 280 830 320
+C855 360 875 410 910 405
+C950 400 965 320 990 270
+C1005 240 1015 220 1025 230" fill="none" stroke="#173f7a" stroke-width="4"/>
+<!-- forbidden shading where curve conceptually outside -->
+<g fill="#d7dce1" opacity=".75">
+<rect x="95" y="105" width="92" height="115"/><rect x="245" y="360" width="105" height="120"/>
+<rect x="410" y="105" width="75" height="115"/><rect x="565" y="360" width="100" height="120"/>
+<rect x="750" y="105" width="70" height="115"/><rect x="905" y="360" width="90" height="120"/>
+</g>
+<!-- redraw curve over shading -->
+<path d="M90 305 C125 270 145 180 185 205 C220 228 210 330 250 380 C290 430 330 405 350 350 C370 295 365 225 410 215 C455 205 475 270 500 310 C525 350 545 400 575 410 C610 420 640 370 665 320 C690 270 705 215 750 215 C795 215 805 280 830 320 C855 360 875 410 910 405 C950 400 965 320 990 270 C1005 240 1015 220 1025 230" fill="none" stroke="#173f7a" stroke-width="4"/>
+<!-- ticks -->
+<g stroke="#536575" stroke-width="2">
+<line x1="160" y1="282" x2="160" y2="298"/><line x1="290" y1="282" x2="290" y2="298"/><line x1="420" y1="282" x2="420" y2="298"/>
+<line x1="680" y1="282" x2="680" y2="298"/><line x1="810" y1="282" x2="810" y2="298"/><line x1="940" y1="282" x2="940" y2="298"/>
+</g>
+<g font-size="15" fill="#536575" text-anchor="middle">
+<text x="160" y="320">−3π</text><text x="290" y="320">−2π</text><text x="420" y="320">−π</text>
+<text x="550" y="320">0</text><text x="680" y="320">π</text><text x="810" y="320">2π</text><text x="940" y="320">3π</text>
+</g>
+<text x="1015" y="315" font-size="18" font-style="italic" fill="#314657">αa</text>
+<text x="575" y="112" font-size="17" font-family="Georgia,serif" fill="#173f7a">P sin(αa)/(αa) + cos(αa)</text>
+<!-- labels -->
+<rect x="735" y="235" width="170" height="42" rx="8" fill="#fff" stroke="#2868a9"/>
+<text x="820" y="262" text-anchor="middle" font-size="16" font-weight="700" fill="#245b91">ALLOWED BAND</text>
+<line x1="820" y1="277" x2="820" y2="315" stroke="#2868a9" stroke-width="2"/>
+<rect x="770" y="120" width="190" height="42" rx="8" fill="#fff" stroke="#8b939a"/>
+<text x="865" y="147" text-anchor="middle" font-size="16" font-weight="700" fill="#687887">FORBIDDEN BAND</text>
+<line x1="865" y1="162" x2="790" y2="205" stroke="#687887" stroke-width="2"/>
+<text x="550" y="535" text-anchor="middle" font-size="14" fill="#687887">Allowed solutions occur only where the function lies between +1 and −1.</text>
+</g>
+</svg>
+<p class="caption"><b>Fig. 2:</b> Modified high-quality version of the Kronig–Penney allowed/forbidden-region graph. The blue strip marks the permitted range −1 to +1.</p>
+</div>
+<div class="key"><b>Allowed:</b> If P(sin αa/αa) + cos αa lies between −1 and +1, the corresponding energy values are allowed.</div>
+<div class="key" style="margin-top:12px;border-left-color:#9b5555;background:#fbf3f3"><b>Forbidden:</b> If the left-hand side lies outside the range −1 to +1, the corresponding energy values are forbidden.</div>
+</div>
+
+<div class="derivation" data-step="6">
+<h3>Step 6: Formation of Allowed and Forbidden Bands</h3>
+<p>Hence, the electron can possess only certain energy values. These permitted ranges form <b>allowed energy bands</b>, separated by <b>forbidden energy gaps</b>.</p>
+<div class="eq small">Allowed band ↔ −1 ≤ P(sin αa/αa) + cos αa ≤ +1</div>
+<div class="key">This is the central result of the Kronig–Penney model: a periodic crystal potential converts the possible electron energies into alternate allowed and forbidden regions.</div>
+</div>
+
+<div class="card">
+<h3>Main Conclusions</h3>
+<ol>
+<li>The energy spectrum consists of alternate allowed bands and forbidden bands.</li>
+<li>Electrons can exist only in the allowed energy bands.</li>
+<li>Forbidden bands contain no permitted electron energy levels.</li>
+<li>As the electron energy increases, the allowed bands become broader, while the forbidden bands become narrower.</li>
+<li>The band structure depends on the strength of the periodic potential.</li>
+</ol>
+</div>
+
+<div class="card">
+<h3>Special Case 1: Tight-Binding Limit (P → ∞)</h3>
+<p>When the scattering power is very large,</p>
+<div class="eq small">sin αa = 0</div>
+<div class="eq small">αa = nπ</div>
+<p>The energy becomes</p>
+<div class="eq">E = n²h² / 8ma²</div>
+<div class="figure">
+<svg viewBox="0 0 1050 430" role="img" aria-label="Tight binding limit showing isolated deep wells and discrete energy levels">
+<rect width="1050" height="430" fill="#fff"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="525" y="34" text-anchor="middle" font-size="22" font-weight="700" fill="#173f7a">Tight-Binding Limit: P → ∞</text>
+<text x="525" y="62" text-anchor="middle" font-size="14" fill="#687887">Very strong barriers isolate neighbouring wells → discrete atomic-like energy levels</text>
+<line x1="80" y1="360" x2="980" y2="360" stroke="#596b79" stroke-width="2"/>
+<!-- deep isolated wells -->
+<path d="M90 105 L180 105 L180 345 L310 345 L310 105 L400 105 L400 345 L530 345 L530 105 L620 105 L620 345 L750 345 L750 105 L840 105 L840 345 L970 345" fill="none" stroke="#173f7a" stroke-width="5"/>
+<g fill="#173f7a" opacity=".10"><rect x="90" y="105" width="90" height="255"/><rect x="310" y="105" width="90" height="255"/><rect x="530" y="105" width="90" height="255"/><rect x="750" y="105" width="90" height="255"/></g>
+<!-- levels in wells -->
+<g stroke="#2868a9" stroke-width="4">
+<line x1="200" y1="305" x2="290" y2="305"/><line x1="200" y1="255" x2="290" y2="255"/><line x1="200" y1="190" x2="290" y2="190"/>
+<line x1="420" y1="305" x2="510" y2="305"/><line x1="420" y1="255" x2="510" y2="255"/><line x1="420" y1="190" x2="510" y2="190"/>
+<line x1="640" y1="305" x2="730" y2="305"/><line x1="640" y1="255" x2="730" y2="255"/><line x1="640" y1="190" x2="730" y2="190"/>
+<line x1="860" y1="305" x2="950" y2="305"/><line x1="860" y1="255" x2="950" y2="255"/><line x1="860" y1="190" x2="950" y2="190"/>
+</g>
+<g font-size="14" fill="#245b91"><text x="985" y="310">E₁</text><text x="985" y="260">E₂</text><text x="985" y="195">E₃</text></g>
+<text x="525" y="400" text-anchor="middle" font-size="17" font-family="Georgia,serif" fill="#173f7a">sin αa = 0  →  αa = nπ  →  Eₙ = n²h²/(8ma²)</text>
+</g>
+</svg>
+<p class="caption"><b>Fig. 3:</b> In the tight-binding limit, very strong barriers effectively confine electrons to individual wells, producing discrete energy levels.</p>
+</div>
+<div class="key">The electron behaves as if it is confined inside an individual potential well, giving rise to discrete energy levels.</div>
+</div>
+
+<div class="card">
+<h3>Special Case 2: Free Electron Limit (P → 0)</h3>
+<p>When the scattering power becomes negligible,</p>
+<div class="eq small">cos αa = cos ka</div>
+<div class="eq small">α = k</div>
+<p>The corresponding energy is</p>
+<div class="eq">E = ℏ²k² / 2m</div>
+<div class="figure">
+<svg viewBox="0 0 1050 440" role="img" aria-label="Free electron limit showing continuous parabolic E k relation">
+<rect width="1050" height="440" fill="#fff"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="525" y="34" text-anchor="middle" font-size="22" font-weight="700" fill="#173f7a">Free-Electron Limit: P → 0</text>
+<text x="525" y="62" text-anchor="middle" font-size="14" fill="#687887">Negligible periodic barriers → continuous free-electron energy spectrum</text>
+<line x1="120" y1="360" x2="940" y2="360" stroke="#596b79" stroke-width="2"/>
+<line x1="525" y1="385" x2="525" y2="90" stroke="#596b79" stroke-width="2"/>
+<polygon points="940,360 927,354 927,366" fill="#596b79"/><polygon points="525,90 519,103 531,103" fill="#596b79"/>
+<path d="M180 115 C300 260 390 335 525 360 C660 335 750 260 870 115" fill="none" stroke="#2868a9" stroke-width="5"/>
+<text x="545" y="105" font-size="17" fill="#536575">E</text><text x="945" y="380" font-size="17" fill="#536575">k</text>
+<text x="525" y="405" text-anchor="middle" font-size="15" fill="#687887">0</text>
+<text x="755" y="165" font-size="17" font-weight="700" fill="#245b91">E = ℏ²k² / 2m</text>
+<text x="525" y="430" text-anchor="middle" font-size="15" fill="#687887">All energies on the parabola are allowed; no forbidden gaps appear.</text>
+</g>
+</svg>
+<p class="caption"><b>Fig. 4:</b> In the free-electron limit, the E–k relation is a continuous parabola and the forbidden gaps disappear.</p>
+</div>
+<div class="key">All energy values are allowed, and the electron behaves like a free electron.</div>
+</div>
+
+<div class="card">
+<h3>Derivation at a Glance</h3>
+<div class="key"><b>Periodic rectangular potential → Schrödinger equation in well and barrier → introduce α and β → apply Bloch theorem and boundary conditions → Kronig–Penney equation → −1 ≤ cos ka ≤ 1 → allowed and forbidden energy bands.</b></div>
+</div>
+</section>
+
+<section class="section" id="bands">
+<div class="heading"><span class="tag">E–k DIAGRAM</span><h2>Allowed Energy Bands</h2><p>The most important qualitative result of the Kronig–Penney model is the appearance of allowed bands separated by forbidden gaps.</p></div>
+<div class="card">
+<div class="figure">
+<svg viewBox="0 0 1100 590" role="img" aria-label="Qualitative E-k diagram showing allowed energy bands and forbidden gaps">
+<rect width="1100" height="590" fill="#fff"/>
+<g font-family="Arial">
+<text x="550" y="35" text-anchor="middle" font-size="24" font-weight="700" fill="#173f7a">Qualitative E–k Diagram</text>
+<text x="550" y="62" text-anchor="middle" font-size="14" fill="#687887">Allowed bands are separated by forbidden energy gaps</text>
+<line x1="115" y1="525" x2="1010" y2="525" stroke="#596b79" stroke-width="2"/>
+<line x1="115" y1="525" x2="115" y2="90" stroke="#596b79" stroke-width="2"/>
+<text x="88" y="100" font-size="18" fill="#536575">E</text><text x="1015" y="532" font-size="18" fill="#536575">k</text>
+<!-- band 1 -->
+<path d="M190 470 C300 455 390 405 550 400 C710 405 800 455 910 470" fill="none" stroke="#2868a9" stroke-width="7"/>
+<!-- band 2 -->
+<path d="M190 335 C310 350 400 305 550 290 C700 305 790 350 910 335" fill="none" stroke="#2868a9" stroke-width="7"/>
+<!-- band 3 -->
+<path d="M190 190 C300 205 400 160 550 145 C700 160 800 205 910 190" fill="none" stroke="#2868a9" stroke-width="7"/>
+<!-- gaps -->
+<rect x="185" y="415" width="730" height="28" fill="#f1dddd" opacity=".8"/>
+<rect x="185" y="255" width="730" height="28" fill="#f1dddd" opacity=".8"/>
+<g font-size="16" font-weight="700">
+<text x="935" y="468" fill="#245b91">Allowed band 1</text>
+<text x="935" y="332" fill="#245b91">Allowed band 2</text>
+<text x="935" y="187" fill="#245b91">Allowed band 3</text>
+<text x="550" y="436" text-anchor="middle" fill="#9b5555">FORBIDDEN GAP</text>
+<text x="550" y="276" text-anchor="middle" fill="#9b5555">FORBIDDEN GAP</text>
+</g>
+<g stroke="#aebdca" stroke-width="1">
+<line x1="550" y1="90" x2="550" y2="525"/>
+</g>
+<g font-size="14" fill="#687887">
+<text x="175" y="548">−π/a</text><text x="540" y="548">0</text><text x="885" y="548">π/a</text>
+<text x="550" y="575" text-anchor="middle">Wave vector k</text>
+</g>
+</g>
+</svg>
+<p class="caption"><b>Fig. 2:</b> Qualitative E–k diagram illustrating allowed energy bands and forbidden gaps.</p>
+</div>
+</div>
+<div class="card"><h3>What does the diagram mean?</h3><ul><li><b>Allowed band:</b> electron states exist and the Schrödinger equation has acceptable solutions.</li><li><b>Forbidden gap:</b> no allowed electron state exists for that energy range.</li><li>The periodic crystal potential changes the free-electron energy spectrum into a band structure.</li><li>Band gaps are especially important for understanding semiconductors and insulators.</li></ul></div>
+<div class="card"><h3>Free electron vs crystal electron</h3><div class="grid"><div class="mini"><strong>Free electron</strong><p>Continuous energy spectrum with E ∝ k².</p></div><div class="mini"><strong>Crystal electron</strong><p>Periodic potential produces bands and forbidden gaps.</p></div></div></div>
+</section>
+
+<section class="section" id="visualize">
+<div class="heading"><span class="tag">VISUALIZE</span><h2>Explore Band Formation</h2><p>Change the barrier strength and observe how the qualitative band structure changes.</p></div>
+<div class="card"><div class="simgrid"><div class="controls">
+<h3>Crystal parameters</h3>
+<div class="row"><label><span>Barrier strength</span><span class="value" id="barVal">Medium</span></label><input id="barSlider" type="range" min="1" max="3" step="1" value="2"></div>
+<p style="font-size:11px">This is a teaching visualization, not a numerical solution of the full Kronig–Penney equation.</p>
+</div>
+<div class="output"><h3>Qualitative band structure</h3><div class="simsvg"><svg viewBox="0 0 900 470">
+<line x1="70" y1="410" x2="850" y2="410" stroke="#596b79" stroke-width="2"/><line x1="70" y1="410" x2="70" y2="55" stroke="#596b79" stroke-width="2"/>
+<path id="b1" d="" fill="none" stroke="#2868a9" stroke-width="6"/><path id="b2" d="" fill="none" stroke="#2868a9" stroke-width="6"/><path id="b3" d="" fill="none" stroke="#2868a9" stroke-width="6"/>
+<g id="gapLabels"></g><text x="48" y="65" class="svgtext">E</text><text x="855" y="418" class="svgtext">k</text>
+</svg></div><div class="result" id="bandResult"></div></div></div></div>
+</section>
+
+<section class="section" id="significance">
+<div class="heading"><span class="tag">SIGNIFICANCE</span><h2>Physical Significance</h2><p>Why the Kronig–Penney model is important in engineering physics.</p></div>
+<div class="card"><ul><li>It gives a simple picture of electron motion in a periodic crystal potential.</li><li>It demonstrates that electron energies are grouped into <b>allowed energy bands</b>.</li><li>It explains the existence of <b>forbidden energy gaps</b>.</li><li>It provides a qualitative foundation for classifying solids as conductors, semiconductors and insulators.</li><li>It connects the microscopic periodic lattice with macroscopic electrical properties.</li><li>It prepares the way for the concepts of effective mass, band gap and semiconductor physics.</li></ul></div>
+<div class="card"><h3>From Kronig–Penney to band theory</h3><div class="key">Periodic lattice → periodic potential → Schrödinger equation → allowed and forbidden energies → energy bands → electrical properties of solids.</div></div>
+</section>
+
+<section class="section" id="practice">
+<div class="heading"><span class="tag">PRACTICE</span><h2>Quick Check</h2><p>Test the essential concepts.</p></div>
+<div class="question"><p>1. The Kronig–Penney model represents a crystal by a:</p><button class="option" onclick="ans(this,true,'q1')">A. Periodic potential</button><button class="option" onclick="ans(this,false,'q1')">B. Random potential</button><button class="option" onclick="ans(this,false,'q1')">C. Constant zero potential everywhere</button><div class="answer" id="q1">Correct: <b>A</b>.</div></div>
+<div class="question"><p>2. An allowed energy band contains:</p><button class="option" onclick="ans(this,true,'q2')">A. Permitted electron states</button><button class="option" onclick="ans(this,false,'q2')">B. No electron states</button><button class="option" onclick="ans(this,false,'q2')">C. Only nuclear states</button><div class="answer" id="q2">Correct: <b>A</b>.</div></div>
+<div class="question"><p>3. A forbidden energy gap is a range where:</p><button class="option" onclick="ans(this,false,'q3')">A. Every energy is allowed</button><button class="option" onclick="ans(this,true,'q3')">B. No allowed electron state exists</button><button class="option" onclick="ans(this,false,'q3')">C. The potential is always zero</button><div class="answer" id="q3">Correct: <b>B</b>.</div></div>
+<div class="question"><p>4. The periodic potential in a crystal is responsible for:</p><button class="option" onclick="ans(this,false,'q4')">A. Eliminating quantum effects</button><button class="option" onclick="ans(this,true,'q4')">B. Formation of energy bands</button><button class="option" onclick="ans(this,false,'q4')">C. Making all energies identical</button><div class="answer" id="q4">Correct: <b>B</b>.</div></div>
+<div class="question"><p>5. The Kronig–Penney model is mainly used to explain:</p><button class="option" onclick="ans(this,true,'q5')">A. Band structure of solids</button><button class="option" onclick="ans(this,false,'q5')">B. Projectile motion</button><button class="option" onclick="ans(this,false,'q5')">C. Blackbody radiation only</button><div class="answer" id="q5">Correct: <b>A</b>.</div></div>
+</section>
+
+<section class="section" id="revision">
+<div class="heading"><span class="tag">QUICK REVISION</span><h2>Remember These Points</h2><p>Compact examination-oriented summary.</p></div>
+<div class="revision">
+<div><strong>Model</strong><p>One-dimensional periodic potential representing a crystal.</p></div><div><strong>Potential</strong><p>Alternating wells and barriers repeated periodically.</p></div>
+<div><strong>Main result</strong><p>Electron energies form allowed bands.</p></div><div><strong>Forbidden gap</strong><p>Energy range with no permitted electron states.</p></div>
+<div><strong>Connection</strong><p>Based on Bloch's theorem and periodic potential.</p></div><div><strong>E–k diagram</strong><p>Shows dispersion of allowed energy bands with wave vector.</p></div>
+</div>
+<div class="card" style="margin-top:18px"><h3>Exam focus</h3><div class="key"><b>Remember:</b> The qualitative purpose of the Kronig–Penney model is to explain how a periodic crystal potential leads to <b>allowed energy bands and forbidden energy gaps</b>.</div></div>
+<div style="text-align:center;margin-top:30px"><button onclick="completeTopic9()" style="border:0;border-radius:8px;padding:12px 22px;background:#173f7a;color:#fff;font-weight:600">✓ Mark Topic as Completed</button></div>
+</section>
+
+</main>
+<footer><strong>Interactive Engineering Physics</strong><br>Unit I • Topic 09 • Quantum Mechanics</footer>
+
+<script>
+const tabs=document.querySelectorAll(".tab"),sections=document.querySelectorAll(".section");
+tabs.forEach(t=>t.addEventListener("click",()=>{tabs.forEach(x=>x.classList.remove("active"));sections.forEach(x=>x.classList.remove("active"));t.classList.add("active");document.getElementById(t.dataset.target).classList.add("active");}));
+
+const bs=document.getElementById("barSlider"),bv=document.getElementById("barVal"),b1=document.getElementById("b1"),b2=document.getElementById("b2"),b3=document.getElementById("b3"),br=document.getElementById("bandResult");
+function bands(){
+let v=+bs.value, names=["Low","Medium","High"];bv.textContent=names[v-1];
+let gap=[12,25,40][v-1];
+function curve(base,amp,sign){let d="",N=240;for(let i=0;i<=N;i++){let u=i/N,x=90+720*u,y=base+sign*amp*Math.pow(Math.cos((u-.5)*Math.PI),2);d+=(i?" L ":"M ")+x.toFixed(1)+" "+y.toFixed(1)}return d}
+b1.setAttribute("d",curve(365,35,1));b2.setAttribute("d",curve(235,42,-1));b3.setAttribute("d",curve(105,38,1));
+br.innerHTML="<b>"+names[v-1]+" barrier strength:</b> the illustration widens the separation between successive allowed bands as the periodic barriers become stronger. In the real Kronig–Penney model, the exact band widths and gaps are obtained from the model equation.";
+}
+bs.addEventListener("input",bands);bands();
+
+function ans(b,c,id){b.closest(".question").querySelectorAll(".option").forEach(x=>x.disabled=true);b.classList.add(c?"correct":"wrong");document.getElementById(id).classList.add("show")}
+function completeTopic9(){localStorage.setItem("physics-unit1-kronig-penney","true");alert("Topic completed ✓")}
+</script>
+</body>
+</html>
