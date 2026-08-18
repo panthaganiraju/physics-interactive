@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Discrete Energy Levels and Quantum Confinement | Interactive Physics</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7f9fb;color:#314657}
+header{height:65px;background:#fff;border-bottom:1px solid #dfe7ee;display:flex;align-items:center}.nav{width:min(1180px,100%);margin:auto;padding:0 22px;display:flex;justify-content:space-between;align-items:center}.brand{font-size:20px;font-weight:700;color:#173f7a;text-decoration:none}.brand span{display:inline-flex;width:40px;height:40px;background:#173f7a;color:#fff;border-radius:11px;align-items:center;justify-content:center;margin-right:10px}
+.hero{background:linear-gradient(135deg,#102f5d,#173f7a 55%,#236795);color:#fff;padding:42px 22px 48px}.hero>div{max-width:1180px;margin:auto}.back{color:#dce7f2;text-decoration:none;font-size:13px}.label{font-size:10px;letter-spacing:1.6px;opacity:.75;margin-top:20px}.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.1;margin:8px 0 12px}.hero p{max-width:880px;color:#dce7f2;font-size:15px;line-height:1.7}
+.menu{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #dfe7ee}.menu-inner{max-width:1180px;margin:auto;display:flex;overflow-x:auto;padding:0 22px}.tab{border:0;background:none;white-space:nowrap;padding:14px 15px;color:#687887;font-size:12px;font-weight:700;border-bottom:3px solid transparent;cursor:pointer}.tab.active{color:#173f7a;border-color:#2868a9}
+.container{max-width:1080px;margin:auto;padding:40px 22px 90px}.section{display:none}.section.active{display:block}.heading{margin-bottom:25px}.heading .tag{color:#2868a9;font-size:10px;font-weight:700;letter-spacing:1.5px}.heading h2{color:#173f7a;font-size:30px;margin:5px 0 8px}.heading p,.card p,.card li{font-size:14px;line-height:1.8;color:#536575}
+.card{background:#fff;border:1px solid #dfe7ee;border-radius:13px;padding:25px;margin-bottom:18px;box-shadow:0 4px 18px rgba(30,65,100,.04)}.card h3{color:#245b91;font-size:19px;margin:0 0 10px}.key{padding:20px 24px;border-left:5px solid #2868a9;background:#f4f8fb;border-radius:10px;line-height:1.7}
+.eq{margin:17px 0;padding:19px;text-align:center;border-radius:11px;background:#f5f8fb;border:1px solid #dfe7ee;font:25px Georgia,serif;color:#173f7a}.eq.small{font-size:19px}
+.figure{padding:18px;border:1px solid #dfe7ee;border-radius:12px;background:#fff;text-align:center;margin:22px 0}.figure svg{display:block;width:100%;height:auto}.caption{font-size:12px!important;color:#687887!important;text-align:center;margin:10px 0 0!important}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.mini{padding:18px;background:#f7fafc;border:1px solid #dfe7ee;border-radius:10px}.mini strong{display:block;color:#245b91;text-align:center;font-size:17px}.mini p{font-size:12px!important;text-align:center}
+.question{padding:20px;border:1px solid #dfe7ee;border-radius:11px;margin-bottom:15px}.question p{font-size:13px;font-weight:700}.option{display:block;width:100%;margin:7px 0;padding:10px;border:1px solid #dfe7ee;border-radius:7px;background:#f5f8fb;color:#536575;text-align:left;cursor:pointer;font-size:12px}.correct{background:#e8f5ee!important;color:#197044!important}.wrong{background:#fbeeee!important;color:#9b4040!important}.answer{display:none;margin-top:10px;padding:9px;background:#f4f8fb;color:#647586;font-size:11px}.show{display:block}
+.revision{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.revision div{padding:16px;border:1px solid #dfe7ee;border-radius:9px}.revision strong{color:#245b91;font-size:13px}.revision p{margin:5px 0 0!important;font-size:11px!important}
+footer{background:#173f7a;color:#dce7f2;padding:25px;text-align:center;font-size:12px}
+@media(max-width:800px){.grid,.revision{grid-template-columns:1fr}.eq{font-size:21px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><a class="brand" href="index.html"><span>⚛</span>Interactive Physics</a><nav><a href="../index.html" style="color:#687887;text-decoration:none;font-size:12px;margin-right:18px">Home</a><a href="index.html" style="color:#687887;text-decoration:none;font-size:12px">Unit I</a></nav></div></header>
+
+<section class="hero"><div>
+<a class="back" href="index.html">← Unit I — Quantum Mechanics</a>
+<div class="label">TOPIC 14</div>
+<h1>Discrete Energy Levels & Quantum Confinement</h1>
+<p>How reducing a material to nanoscale dimensions changes the continuous energy-band picture into size-dependent, discrete energy states.</p>
+</div></section>
+
+<nav class="menu"><div class="menu-inner">
+<button class="tab active" data-target="learn">📖 Learn</button>
+<button class="tab" data-target="concept">🔬 Concept</button>
+<button class="tab" data-target="compare">⚡ Bulk vs Nano</button>
+<button class="tab" data-target="visualize">👁 Visualize</button>
+<button class="tab" data-target="box">📦 1D Model</button>
+<button class="tab" data-target="applications">💡 Applications</button>
+<button class="tab" data-target="practice">✏ Practice</button>
+<button class="tab" data-target="revision">🎯 Revision</button>
+</div></nav>
+
+<main class="container">
+
+<section class="section active" id="learn">
+<div class="heading"><span class="tag">LEARN</span><h2>Discrete Energy Levels and Quantum Confinement</h2><p>At the macroscopic scale, solids are described using energy bands. When the dimensions of a structure become comparable to the characteristic wavelength of an electron, the motion of the electron becomes confined and quantum effects become important.</p></div>
+<div class="card"><h3>What is quantum confinement?</h3><p><b>Quantum confinement</b> is the restriction of the motion of charge carriers to a very small region of space, typically on the nanometre scale, such that their allowed energies become quantized and depend on the dimensions of the structure.</p><div class="key"><b>Central idea:</b> Smaller dimensions mean stronger confinement. Stronger confinement produces a larger separation between allowed energy levels.</div></div>
+<div class="card"><h3>From bulk material to nanomaterial</h3><p>In a bulk solid, the enormous number of closely spaced states produces nearly continuous energy bands. As the size is reduced to the nanoscale, the number and spacing of available states change and discrete or more clearly separated energy levels become important.</p></div>
+</section>
+
+<section class="section" id="concept">
+<div class="heading"><span class="tag">CONCEPT</span><h2>How Quantum Confinement Develops</h2><p>The progression below is the key picture students should remember.</p></div>
+<div class="card"><div class="figure">
+<svg viewBox="0 0 1100 610" role="img" aria-label="Bulk material to quantum confined nanostructure">
+<rect width="1100" height="610" fill="#fff"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="550" y="35" text-anchor="middle" font-size="24" font-weight="700" fill="#173f7a">Bulk Material → Quantum Confinement</text>
+<text x="550" y="63" text-anchor="middle" font-size="14" fill="#687887">Reducing the dimensions changes the available electron states</text>
+
+<rect x="35" y="95" width="240" height="450" rx="12" fill="#f8fbfd" stroke="#dfe7ee"/>
+<text x="155" y="128" text-anchor="middle" font-size="19" font-weight="700" fill="#245b91">Bulk solid</text>
+<rect x="90" y="170" width="130" height="260" rx="7" fill="#dceef9" stroke="#2868a9" stroke-width="2"/>
+<g stroke="#2868a9" stroke-width="2" opacity=".8">
+<line x1="100" y1="200" x2="210" y2="200"/><line x1="100" y1="212" x2="210" y2="212"/><line x1="100" y1="224" x2="210" y2="224"/><line x1="100" y1="236" x2="210" y2="236"/>
+<line x1="100" y1="255" x2="210" y2="255"/><line x1="100" y1="267" x2="210" y2="267"/><line x1="100" y1="279" x2="210" y2="279"/><line x1="100" y1="291" x2="210" y2="291"/>
+<line x1="100" y1="310" x2="210" y2="310"/><line x1="100" y1="322" x2="210" y2="322"/><line x1="100" y1="334" x2="210" y2="334"/><line x1="100" y1="346" x2="210" y2="346"/>
+</g>
+<text x="155" y="475" text-anchor="middle" font-size="13" fill="#687887">Nearly continuous bands</text>
+
+<rect x="300" y="95" width="240" height="450" rx="12" fill="#f8fbfd" stroke="#dfe7ee"/>
+<text x="420" y="128" text-anchor="middle" font-size="19" font-weight="700" fill="#245b91">Nanostructure</text>
+<rect x="380" y="190" width="80" height="220" rx="20" fill="#dceef9" stroke="#2868a9" stroke-width="3"/>
+<text x="420" y="475" text-anchor="middle" font-size="13" fill="#687887">Dimensions approach nanoscale</text>
+
+<rect x="565" y="95" width="240" height="450" rx="12" fill="#f8fbfd" stroke="#dfe7ee"/>
+<text x="685" y="128" text-anchor="middle" font-size="19" font-weight="700" fill="#245b91">Confinement</text>
+<circle cx="685" cy="300" r="72" fill="#eaf4fb" stroke="#2868a9" stroke-width="3"/>
+<path d="M635 300 Q685 230 735 300 Q685 370 635 300" fill="none" stroke="#173f7a" stroke-width="3"/>
+<text x="685" y="475" text-anchor="middle" font-size="13" fill="#687887">Electron motion restricted</text>
+
+<rect x="830" y="95" width="235" height="450" rx="12" fill="#f8fbfd" stroke="#dfe7ee"/>
+<text x="947" y="128" text-anchor="middle" font-size="19" font-weight="700" fill="#245b91">Discrete states</text>
+<line x1="885" y1="440" x2="1010" y2="440" stroke="#596b79" stroke-width="2"/>
+<g stroke="#2868a9" stroke-width="4">
+<line x1="900" y1="385" x2="995" y2="385"/><line x1="900" y1="335" x2="995" y2="335"/><line x1="900" y1="275" x2="995" y2="275"/><line x1="900" y1="205" x2="995" y2="205"/>
+</g>
+<text x="947" y="475" text-anchor="middle" font-size="13" fill="#687887">Size-dependent energy levels</text>
+</g>
+</svg>
+<p class="caption"><b>Fig. 1:</b> Qualitative progression from bulk energy bands to discrete, size-dependent energy levels under quantum confinement.</p>
+</div></div>
+
+<div class="grid">
+<div class="mini"><strong>Bulk</strong><p>Nearly continuous energy bands</p></div>
+<div class="mini"><strong>Nanoscale</strong><p>Carrier motion becomes confined</p></div>
+<div class="mini"><strong>Quantum regime</strong><p>Discrete, size-dependent energies</p></div>
+</div>
+</section>
+
+<section class="section" id="compare">
+<div class="heading"><span class="tag">BULK VS NANO</span><h2>Bulk Material and Nanomaterial</h2><p>Quantum confinement changes the energy spectrum as the characteristic dimension becomes very small.</p></div>
+<div class="card"><table style="width:100%;border-collapse:collapse;background:#fff;font-size:13px"><thead><tr style="background:#f2f7fb;color:#173f7a"><th style="padding:13px;border:1px solid #dfe7ee;text-align:left">Feature</th><th style="padding:13px;border:1px solid #dfe7ee;text-align:left">Bulk material</th><th style="padding:13px;border:1px solid #dfe7ee;text-align:left">Nanomaterial</th></tr></thead><tbody>
+<tr><td style="padding:13px;border:1px solid #dfe7ee"><b>Size</b></td><td style="padding:13px;border:1px solid #dfe7ee">Large compared with characteristic carrier length scales</td><td style="padding:13px;border:1px solid #dfe7ee">Very small, often nanometre scale</td></tr>
+<tr><td style="padding:13px;border:1px solid #dfe7ee"><b>Energy states</b></td><td style="padding:13px;border:1px solid #dfe7ee">Very closely spaced; bands are a useful description</td><td style="padding:13px;border:1px solid #dfe7ee">More clearly separated, size-dependent states can appear</td></tr>
+<tr><td style="padding:13px;border:1px solid #dfe7ee"><b>Carrier motion</b></td><td style="padding:13px;border:1px solid #dfe7ee">Weakly affected by boundaries on the atomic scale</td><td style="padding:13px;border:1px solid #dfe7ee">Restricted by the nanoscale dimensions</td></tr>
+<tr><td style="padding:13px;border:1px solid #dfe7ee"><b>Energy spectrum</b></td><td style="padding:13px;border:1px solid #dfe7ee">Approximately continuous bands</td><td style="padding:13px;border:1px solid #dfe7ee">Discrete/quantized levels become important</td></tr>
+<tr><td style="padding:13px;border:1px solid #dfe7ee"><b>Properties</b></td><td style="padding:13px;border:1px solid #dfe7ee">Mostly bulk properties</td><td style="padding:13px;border:1px solid #dfe7ee">Optical/electronic properties can depend on size</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="section" id="visualize">
+<div class="heading"><span class="tag">INTERACTIVE</span><h2>See the Confinement Effect</h2><p>Reduce the particle size and observe the qualitative increase in spacing between quantum energy levels.</p></div>
+<div class="card"><div class="figure">
+<svg viewBox="0 0 950 500">
+<rect width="950" height="500" fill="#fff"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="475" y="35" text-anchor="middle" font-size="22" font-weight="700" fill="#173f7a">Quantum Confinement: Energy-Level Spacing</text>
+<line x1="120" y1="425" x2="120" y2="70" stroke="#596b79" stroke-width="2"/><text x="90" y="82" fill="#536575">E</text>
+<g id="qlevels"></g>
+<text id="sizeLabel" x="475" y="470" text-anchor="middle" font-size="16" font-weight="700" fill="#245b91"></text>
+</g></svg></div>
+<div style="margin:15px 10px"><label style="display:flex;justify-content:space-between;font-size:12px;color:#536575"><span>Nanoparticle size</span><b id="sizeVal" style="color:#173f7a">10 nm</b></label><input id="sizeSlider" type="range" min="2" max="20" value="10" style="width:100%;accent-color:#2868a9"></div>
+<div class="key" id="sizeInfo"></div></div>
+</section>
+
+<section class="section" id="box">
+<div class="heading"><span class="tag">1D QUANTUM MODEL</span><h2>Why Smaller Size Gives Larger Energy Spacing</h2><p>A simple one-dimensional infinite-potential-well model demonstrates the size dependence.</p></div>
+<div class="card"><h3>Energy levels of a particle in a 1D box</h3><p>For a particle confined to a one-dimensional box of width \(L\), the allowed energies are</p><div class="eq">E<sub>n</sub> = n²h² / 8mL²</div><p>where \(n=1,2,3,\ldots\).</p><div class="key">Because <b>E<sub>n</sub> ∝ 1/L²</b>, decreasing the confinement dimension \(L\) increases the energy spacing. This is the basic mathematical idea behind quantum confinement.</div></div>
+<div class="card"><h3>First few levels</h3><div class="figure">
+<svg viewBox="0 0 900 420">
+<rect width="900" height="420" fill="#fff"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<line x1="130" y1="360" x2="780" y2="360" stroke="#596b79" stroke-width="2"/>
+<line x1="130" y1="360" x2="130" y2="65" stroke="#596b79" stroke-width="2"/>
+<text x="100" y="75" fill="#536575">E</text>
+<g stroke="#2868a9" stroke-width="5"><line x1="230" y1="315" x2="390" y2="315"/><line x1="230" y1="235" x2="390" y2="235"/><line x1="230" y1="125" x2="390" y2="125"/></g>
+<text x="405" y="320" fill="#245b91" font-size="15">n = 1</text><text x="405" y="240" fill="#245b91" font-size="15">n = 2</text><text x="405" y="130" fill="#245b91" font-size="15">n = 3</text>
+<text x="230" y="390" font-size="14" fill="#687887">larger L</text>
+<g stroke="#8c4d4d" stroke-width="4"><line x1="560" y1="315" x2="720" y2="315"/><line x1="560" y1="190" x2="720" y2="190"/><line x1="560" y1="85" x2="720" y2="85"/></g>
+<text x="735" y="320" fill="#8c4d4d" font-size="15">n = 1</text><text x="735" y="195" fill="#8c4d4d" font-size="15">n = 2</text><text x="735" y="90" fill="#8c4d4d" font-size="15">n = 3</text>
+<text x="640" y="390" font-size="14" fill="#687887">smaller L</text>
+<text x="450" y="35" text-anchor="middle" font-size="20" font-weight="700" fill="#173f7a">Level spacing increases when confinement length decreases</text>
+</g></svg>
+<p class="caption"><b>Fig. 2:</b> Qualitative comparison of energy-level spacing for larger and smaller confinement dimensions.</p>
+</div></div>
+</section>
+
+<section class="section" id="applications">
+<div class="heading"><span class="tag">APPLICATIONS</span><h2>Why Quantum Confinement is Useful</h2><p>Nanoscale control of energy levels leads to tunable electronic and optical properties.</p></div>
+<div class="card"><div class="grid">
+<div class="mini"><strong>Quantum Dots</strong><p>Size-dependent electronic and optical transitions.</p></div>
+<div class="mini"><strong>LEDs & Lasers</strong><p>Quantum-confined structures can be engineered for optical emission.</p></div>
+<div class="mini"><strong>Photodetectors</strong><p>Absorption can be tuned through nanostructure design.</p></div>
+<div class="mini"><strong>Solar Cells</strong><p>Nanostructures can modify absorption and carrier behaviour.</p></div>
+<div class="mini"><strong>Nanoelectronics</strong><p>Very small dimensions make quantum effects important in devices.</p></div>
+<div class="mini"><strong>Biological Imaging</strong><p>Semiconductor quantum dots can provide size-dependent optical signatures.</p></div>
+</div></div>
+<div class="card"><h3>Important distinction</h3><div class="key">Quantum confinement does <b>not</b> mean that every nanomaterial automatically has perfectly discrete atomic-like levels. The degree of quantization depends on size, material properties and the relevant carrier length scales. The important engineering concept is that reducing dimensions can make quantum effects and size-dependent energy states increasingly significant.</div></div>
+</section>
+
+<section class="section" id="practice">
+<div class="heading"><span class="tag">PRACTICE</span><h2>Quick Check</h2><p>Test the essential concepts.</p></div>
+<div class="question"><p>1. Quantum confinement becomes important when:</p><button class="option" onclick="ans(this,true,'q1')">A. A structure becomes sufficiently small that carrier motion is spatially confined</button><button class="option" onclick="ans(this,false,'q1')">B. The material becomes infinitely large</button><button class="option" onclick="ans(this,false,'q1')">C. There are no electrons</button><div class="answer" id="q1">Correct: <b>A</b>.</div></div>
+<div class="question"><p>2. For a particle in a 1D box:</p><button class="option" onclick="ans(this,true,'q2')">A. E<sub>n</sub> ∝ 1/L²</button><button class="option" onclick="ans(this,false,'q2')">B. E<sub>n</sub> ∝ L²</button><button class="option" onclick="ans(this,false,'q2')">C. E<sub>n</sub> is independent of L</button><div class="answer" id="q2">Correct: <b>A</b>.</div></div>
+<div class="question"><p>3. If the confinement dimension decreases, energy-level spacing generally:</p><button class="option" onclick="ans(this,true,'q3')">A. Increases</button><button class="option" onclick="ans(this,false,'q3')">B. Always becomes zero</button><button class="option" onclick="ans(this,false,'q3')">C. Remains unchanged</button><div class="answer" id="q3">Correct: <b>A</b>.</div></div>
+<div class="question"><p>4. Quantum confinement is particularly important in:</p><button class="option" onclick="ans(this,true,'q4')">A. Nanostructures</button><button class="option" onclick="ans(this,false,'q4')">B. Only macroscopic beams</button><button class="option" onclick="ans(this,false,'q4')">C. Classical hydraulic systems</button><div class="answer" id="q4">Correct: <b>A</b>.</div></div>
+<div class="question"><p>5. Which is a quantum-confinement application?</p><button class="option" onclick="ans(this,true,'q5')">A. Quantum dots</button><button class="option" onclick="ans(this,false,'q5')">B. Conventional concrete mixing</button><button class="option" onclick="ans(this,false,'q5')">C. Classical pendulum timing only</button><div class="answer" id="q5">Correct: <b>A</b>.</div></div>
+</section>
+
+<section class="section" id="revision">
+<div class="heading"><span class="tag">QUICK REVISION</span><h2>Remember These Points</h2><p>Compact examination-oriented summary.</p></div>
+<div class="revision">
+<div><strong>Quantum confinement</strong><p>Restriction of carrier motion at sufficiently small dimensions.</p></div>
+<div><strong>Bulk solid</strong><p>Energy bands are a useful nearly continuous description.</p></div>
+<div><strong>Nanostructure</strong><p>Discrete or more clearly separated size-dependent states can become important.</p></div>
+<div><strong>1D box</strong><p>E<sub>n</sub> = n²h²/(8mL²).</p></div>
+<div><strong>Size effect</strong><p>Smaller L → larger energy spacing.</p></div>
+<div><strong>Applications</strong><p>Quantum dots, nanoelectronics, LEDs, lasers, photodetectors and solar cells.</p></div>
+</div>
+<div class="card" style="margin-top:18px"><h3>Exam focus</h3><div class="key"><b>Key statement:</b> When the dimensions of a material become sufficiently small, the motion of electrons becomes confined. The allowed energies become size dependent and more clearly separated. This phenomenon is called <b>quantum confinement</b>.</div><div class="eq small">E<sub>n</sub> = n²h² / 8mL²</div></div>
+<div style="text-align:center;margin-top:30px"><button onclick="complete()" style="border:0;border-radius:8px;padding:12px 22px;background:#173f7a;color:#fff;font-weight:600">✓ Mark Topic as Completed</button></div>
+</section>
+
+</main>
+<footer><strong>Interactive Engineering Physics</strong><br>Unit I • Topic 14 • Quantum Mechanics</footer>
+
+<script>
+const tabs=document.querySelectorAll(".tab"),sections=document.querySelectorAll(".section");
+tabs.forEach(t=>t.addEventListener("click",()=>{tabs.forEach(x=>x.classList.remove("active"));sections.forEach(x=>x.classList.remove("active"));t.classList.add("active");document.getElementById(t.dataset.target).classList.add("active");}));
+const s=document.getElementById("sizeSlider"),sv=document.getElementById("sizeVal"),levels=document.getElementById("qlevels"),sl=document.getElementById("sizeLabel"),si=document.getElementById("sizeInfo");
+function draw(){let L=+s.value;sv.textContent=L+" nm";let spacing=2500/(L*L);let base=360;levels.innerHTML="";for(let n=1;n<=5;n++){let y=base-spacing*n*n*0.045; if(y<80)y=80;let line=document.createElementNS("http://www.w3.org/2000/svg","line");line.setAttribute("x1",300);line.setAttribute("x2",650);line.setAttribute("y1",y);line.setAttribute("y2",y);line.setAttribute("stroke","#2868a9");line.setAttribute("stroke-width",L<=5?"4":"2");levels.appendChild(line)}sl.textContent=L<=5?"Strong confinement: widely separated levels":L<=10?"Moderate confinement: noticeable level separation":"Weak confinement: levels are more closely spaced";si.innerHTML=L<=5?"<b>Small size:</b> confinement is strong and the allowed energy levels are widely separated.":L<=10?"<b>Intermediate size:</b> quantum confinement is noticeable and level spacing is moderate.":"<b>Larger size:</b> confinement is weaker and the levels move closer together, approaching the bulk limit qualitatively."}
+s.addEventListener("input",draw);draw();
+function ans(b,c,id){b.closest(".question").querySelectorAll(".option").forEach(x=>x.disabled=true);b.classList.add(c?"correct":"wrong");document.getElementById(id).classList.add("show")}
+function complete(){localStorage.setItem("physics-unit1-quantum-confinement","true");alert("Topic completed ✓")}
+</script>
+</body>
+</html>
