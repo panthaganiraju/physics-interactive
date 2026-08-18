@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Effective Mass of Electron | Interactive Physics</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7f9fb;color:#314657}
+header{height:65px;background:#fff;border-bottom:1px solid #dfe7ee;display:flex;align-items:center}.nav{width:min(1180px,100%);margin:auto;padding:0 22px;display:flex;justify-content:space-between;align-items:center}.brand{font-size:20px;font-weight:700;color:#173f7a;text-decoration:none}.brand span{display:inline-flex;width:40px;height:40px;background:#173f7a;color:#fff;border-radius:11px;align-items:center;justify-content:center;margin-right:10px}
+.hero{background:linear-gradient(135deg,#102f5d,#173f7a 55%,#236795);color:#fff;padding:42px 22px 48px}.hero>div{max-width:1180px;margin:auto}.back{color:#dce7f2;text-decoration:none;font-size:13px}.label{font-size:10px;letter-spacing:1.6px;opacity:.75;margin-top:20px}.hero h1{font-size:clamp(32px,5vw,50px);line-height:1.1;margin:8px 0 12px}.hero p{max-width:850px;color:#dce7f2;font-size:15px;line-height:1.7}
+.menu{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #dfe7ee}.menu-inner{max-width:1180px;margin:auto;display:flex;overflow-x:auto;padding:0 22px}.tab{border:0;background:none;white-space:nowrap;padding:14px 15px;color:#687887;font-size:12px;font-weight:700;border-bottom:3px solid transparent;cursor:pointer}.tab.active{color:#173f7a;border-color:#2868a9}
+.container{max-width:1000px;margin:auto;padding:40px 22px 90px}.section{display:none}.section.active{display:block}.heading{margin-bottom:25px}.heading .tag{color:#2868a9;font-size:10px;font-weight:700;letter-spacing:1.5px}.heading h2{color:#173f7a;font-size:30px;margin:5px 0 8px}.heading p,.card p,.card li{font-size:14px;line-height:1.8;color:#536575}
+.card{background:#fff;border:1px solid #dfe7ee;border-radius:13px;padding:25px;margin-bottom:18px;box-shadow:0 4px 18px rgba(30,65,100,.04)}.card h3{color:#245b91;font-size:19px;margin:0 0 10px}.key{padding:20px 24px;border-left:5px solid #2868a9;background:#f4f8fb;border-radius:10px;line-height:1.7}
+.eq{margin:17px 0;padding:19px;text-align:center;border-radius:11px;background:#f5f8fb;border:1px solid #dfe7ee;font:27px Georgia,serif;color:#173f7a}.eq.small{font-size:20px}.note{text-align:center;color:#7b8995;font:12px Arial}
+.figure{padding:18px;border:1px solid #dfe7ee;border-radius:12px;background:#fff;text-align:center;margin:22px 0}.figure svg{display:block;width:100%;height:auto}.caption{font-size:12px!important;color:#687887!important;text-align:center;margin:10px 0 0!important}
+.derivation{position:relative;padding:22px 24px 22px 72px;border:1px solid #dfe7ee;border-radius:12px;background:#fff;margin-bottom:16px}.derivation:before{content:attr(data-step);position:absolute;left:20px;top:22px;width:34px;height:34px;border-radius:50%;background:#173f7a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}.derivation h3{margin:0 0 8px;color:#173f7a;font-size:18px}.final{border:2px solid #2868a9;background:#f5f9fd}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.mini{padding:18px;background:#f7fafc;border:1px solid #dfe7ee;border-radius:10px}.mini strong{display:block;color:#245b91;text-align:center;font-size:18px}.mini p{font-size:12px!important;text-align:center}
+.simgrid{display:grid;grid-template-columns:1fr 1.25fr;gap:16px}.controls{background:#f4f8fb;border:1px solid #d9e6ef;border-radius:12px;padding:20px}.controls h3,.output h3{color:#245b91;font-size:18px;margin:0 0 15px}.row{margin:18px 0}.row label{display:flex;justify-content:space-between;color:#536575;font-size:12px;margin-bottom:7px}.row input{width:100%;accent-color:#2868a9}.value{font-weight:700;color:#173f7a}.output{border:1px solid #dfe7ee;border-radius:12px;padding:20px}.simsvg{border:1px solid #dfe7ee;border-radius:10px;background:#fbfdff}.simsvg svg{display:block;width:100%;height:auto}.result{margin-top:12px;padding:13px;background:#eef6fb;border-radius:8px;color:#245b91;font-size:12px;line-height:1.7}
+.question{padding:20px;border:1px solid #dfe7ee;border-radius:11px;margin-bottom:15px}.question p{font-size:13px;font-weight:700}.option{display:block;width:100%;margin:7px 0;padding:10px;border:1px solid #dfe7ee;border-radius:7px;background:#f5f8fb;color:#536575;text-align:left;cursor:pointer;font-size:12px}.correct{background:#e8f5ee!important;color:#197044!important}.wrong{background:#fbeeee!important;color:#9b4040!important}.answer{display:none;margin-top:10px;padding:9px;background:#f4f8fb;color:#647586;font-size:11px}.show{display:block}
+.revision{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.revision div{padding:16px;border:1px solid #dfe7ee;border-radius:9px}.revision strong{color:#245b91;font-size:13px}.revision p{margin:5px 0 0!important;font-size:11px!important}footer{background:#173f7a;color:#dce7f2;padding:25px;text-align:center;font-size:12px}
+@media(max-width:760px){.grid,.simgrid,.revision{grid-template-columns:1fr}.eq{font-size:22px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><a class="brand" href="index.html"><span>⚛</span>Interactive Physics</a><nav><a href="../index.html" style="color:#687887;text-decoration:none;font-size:12px;margin-right:18px">Home</a><a href="index.html" style="color:#687887;text-decoration:none;font-size:12px">Unit I</a></nav></div></header>
+
+<section class="hero"><div>
+<a class="back" href="index.html">← Unit I — Quantum Mechanics</a>
+<div class="label">TOPIC 10</div>
+<h1>Effective Mass of Electron</h1>
+<p>How the curvature of the E–k diagram determines the effective mass of an electron moving through a crystal.</p>
+</div></section>
+
+<nav class="menu"><div class="menu-inner">
+<button class="tab active" data-target="learn">📖 Learn</button>
+<button class="tab" data-target="derivation">∫ Derivation</button>
+<button class="tab" data-target="ek">E–k Diagram</button>
+<button class="tab" data-target="visualize">👁 Visualize</button>
+<button class="tab" data-target="significance">💡 Significance</button>
+<button class="tab" data-target="practice">✏ Practice</button>
+<button class="tab" data-target="revision">🎯 Revision</button>
+</div></nav>
+
+<main class="container">
+<section class="section active" id="learn">
+<div class="heading"><span class="tag">LEARN</span><h2>Effective Mass of Electron</h2><p>In a crystal, an electron does not behave exactly like a free electron. The periodic potential of the lattice changes its response to an applied force.</p></div>
+<div class="card"><h3>What is effective mass?</h3><p>The <b>effective mass</b> of an electron is the mass that an electron appears to have when it moves through a crystal under the influence of the periodic crystal potential.</p><div class="key"><b>Important:</b> Effective mass is not a change in the actual rest mass of the electron. It is a convenient quantity that describes how the electron responds to an external force inside a solid.</div></div>
+<div class="card"><h3>Why does it arise?</h3><p>For a free electron, the energy-wave-vector relation is parabolic:</p><div class="eq">E = ℏ²k² / 2m</div><p>In a crystal, the periodic potential modifies this relation. The resulting <b>E–k curve</b> may have different curvature in different parts of the band.</p></div>
+<div class="card"><h3>The key relationship</h3><div class="eq">1/m* = (1/ℏ²)(d²E/dk²)</div><p>The curvature of the E–k curve therefore determines the effective mass.</p></div>
+</section>
+
+<section class="section" id="derivation">
+<div class="heading"><span class="tag">DERIVATION</span><h2>Derivation of Effective Mass</h2><p>The derivation connects electron dynamics, crystal momentum and the curvature of the E–k relationship.</p></div>
+
+<div class="derivation" data-step="1">
+<h3>Step 1: Electron velocity in a crystal</h3>
+<p>For an electron wave packet in a crystal, the group velocity is</p>
+<div class="eq">v = (1/ℏ)(dE/dk)</div>
+<p>where <b>E</b> is the electron energy and <b>k</b> is the wave vector.</p>
+</div>
+
+<div class="derivation" data-step="2">
+<h3>Step 2: Apply an external force</h3>
+<p>The crystal momentum of the electron is</p>
+<div class="eq">p = ℏk</div>
+<p>Therefore, the applied force is</p>
+<div class="eq">F = dp/dt = ℏ(dk/dt)</div>
+</div>
+
+<div class="derivation" data-step="3">
+<h3>Step 3: Find the acceleration</h3>
+<p>Starting from</p>
+<div class="eq small">v = (1/ℏ)(dE/dk)</div>
+<p>differentiate with respect to time:</p>
+<div class="eq small">a = dv/dt = (1/ℏ)(d²E/dk²)(dk/dt)</div>
+</div>
+
+<div class="derivation" data-step="4">
+<h3>Step 4: Compare with Newton's law</h3>
+<p>For a particle of effective mass <b>m*</b>, Newton's second law gives</p>
+<div class="eq">F = m*a</div>
+<p>Using the expressions for force and acceleration:</p>
+<div class="eq small">ℏ(dk/dt) = m*(1/ℏ)(d²E/dk²)(dk/dt)</div>
+</div>
+
+<div class="derivation final" data-step="5">
+<h3>Step 5: Expression for Effective Mass</h3>
+<p>Canceling the common factor \(dk/dt\),</p>
+<div class="eq">m* = ℏ² / (d²E/dk²)</div>
+<div class="key"><b>Therefore,</b> the effective mass is inversely proportional to the curvature of the E–k curve.</div>
+</div>
+
+<div class="card"><h3>Special cases from the E–k curve</h3><div class="grid"><div class="mini"><strong>d²E/dk² &gt; 0</strong><p>Positive curvature → positive effective mass.</p></div><div class="mini"><strong>d²E/dk² &lt; 0</strong><p>Negative curvature → negative electron effective mass.</p></div></div><div class="eq small">At a point of zero curvature: d²E/dk² = 0 → m* becomes very large.</div></div>
+</section>
+
+<section class="section" id="ek">
+<div class="heading"><span class="tag">E–k DIAGRAM</span><h2>Effective Mass and Curvature</h2><p>The E–k diagram gives an immediate visual interpretation of effective mass.</p></div>
+<div class="card"><div class="figure">
+<svg viewBox="0 0 1100 570" role="img" aria-label="E-k diagrams showing positive, zero and negative curvature">
+<rect width="1100" height="570" fill="#fff"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="550" y="35" text-anchor="middle" font-size="24" font-weight="700" fill="#173f7a">E–k Curvature and Effective Mass</text>
+<text x="550" y="63" text-anchor="middle" font-size="14" fill="#687887">The curvature d²E/dk² determines the sign and magnitude of m*</text>
+<!-- left positive -->
+<rect x="55" y="95" width="305" height="380" rx="12" fill="#f8fbfd" stroke="#dfe7ee"/>
+<line x1="90" y1="430" x2="325" y2="430" stroke="#596b79" stroke-width="2"/><line x1="207" y1="445" x2="207" y2="125" stroke="#596b79" stroke-width="2"/>
+<path d="M105 150 Q207 430 310 150" fill="none" stroke="#2868a9" stroke-width="5"/>
+<text x="207" y="120" text-anchor="middle" font-size="18" font-weight="700" fill="#245b91">Positive curvature</text>
+<text x="207" y="465" text-anchor="middle" font-size="15" fill="#536575">m* &gt; 0</text>
+<text x="207" y="492" text-anchor="middle" font-size="13" fill="#687887">electron-like</text>
+<!-- middle flat -->
+<rect x="397" y="95" width="305" height="380" rx="12" fill="#f8fbfd" stroke="#dfe7ee"/>
+<line x1="430" y1="430" x2="667" y2="430" stroke="#596b79" stroke-width="2"/><line x1="550" y1="445" x2="550" y2="125" stroke="#596b79" stroke-width="2"/>
+<path d="M445 300 Q550 250 655 300" fill="none" stroke="#2868a9" stroke-width="5"/>
+<text x="550" y="120" text-anchor="middle" font-size="18" font-weight="700" fill="#245b91">Small curvature</text>
+<text x="550" y="465" text-anchor="middle" font-size="15" fill="#536575">|m*| large</text>
+<text x="550" y="492" text-anchor="middle" font-size="13" fill="#687887">weak response</text>
+<!-- right negative -->
+<rect x="740" y="95" width="305" height="380" rx="12" fill="#f8fbfd" stroke="#dfe7ee"/>
+<line x1="775" y1="430" x2="1010" y2="430" stroke="#596b79" stroke-width="2"/><line x1="892" y1="445" x2="892" y2="125" stroke="#596b79" stroke-width="2"/>
+<path d="M790 150 Q892 430 995 150" fill="none" stroke="#2868a9" stroke-width="5" transform="rotate(180 892 290)"/>
+<text x="892" y="120" text-anchor="middle" font-size="18" font-weight="700" fill="#245b91">Negative curvature</text>
+<text x="892" y="465" text-anchor="middle" font-size="15" fill="#536575">m* &lt; 0</text>
+<text x="892" y="492" text-anchor="middle" font-size="13" fill="#687887">hole-like behaviour</text>
+<text x="550" y="535" text-anchor="middle" font-size="16" font-family="Georgia,serif" fill="#173f7a">m* = ℏ² / (d²E/dk²)</text>
+</g>
+</svg>
+<p class="caption"><b>Fig. 1:</b> Qualitative E–k curvature and its relation to effective mass.</p>
+</div></div>
+<div class="card"><h3>Remember the curvature rule</h3><div class="key">More curvature → smaller magnitude of effective mass. Less curvature → larger magnitude of effective mass. The sign follows the sign of the curvature.</div></div>
+</section>
+
+<section class="section" id="visualize">
+<div class="heading"><span class="tag">VISUALIZE</span><h2>Explore the E–k Curve</h2><p>Move the slider to change the curvature and observe the calculated effective mass in relative units.</p></div>
+<div class="card"><div class="simgrid"><div class="controls"><h3>Curvature control</h3><div class="row"><label><span>Curvature</span><span class="value" id="curvVal">+1.0</span></label><input id="curv" type="range" min="-2" max="2" step=".1" value="1"></div><p style="font-size:11px">The visualization uses normalized units for teaching the curvature concept. It is not a material-specific numerical calculation.</p></div>
+<div class="output"><h3>Interactive E–k relation</h3><div class="simsvg"><svg viewBox="0 0 850 430"><line x1="70" y1="360" x2="790" y2="360" stroke="#596b79" stroke-width="2"/><line x1="430" y1="390" x2="430" y2="55" stroke="#596b79" stroke-width="2"/><path id="curvePath" d="" fill="none" stroke="#2868a9" stroke-width="6"/><text x="55" y="65" fill="#536575" font-size="15">E</text><text x="795" y="377" fill="#536575" font-size="15">k</text></svg></div><div class="result" id="curvResult"></div></div></div></div>
+</section>
+
+<section class="section" id="significance">
+<div class="heading"><span class="tag">SIGNIFICANCE</span><h2>Physical Significance</h2><p>Effective mass allows the complicated effect of the crystal lattice to be represented in a simple dynamical form.</p></div>
+<div class="card"><ul><li>It describes how an electron accelerates when an external force is applied inside a crystal.</li><li>It depends on the curvature of the energy band, so it is generally different at different points in the band.</li><li>Electrons near the bottom of a conduction band generally have positive effective mass.</li><li>Near the top of a valence band, the electron curvature is negative; this leads naturally to the hole concept.</li><li>Effective mass is important in semiconductor devices, carrier transport and optoelectronic materials.</li></ul></div>
+<div class="card"><h3>Connection to band theory</h3><div class="key">Kronig–Penney model → energy bands → E–k relation → curvature of E(k) → effective mass → carrier transport.</div></div>
+</section>
+
+<section class="section" id="practice">
+<div class="heading"><span class="tag">PRACTICE</span><h2>Quick Check</h2><p>Test the essential concepts.</p></div>
+<div class="question"><p>1. The effective mass is determined by the:</p><button class="option" onclick="ans(this,true,'q1')">A. Curvature of the E–k curve</button><button class="option" onclick="ans(this,false,'q1')">B. Atomic number only</button><button class="option" onclick="ans(this,false,'q1')">C. Temperature only</button><div class="answer" id="q1">Correct: <b>A</b>.</div></div>
+<div class="question"><p>2. The correct expression is:</p><button class="option" onclick="ans(this,true,'q2')">A. m* = ℏ²/(d²E/dk²)</button><button class="option" onclick="ans(this,false,'q2')">B. m* = d²E/dk²</button><button class="option" onclick="ans(this,false,'q2')">C. m* = ℏ(dE/dk)</button><div class="answer" id="q2">Correct: <b>A</b>.</div></div>
+<div class="question"><p>3. Positive curvature gives:</p><button class="option" onclick="ans(this,true,'q3')">A. Positive effective mass</button><button class="option" onclick="ans(this,false,'q3')">B. Negative effective mass</button><button class="option" onclick="ans(this,false,'q3')">C. Zero mass</button><div class="answer" id="q3">Correct: <b>A</b>.</div></div>
+<div class="question"><p>4. The group velocity is:</p><button class="option" onclick="ans(this,true,'q4')">A. v = (1/ℏ)dE/dk</button><button class="option" onclick="ans(this,false,'q4')">B. v = ℏdE/dk</button><button class="option" onclick="ans(this,false,'q4')">C. v = d²E/dk²</button><div class="answer" id="q4">Correct: <b>A</b>.</div></div>
+<div class="question"><p>5. Effective mass is mainly useful for describing:</p><button class="option" onclick="ans(this,true,'q5')">A. Response of carriers in a crystal</button><button class="option" onclick="ans(this,false,'q5')">B. Nuclear binding only</button><button class="option" onclick="ans(this,false,'q5')">C. Gravitational motion only</button><div class="answer" id="q5">Correct: <b>A</b>.</div></div>
+</section>
+
+<section class="section" id="revision">
+<div class="heading"><span class="tag">QUICK REVISION</span><h2>Remember These Points</h2><p>Compact examination-oriented summary.</p></div>
+<div class="revision"><div><strong>Definition</strong><p>Effective mass describes the response of an electron inside a crystal.</p></div><div><strong>Group velocity</strong><p>v = (1/ℏ)dE/dk.</p></div><div><strong>Crystal momentum</strong><p>p = ℏk.</p></div><div><strong>Main result</strong><p>m* = ℏ²/(d²E/dk²).</p></div><div><strong>Positive curvature</strong><p>Positive effective mass.</p></div><div><strong>Negative curvature</strong><p>Negative electron effective mass; hole description is useful.</p></div></div>
+<div class="card" style="margin-top:18px"><h3>Exam focus</h3><div class="eq small">m* = ℏ² / (d²E/dk²)</div><div class="key"><b>Key sentence:</b> The effective mass of an electron in a crystal is inversely proportional to the curvature of the E–k curve.</div></div>
+<div style="text-align:center;margin-top:30px"><button onclick="complete()" style="border:0;border-radius:8px;padding:12px 22px;background:#173f7a;color:#fff;font-weight:600">✓ Mark Topic as Completed</button></div>
+</section>
+</main>
+<footer><strong>Interactive Engineering Physics</strong><br>Unit I • Topic 10 • Quantum Mechanics</footer>
+
+<script>
+const tabs=document.querySelectorAll(".tab"),sections=document.querySelectorAll(".section");
+tabs.forEach(t=>t.addEventListener("click",()=>{tabs.forEach(x=>x.classList.remove("active"));sections.forEach(x=>x.classList.remove("active"));t.classList.add("active");document.getElementById(t.dataset.target).classList.add("active");}));
+const c=document.getElementById("curv"),cv=document.getElementById("curvVal"),path=document.getElementById("curvePath"),res=document.getElementById("curvResult");
+function draw(){let q=+c.value;cv.textContent=(q>=0?"+":"")+q.toFixed(1);let d="";for(let i=0;i<=220;i++){let u=i/220,x=90+680*u,k=u-.5;let y=235-105*q*k*k;d+=(i?" L ":"M ")+x.toFixed(1)+" "+y.toFixed(1)}path.setAttribute("d",d);if(Math.abs(q)<.05)res.innerHTML="<b>Curvature ≈ 0:</b> the effective mass magnitude becomes very large.";else{let m=1/q;res.innerHTML="<b>Normalized effective mass ≈ "+m.toFixed(2)+"</b><br>"+(q>0?"Positive curvature → positive effective mass.":"Negative curvature → negative effective mass.")}}
+c.addEventListener("input",draw);draw();
+function ans(b,c,id){b.closest(".question").querySelectorAll(".option").forEach(x=>x.disabled=true);b.classList.add(c?"correct":"wrong");document.getElementById(id).classList.add("show")}
+function complete(){localStorage.setItem("physics-unit1-effective-mass","true");alert("Topic completed ✓")}
+</script>
+</body>
+</html>
