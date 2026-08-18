@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Origin of Bandgap | Interactive Physics</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7f9fb;color:#314657}
+header{height:65px;background:#fff;border-bottom:1px solid #dfe7ee;display:flex;align-items:center}
+.nav{width:min(1180px,100%);margin:auto;padding:0 22px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-size:20px;font-weight:700;color:#173f7a;text-decoration:none}.brand span{display:inline-flex;width:40px;height:40px;background:#173f7a;color:#fff;border-radius:11px;align-items:center;justify-content:center;margin-right:10px}
+.hero{background:linear-gradient(135deg,#102f5d,#173f7a 55%,#236795);color:#fff;padding:42px 22px 48px}.hero>div{max-width:1180px;margin:auto}.back{color:#dce7f2;text-decoration:none;font-size:13px}
+.label{font-size:10px;letter-spacing:1.6px;opacity:.75;margin-top:20px}.hero h1{font-size:clamp(32px,5vw,50px);line-height:1.1;margin:8px 0 12px}.hero p{max-width:850px;color:#dce7f2;font-size:15px;line-height:1.7}
+.menu{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #dfe7ee}.menu-inner{max-width:1180px;margin:auto;display:flex;overflow-x:auto;padding:0 22px}
+.tab{border:0;background:none;white-space:nowrap;padding:14px 15px;color:#687887;font-size:12px;font-weight:700;border-bottom:3px solid transparent;cursor:pointer}.tab.active{color:#173f7a;border-color:#2868a9}
+.container{max-width:1050px;margin:auto;padding:40px 22px 90px}.section{display:none}.section.active{display:block}
+.heading{margin-bottom:25px}.heading .tag{color:#2868a9;font-size:10px;font-weight:700;letter-spacing:1.5px}.heading h2{color:#173f7a;font-size:30px;margin:5px 0 8px}.heading p,.card p,.card li{font-size:14px;line-height:1.8;color:#536575}
+.card{background:#fff;border:1px solid #dfe7ee;border-radius:13px;padding:25px;margin-bottom:18px;box-shadow:0 4px 18px rgba(30,65,100,.04)}.card h3{color:#245b91;font-size:19px;margin:0 0 10px}
+.key{padding:20px 24px;border-left:5px solid #2868a9;background:#f4f8fb;border-radius:10px;line-height:1.7}.eq{margin:17px 0;padding:19px;text-align:center;border-radius:11px;background:#f5f8fb;border:1px solid #dfe7ee;font:27px Georgia,serif;color:#173f7a}.eq.small{font-size:20px}
+.figure{padding:18px;border:1px solid #dfe7ee;border-radius:12px;background:#fff;text-align:center;margin:22px 0}.figure svg{display:block;width:100%;height:auto}.caption{font-size:12px!important;color:#687887!important;text-align:center;margin:10px 0 0!important}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.mini{padding:18px;background:#f7fafc;border:1px solid #dfe7ee;border-radius:10px}.mini strong{display:block;color:#245b91;text-align:center;font-size:17px}.mini p{font-size:12px!important;text-align:center}
+.question{padding:20px;border:1px solid #dfe7ee;border-radius:11px;margin-bottom:15px}.question p{font-size:13px;font-weight:700}.option{display:block;width:100%;margin:7px 0;padding:10px;border:1px solid #dfe7ee;border-radius:7px;background:#f5f8fb;color:#536575;text-align:left;cursor:pointer;font-size:12px}.correct{background:#e8f5ee!important;color:#197044!important}.wrong{background:#fbeeee!important;color:#9b4040!important}.answer{display:none;margin-top:10px;padding:9px;background:#f4f8fb;color:#647586;font-size:11px}.show{display:block}
+.revision{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.revision div{padding:16px;border:1px solid #dfe7ee;border-radius:9px}.revision strong{color:#245b91;font-size:13px}.revision p{margin:5px 0 0!important;font-size:11px!important}
+footer{background:#173f7a;color:#dce7f2;padding:25px;text-align:center;font-size:12px}
+@media(max-width:760px){.grid,.revision{grid-template-columns:1fr}.eq{font-size:22px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><a class="brand" href="index.html"><span>⚛</span>Interactive Physics</a><nav><a href="../index.html" style="color:#687887;text-decoration:none;font-size:12px;margin-right:18px">Home</a><a href="index.html" style="color:#687887;text-decoration:none;font-size:12px">Unit I</a></nav></div></header>
+
+<section class="hero"><div>
+<a class="back" href="index.html">← Unit I — Quantum Mechanics</a>
+<div class="label">TOPIC 12</div>
+<h1>Origin of Bandgap</h1>
+<p>Why a forbidden energy gap appears between the valence band and conduction band in a crystalline solid.</p>
+</div></section>
+
+<nav class="menu"><div class="menu-inner">
+<button class="tab active" data-target="learn">📖 Learn</button>
+<button class="tab" data-target="origin">🔬 Origin</button>
+<button class="tab" data-target="visualize">👁 Visualize</button>
+<button class="tab" data-target="bragg">〰 Bragg View</button>
+<button class="tab" data-target="significance">💡 Significance</button>
+<button class="tab" data-target="practice">✏ Practice</button>
+<button class="tab" data-target="revision">🎯 Revision</button>
+</div></nav>
+
+<main class="container">
+
+<section class="section active" id="learn">
+<div class="heading"><span class="tag">LEARN</span><h2>What is a Bandgap?</h2><p>The bandgap is the forbidden range of energy between the top of the valence band and the bottom of the conduction band.</p></div>
+<div class="card"><h3>Definition</h3><p>The <b>energy bandgap \(E_g\)</b> is the minimum energy difference between the bottom of the conduction band and the top of the valence band.</p><div class="eq">E<sub>g</sub> = E<sub>C</sub> − E<sub>V</sub></div><div class="key"><b>Important:</b> There are no allowed electron states in the ideal forbidden gap between the valence band and conduction band.</div></div>
+<div class="card"><h3>Where does the gap come from?</h3><p>The gap is a consequence of the interaction of electron waves with the periodic crystal lattice. When atoms form a crystal, their atomic levels split into bands. The periodic potential also causes special conditions near Brillouin-zone boundaries, where electron waves are strongly coupled and energy levels separate into allowed and forbidden regions.</p></div>
+</section>
+
+<section class="section" id="origin">
+<div class="heading"><span class="tag">ORIGIN</span><h2>How the Bandgap is Formed</h2><p>Two complementary pictures help students understand the origin of the forbidden gap.</p></div>
+
+<div class="card"><h3>Picture 1: Splitting of Atomic Levels</h3>
+<div class="figure">
+<svg viewBox="0 0 1100 560" role="img" aria-label="Atomic levels split and form valence and conduction bands with forbidden gap">
+<rect width="1100" height="560" fill="#fff"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="550" y="35" text-anchor="middle" font-size="24" font-weight="700" fill="#173f7a">Atomic Levels → Energy Bands → Bandgap</text>
+<text x="550" y="63" text-anchor="middle" font-size="14" fill="#687887">Interaction between atoms splits degenerate levels; the crystal develops allowed bands separated by a gap</text>
+
+<!-- isolated atom -->
+<rect x="45" y="95" width="235" height="405" rx="12" fill="#f8fbfd" stroke="#dfe7ee"/>
+<text x="162" y="125" text-anchor="middle" font-size="18" font-weight="700" fill="#245b91">Isolated atoms</text>
+<line x1="80" y1="440" x2="245" y2="440" stroke="#596b79" stroke-width="2"/>
+<g stroke="#2868a9" stroke-width="4"><line x1="105" y1="365" x2="220" y2="365"/><line x1="105" y1="275" x2="220" y2="275"/><line x1="105" y1="185" x2="220" y2="185"/></g>
+<text x="162" y="475" text-anchor="middle" font-size="13" fill="#687887">discrete levels</text>
+
+<!-- interacting -->
+<rect x="310" y="95" width="235" height="405" rx="12" fill="#f8fbfd" stroke="#dfe7ee"/>
+<text x="427" y="125" text-anchor="middle" font-size="18" font-weight="700" fill="#245b91">Atoms interact</text>
+<g stroke="#2868a9" stroke-width="2">
+<line x1="355" y1="365" x2="500" y2="365"/><line x1="355" y1="355" x2="500" y2="355"/><line x1="355" y1="345" x2="500" y2="345"/><line x1="355" y1="335" x2="500" y2="335"/>
+<line x1="355" y1="275" x2="500" y2="275"/><line x1="355" y1="265" x2="500" y2="265"/><line x1="355" y1="255" x2="500" y2="255"/><line x1="355" y1="245" x2="500" y2="245"/>
+</g>
+<text x="427" y="475" text-anchor="middle" font-size="13" fill="#687887">levels split</text>
+
+<!-- crystal -->
+<rect x="575" y="95" width="480" height="405" rx="12" fill="#f8fbfd" stroke="#dfe7ee"/>
+<text x="815" y="125" text-anchor="middle" font-size="18" font-weight="700" fill="#245b91">Crystal</text>
+<rect x="670" y="165" width="290" height="80" rx="10" fill="#dceef9" stroke="#2868a9" stroke-width="2"/>
+<rect x="670" y="300" width="290" height="80" rx="10" fill="#dceef9" stroke="#2868a9" stroke-width="2"/>
+<rect x="670" y="245" width="290" height="55" rx="8" fill="#f5e4e4" stroke="#9b5555" stroke-width="2"/>
+<text x="815" y="212" text-anchor="middle" font-size="18" font-weight="700" fill="#245b91">Conduction Band</text>
+<text x="815" y="278" text-anchor="middle" font-size="15" font-weight="700" fill="#8c4d4d">Forbidden gap  E<tspan baseline-shift="sub" font-size="11">g</tspan></text>
+<text x="815" y="347" text-anchor="middle" font-size="18" font-weight="700" fill="#245b91">Valence Band</text>
+<text x="815" y="430" text-anchor="middle" font-size="13" fill="#687887">allowed energy states</text>
+</g>
+</svg>
+<p class="caption"><b>Fig. 1:</b> Interaction among atoms splits discrete atomic levels into closely spaced states; in a crystal these form bands separated by a forbidden gap.</p>
+</div>
+</div>
+
+<div class="card"><h3>Picture 2: Periodic Potential and Wave Interaction</h3>
+<p>In a periodic crystal, electron waves are scattered by the regularly spaced ion cores. Near certain wave vectors, particularly at a Brillouin-zone boundary, waves travelling in opposite directions couple strongly. This produces a separation between energy branches and opens an energy gap.</p>
+<div class="eq small">Periodic potential → wave coupling → separation of energy branches → forbidden gap</div>
+</div>
+
+<div class="card"><h3>Key idea</h3><div class="key">The bandgap is therefore not an arbitrary empty space. It is a direct consequence of the <b>periodic crystal potential and interaction of electron waves with the crystal lattice</b>.</div></div>
+</section>
+
+<section class="section" id="visualize">
+<div class="heading"><span class="tag">VISUALIZE</span><h2>Build the Bandgap</h2><p>Move the slider from weak to strong crystal interaction and observe a qualitative increase in the separation between the valence and conduction bands.</p></div>
+<div class="card">
+<div class="figure">
+<svg viewBox="0 0 1000 500" role="img" aria-label="Interactive qualitative bandgap visualization">
+<rect width="1000" height="500" fill="#fff"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="500" y="35" text-anchor="middle" font-size="22" font-weight="700" fill="#173f7a">Qualitative Bandgap Visualization</text>
+<line x1="110" y1="430" x2="110" y2="70" stroke="#596b79" stroke-width="2"/>
+<text x="82" y="82" font-size="16" fill="#536575">E</text>
+<rect id="cb" x="300" y="100" width="400" height="70" rx="10" fill="#dceef9" stroke="#2868a9" stroke-width="2"/>
+<rect id="vb" x="300" y="330" width="400" height="70" rx="10" fill="#dceef9" stroke="#2868a9" stroke-width="2"/>
+<rect id="gap" x="300" y="170" width="400" height="160" fill="#f5e4e4" stroke="#9b5555" stroke-width="2"/>
+<text x="500" y="143" text-anchor="middle" font-size="19" font-weight="700" fill="#245b91">Conduction Band</text>
+<text x="500" y="372" text-anchor="middle" font-size="19" font-weight="700" fill="#245b91">Valence Band</text>
+<text id="egLabel" x="720" y="255" font-size="17" font-weight="700" fill="#8c4d4d">E<tspan baseline-shift="sub" font-size="12">g</tspan></text>
+</g></svg>
+</div>
+<div style="margin:15px 10px"><label style="display:flex;justify-content:space-between;font-size:12px;color:#536575"><span>Crystal interaction / band separation</span><b id="gapVal" style="color:#173f7a">Medium</b></label><input id="gapSlider" type="range" min="1" max="5" value="3" style="width:100%;accent-color:#2868a9"></div>
+<div class="key" id="gapText"></div>
+</div>
+</section>
+
+<section class="section" id="bragg">
+<div class="heading"><span class="tag">WAVE PICTURE</span><h2>Bandgap at the Brillouin-Zone Boundary</h2><p>A qualitative wave picture explains why the periodic lattice can split energy states.</p></div>
+<div class="card">
+<div class="figure">
+<svg viewBox="0 0 1050 560" role="img" aria-label="Qualitative Brillouin zone boundary band splitting">
+<rect width="1050" height="560" fill="#fff"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="525" y="35" text-anchor="middle" font-size="23" font-weight="700" fill="#173f7a">Opening of a Bandgap at k = ±π/a</text>
+<text x="525" y="63" text-anchor="middle" font-size="14" fill="#687887">Qualitative view of two energy branches separating near the zone boundary</text>
+<line x1="100" y1="450" x2="950" y2="450" stroke="#596b79" stroke-width="2"/>
+<line x1="525" y1="470" x2="525" y2="90" stroke="#596b79" stroke-width="2"/>
+<text x="70" y="105" font-size="17" fill="#536575">E</text><text x="955" y="470" font-size="17" fill="#536575">k</text>
+<!-- free-electron-like crossing -->
+<path d="M150 405 Q340 310 525 225 Q710 310 900 405" fill="none" stroke="#9aa8b3" stroke-width="3" stroke-dasharray="8 7"/>
+<path d="M150 405 Q340 310 525 205 Q650 165 900 115" fill="none" stroke="#2868a9" stroke-width="5"/>
+<path d="M150 405 Q340 310 525 300 Q650 335 900 430" fill="none" stroke="#2868a9" stroke-width="5"/>
+<line x1="525" y1="185" x2="525" y2="320" stroke="#9b5555" stroke-width="3" stroke-dasharray="5 5"/>
+<text x="525" y="165" text-anchor="middle" font-size="16" font-weight="700" fill="#8c4d4d">Forbidden gap</text>
+<text x="525" y="350" text-anchor="middle" font-size="15" fill="#8c4d4d">ΔE = E₂ − E₁</text>
+<text x="525" y="505" text-anchor="middle" font-size="15" fill="#687887">−π/a &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +π/a</text>
+<text x="725" y="125" font-size="13" fill="#687887">upper allowed branch</text>
+<text x="710" y="420" font-size="13" fill="#687887">lower allowed branch</text>
+</g></svg>
+<p class="caption"><b>Fig. 2:</b> Qualitative band splitting at a Brillouin-zone boundary. The periodic potential removes the crossing and opens a gap between the two branches.</p>
+</div>
+</div>
+<div class="card"><h3>What happens physically?</h3><ul><li>At a zone boundary, electron waves travelling in opposite directions can form standing-wave combinations.</li><li>The periodic potential makes these combinations have different energies.</li><li>The degeneracy is lifted and the two energy branches separate.</li><li>The separation is the origin of a forbidden energy interval.</li></ul></div>
+</section>
+
+<section class="section" id="significance">
+<div class="heading"><span class="tag">SIGNIFICANCE</span><h2>Why the Bandgap Matters</h2><p>The size of \(E_g\) strongly influences how a material conducts electricity.</p></div>
+<div class="card"><div class="grid">
+<div class="mini"><strong>Conductor</strong><p>Valence and conduction bands overlap or there is no effective forbidden gap at the Fermi level.</p></div>
+<div class="mini"><strong>Semiconductor</strong><p>Small finite bandgap; thermal or optical energy can promote carriers.</p></div>
+<div class="mini"><strong>Insulator</strong><p>Large bandgap; ordinary thermal energy is insufficient to produce many free carriers.</p></div>
+</div></div>
+<div class="card"><h3>Energy needed for excitation</h3><p>An electron can move from the valence band to the conduction band when it receives sufficient energy:</p><div class="eq">E<sub>photon</sub> = hν ≥ E<sub>g</sub></div><p>For optical excitation, this relationship is important in LEDs, lasers, photodetectors and solar cells.</p></div>
+<div class="card"><h3>Concept chain</h3><div class="key">Periodic lattice → interaction of electron waves → splitting of energy states → allowed bands → forbidden gap E<sub>g</sub> → electrical and optical properties.</div></div>
+</section>
+
+<section class="section" id="practice">
+<div class="heading"><span class="tag">PRACTICE</span><h2>Quick Check</h2><p>Test the essential concepts.</p></div>
+<div class="question"><p>1. The bandgap is the energy difference between:</p><button class="option" onclick="ans(this,true,'q1')">A. Bottom of conduction band and top of valence band</button><button class="option" onclick="ans(this,false,'q1')">B. Two atomic nuclei</button><button class="option" onclick="ans(this,false,'q1')">C. Two phonon states only</button><div class="answer" id="q1">Correct: <b>A</b>.</div></div>
+<div class="question"><p>2. The forbidden energy gap lies:</p><button class="option" onclick="ans(this,true,'q2')">A. Between the valence and conduction bands</button><button class="option" onclick="ans(this,false,'q2')">B. Below every energy level</button><button class="option" onclick="ans(this,false,'q2')">C. Only inside the nucleus</button><div class="answer" id="q2">Correct: <b>A</b>.</div></div>
+<div class="question"><p>3. A major origin of band splitting is:</p><button class="option" onclick="ans(this,true,'q3')">A. Periodic crystal potential</button><button class="option" onclick="ans(this,false,'q3')">B. Absence of atoms</button><button class="option" onclick="ans(this,false,'q3')">C. Gravity alone</button><div class="answer" id="q3">Correct: <b>A</b>.</div></div>
+<div class="question"><p>4. At a Brillouin-zone boundary, the periodic potential can:</p><button class="option" onclick="ans(this,true,'q4')">A. Split energy branches and open a gap</button><button class="option" onclick="ans(this,false,'q4')">B. Remove all electron states</button><button class="option" onclick="ans(this,false,'q4')">C. Make the lattice non-periodic</button><div class="answer" id="q4">Correct: <b>A</b>.</div></div>
+<div class="question"><p>5. The bandgap is denoted by:</p><button class="option" onclick="ans(this,true,'q5')">A. E<sub>g</sub></button><button class="option" onclick="ans(this,false,'q5')">B. E<sub>0</sub> only</button><button class="option" onclick="ans(this,false,'q5')">C. m*</button><div class="answer" id="q5">Correct: <b>A</b>.</div></div>
+</section>
+
+<section class="section" id="revision">
+<div class="heading"><span class="tag">QUICK REVISION</span><h2>Remember These Points</h2><p>Compact examination-oriented summary.</p></div>
+<div class="revision">
+<div><strong>Definition</strong><p>E<sub>g</sub> is the energy separation between conduction-band minimum and valence-band maximum.</p></div>
+<div><strong>Position</strong><p>The forbidden gap lies between the conduction and valence bands.</p></div>
+<div><strong>Origin</strong><p>It arises from electron interaction with the periodic crystal potential.</p></div>
+<div><strong>Wave picture</strong><p>Strong coupling near zone boundaries splits energy branches.</p></div>
+<div><strong>Optical excitation</strong><p>hν ≥ E<sub>g</sub> can promote an electron across the gap.</p></div>
+<div><strong>Importance</strong><p>E<sub>g</sub> strongly affects electrical and optical behaviour.</p></div>
+</div>
+<div class="card" style="margin-top:18px"><h3>Exam focus</h3><div class="eq small">E<sub>g</sub> = E<sub>C</sub> − E<sub>V</sub></div><div class="key"><b>Key sentence:</b> The forbidden energy gap originates from the periodic crystal potential and the interaction of electron waves with the periodic lattice, which separates allowed energy branches.</div></div>
+<div style="text-align:center;margin-top:30px"><button onclick="complete()" style="border:0;border-radius:8px;padding:12px 22px;background:#173f7a;color:#fff;font-weight:600">✓ Mark Topic as Completed</button></div>
+</section>
+
+</main>
+<footer><strong>Interactive Engineering Physics</strong><br>Unit I • Topic 12 • Quantum Mechanics</footer>
+
+<script>
+const tabs=document.querySelectorAll(".tab"),sections=document.querySelectorAll(".section");
+tabs.forEach(t=>t.addEventListener("click",()=>{tabs.forEach(x=>x.classList.remove("active"));sections.forEach(x=>x.classList.remove("active"));t.classList.add("active");document.getElementById(t.dataset.target).classList.add("active");}));
+const gs=document.getElementById("gapSlider"),gv=document.getElementById("gapVal"),gap=document.getElementById("gap"),eg=document.getElementById("egLabel"),gt=document.getElementById("gapText");
+function drawGap(){let n=+gs.value;let names=["Very small","Small","Medium","Large","Very large"];gv.textContent=names[n-1];let h=[55,85,120,155,190][n-1];let top=250-h/2,bottom=250+h/2;document.getElementById("cb").setAttribute("y",100);document.getElementById("cb").setAttribute("height",Math.max(40,top-100));document.getElementById("gap").setAttribute("y",top);document.getElementById("gap").setAttribute("height",h);document.getElementById("vb").setAttribute("y",bottom);document.getElementById("vb").setAttribute("height",Math.max(40,400-bottom));eg.setAttribute("y",250);gt.innerHTML="<b>"+names[n-1]+" gap:</b> this qualitative view shows the separation between the conduction-band edge and valence-band edge increasing as the bandgap becomes larger. Actual bandgaps are material-dependent."; }
+gs.addEventListener("input",drawGap);drawGap();
+function ans(b,c,id){b.closest(".question").querySelectorAll(".option").forEach(x=>x.disabled=true);b.classList.add(c?"correct":"wrong");document.getElementById(id).classList.add("show")}
+function complete(){localStorage.setItem("physics-unit1-origin-bandgap","true");alert("Topic completed ✓")}
+</script>
+</body>
+</html>
