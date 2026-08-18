@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Schrödinger Time-Independent Wave Equation | Interactive Physics</title>
+<link rel="stylesheet" href="../assets/css/physics.css">
+<style>
+.lesson-hero{background:linear-gradient(135deg,#102f5d,#173f7a 55%,#236795);color:#fff;padding:42px 22px 48px}
+.lesson-hero-inner,.lesson-nav-inner{max-width:1180px;margin:auto}.lesson-back{color:#dce7f2;text-decoration:none;font-size:13px}.lesson-label{font-size:10px;letter-spacing:1.5px;opacity:.75;margin-top:20px}
+.lesson-hero h1{font-size:clamp(31px,5vw,50px);margin:8px 0 12px;line-height:1.1}.lesson-hero p{max-width:850px;color:#dce7f2;font-size:15px}
+.lesson-nav{position:sticky;top:65px;z-index:100;background:#fff;border-bottom:1px solid #dfe7ee}.lesson-nav-inner{display:flex;overflow-x:auto;padding:0 22px}
+.lesson-tab{flex-shrink:0;border:0;background:none;padding:14px 15px;color:#687887;font-size:12px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent}.lesson-tab.active{color:#173f7a;border-bottom-color:#2868a9}
+.lesson-container{max-width:1000px;margin:auto;padding:40px 22px 90px}.lesson-section{display:none}.lesson-section.active{display:block}
+.lesson-heading{margin-bottom:25px}.lesson-heading .label{color:#2868a9;font-size:10px;font-weight:700;letter-spacing:1.5px}.lesson-heading h2{color:#173f7a;font-size:30px;margin:5px 0 8px}.lesson-heading p,.content-card p,.content-card li{color:#536575;font-size:14px;line-height:1.8}
+.content-card{background:#fff;border:1px solid #dfe7ee;border-radius:13px;padding:25px;margin-bottom:18px;box-shadow:0 4px 18px rgba(30,65,100,.04)}.content-card h3{color:#245b91;font-size:19px;margin:0 0 10px}
+.key-box{padding:22px 26px;border-left:5px solid #2868a9;background:#f4f8fb;border-radius:10px;color:#314657;line-height:1.7}
+.equation-box{margin:17px 0;padding:20px;text-align:center;border-radius:11px;background:#f5f8fb;border:1px solid #dfe7ee}.equation{font-family:Georgia,serif;color:#173f7a;font-size:27px}.equation.small{font-size:21px}.equation-note{color:#7a8996;font-size:11px;margin-top:7px}
+.derivation-step{position:relative;margin:0 0 16px;padding:22px 24px 22px 72px;background:#fff;border:1px solid #dfe7ee;border-radius:12px;box-shadow:0 3px 12px rgba(30,65,100,.035)}.derivation-step:before{content:attr(data-step);position:absolute;left:20px;top:22px;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#173f7a;color:#fff;font-size:11px;font-weight:700}.derivation-step:after{content:"";position:absolute;left:36px;top:56px;bottom:-17px;width:1px;background:#d7e3ec}.derivation-step:last-child:after{display:none}.derivation-step h3{margin:0 0 8px;color:#173f7a;font-size:18px}.final-step{border:2px solid #2868a9;background:#f5f9fd}.final-step:before{background:#2868a9}
+.section-title{margin:28px 0 14px;padding-bottom:8px;border-bottom:1px solid #dfe7ee;color:#245b91;font-size:18px}
+.sim-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:16px}.control{background:#f4f8fb;border:1px solid #d9e6ef;border-radius:12px;padding:20px}.control h3,.output h3{color:#245b91;font-size:18px;margin:0 0 15px}.row{margin:18px 0}.row label{display:flex;justify-content:space-between;color:#536575;font-size:12px;margin-bottom:7px}.row input{width:100%;accent-color:#2868a9}.value{font-weight:700;color:#173f7a}.output{border:1px solid #dfe7ee;border-radius:12px;padding:20px}.box-svg{width:100%;height:300px;background:#fbfdff;border:1px solid #dfe7ee;border-radius:10px}.box-svg svg{width:100%;height:100%}.axis{stroke:#aebdca;stroke-width:1}.wall{stroke:#173f7a;stroke-width:7}.wave{fill:none;stroke:#2868a9;stroke-width:3}.prob{fill:rgba(40,104,169,.12);stroke:#7ea6c3;stroke-width:1.5}.svgtext{font:12px Arial;fill:#71808d}.svgtitle{font:700 14px Arial;fill:#245b91}
+.result{margin-top:12px;padding:13px;background:#eef6fb;border-radius:8px;color:#245b91;font-size:12px;line-height:1.6}.revision{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.revision div{padding:16px;border:1px solid #dfe7ee;border-radius:9px}.revision strong{color:#245b91;font-size:13px}.revision p{margin:5px 0 0;color:#71808d;font-size:11px}.question{padding:20px;margin-bottom:15px;border:1px solid #dfe7ee;border-radius:11px}.question p{font-weight:600;font-size:13px}.option{display:block;width:100%;margin:7px 0;padding:10px;text-align:left;background:#f5f8fb;border:1px solid #dfe7ee;border-radius:7px;cursor:pointer;color:#536575;font-size:12px}.option.correct{background:#e8f5ee;color:#197044}.option.wrong{background:#fbeeee;color:#9b4040}.answer{display:none;margin-top:10px;padding:9px;background:#f4f8fb;color:#647586;font-size:11px}.answer.show{display:block}.complete{text-align:center;margin-top:30px}.complete button{border:0;border-radius:8px;padding:12px 22px;background:#173f7a;color:#fff;font-weight:600}
+@media(max-width:760px){.sim-grid,.revision{grid-template-columns:1fr}.derivation-step{padding-left:58px}.derivation-step:before{left:14px}.derivation-step:after{left:30px}.equation{font-size:22px}}
+</style>
+</head>
+<body>
+
+<header class="site-header"><div class="nav-container">
+<a href="../index.html" class="brand"><span class="brand-icon">⚛</span><span>Interactive Physics</span></a>
+<nav class="main-nav"><a href="../index.html">Home</a><a href="index.html">Unit I</a></nav>
+</div></header>
+
+<section class="lesson-hero"><div class="lesson-hero-inner">
+<a href="index.html" class="lesson-back">← Unit I — Quantum Mechanics</a>
+<div class="lesson-label">TOPIC 06</div>
+<h1>Schrödinger Time-Independent Wave Equation</h1>
+<p>Derivation, physical significance, important equations and an interactive visualization of the one-dimensional quantum wave equation.</p>
+</div></section>
+
+<nav class="lesson-nav"><div class="lesson-nav-inner">
+<button class="lesson-tab active" data-target="learn">📖 Learn</button>
+<button class="lesson-tab" data-target="derivation">∫ Derivation</button>
+<button class="lesson-tab" data-target="visualize">👁 Visualize</button>
+<button class="lesson-tab" data-target="significance">💡 Significance</button>
+<button class="lesson-tab" data-target="practice">✏ Practice</button>
+<button class="lesson-tab" data-target="revision">🎯 Revision</button>
+</div></nav>
+
+<main class="lesson-container">
+
+<section class="lesson-section active" id="learn">
+<div class="lesson-heading"><span class="label">LEARN</span><h2>Schrödinger Time-Independent Wave Equation</h2><p>The fundamental equation used to determine stationary quantum states and their allowed energies.</p></div>
+<div class="content-card"><h3>Introduction</h3><p>The Schrödinger Wave Equation is one of the fundamental equations of quantum mechanics. It describes the wave nature of microscopic particles such as electrons and helps determine their energy and probability of existence.</p><p>The <b>Time-Independent Schrödinger Equation</b> is applicable when the potential energy of the particle does not change with time.</p></div>
+<div class="content-card"><h3>Particle wave function</h3><p>Consider a particle moving along the x-axis. The wave function representing the particle is</p><div class="equation-box"><div class="equation">ψ(x) = 2A sin(2πx/λ)</div></div><p>where <b>A</b> is the amplitude and <b>λ</b> is the wavelength associated with the particle.</p></div>
+<div class="content-card"><h3>What the equation gives</h3><ul><li>The allowed quantum states of a particle.</li><li>The wave function ψ associated with a stationary state.</li><li>Energy values associated with quantum states.</li><li>A mathematical basis for understanding atoms, solids, semiconductors and nanostructures.</li></ul></div>
+</section>
+
+<section class="lesson-section" id="derivation">
+<div class="lesson-heading"><span class="label">DERIVATION</span><h2>Complete Derivation</h2><p>The complete derivation is visible from the beginning. Previous steps remain on screen for classroom explanation.</p></div>
+
+<article class="derivation-step" data-step="1"><h3>First Derivative of the Wave Function</h3><p>Differentiating ψ(x) with respect to x,</p><div class="equation-box"><div class="equation">dψ(x)/dx = 2A cos(2πx/λ) × (2π/λ)</div></div></article>
+
+<article class="derivation-step" data-step="2"><h3>Second Derivative of the Wave Function</h3><p>Differentiating once again,</p><div class="equation-box"><div class="equation">d²ψ(x)/dx² = − (4π²/λ²) ψ(x)</div></div></article>
+
+<article class="derivation-step" data-step="3"><h3>Using the de Broglie Relation</h3><p>According to the de Broglie hypothesis,</p><div class="equation-box"><div class="equation">λ = h/mv</div></div><p>Substituting,</p><div class="equation-box"><div class="equation">d²ψ(x)/dx² = − (4π²m²v²/h²) ψ(x)</div></div></article>
+
+<article class="derivation-step" data-step="4"><h3>Using the Total Energy Relation</h3><p>The total energy of a particle is</p><div class="equation-box"><div class="equation">E = ½mv² + V</div></div><p>where <b>E</b> is total energy and <b>V</b> is potential energy.</p><p>Rearranging,</p><div class="equation-box"><div class="equation">mv² = 2(E − V)</div></div><p>Substituting into the previous equation,</p><div class="equation-box"><div class="equation">d²ψ(x)/dx² = − [8π²m(E − V)/h²] ψ(x)</div></div></article>
+
+<article class="derivation-step final-step" data-step="5"><h3>Rearranging the Equation</h3><p>Moving all the terms to one side,</p><div class="equation-box"><div class="equation">d²ψ(x)/dx² + [8π²m(E − V)/h²] ψ(x) = 0</div></div><div class="key-box"><b>This is the one-dimensional Schrödinger Time-Independent Wave Equation.</b></div></article>
+
+<h3 class="section-title">Three-Dimensional Schrödinger Equation</h3>
+<article class="derivation-step" data-step="6"><h3>Three-Dimensional Form</h3><p>For a particle moving in three dimensions,</p><div class="equation-box"><div class="equation small">d²ψ/dx² + d²ψ/dy² + d²ψ/dz² + [8π²m(E − V)/h²]ψ = 0</div></div><p>Rearranging,</p><div class="equation-box"><div class="equation small">[−h²/(8π²m)](d²/dx² + d²/dy² + d²/dz²)ψ + Vψ = Eψ</div></div><div class="key-box"><b>This is the general three-dimensional Time-Independent Schrödinger Equation.</b></div></article>
+</section>
+
+<section class="lesson-section" id="visualize">
+<div class="lesson-heading"><span class="label">VISUALIZE</span><h2>Quantum Wave Visualization</h2><p>Explore how the wave function changes with the wave number.</p></div>
+<div class="content-card"><div class="sim-grid"><div class="control">
+<h3>Wave parameters</h3><div class="row"><label><span>Wave number k</span><span class="value" id="kValue"></span></label><input id="kSlider" type="range" min="1" max="8" step=".1" value="3"></div>
+<div class="row"><label><span>Amplitude A</span><span class="value" id="aValue">1.00</span></label><input id="aSlider" type="range" min=".3" max="1.5" step=".01" value="1"></div>
+<p style="font-size:11px">The displayed wave is a normalized teaching visualization of ψ(x); the actual Schrödinger equation determines the physically allowed states for a specified system.</p>
+</div>
+<div class="output"><h3>ψ(x)</h3><div class="box-svg"><svg viewBox="0 0 800 300" preserveAspectRatio="none"><line x1="55" y1="150" x2="750" y2="150" class="axis"/><line x1="55" y1="35" x2="55" y2="265" class="axis"/><path id="wave" class="wave" d=""></path><text x="70" y="28" class="svgtitle">Wave function ψ(x)</text><text x="705" y="178" class="svgtext">x →</text></svg></div><div class="result" id="waveMessage"></div></div></div></div>
+<div class="content-card"><h3>Connection to the equation</h3><p>The second derivative of the wave function appears in the Schrödinger equation. Its curvature is related to the energy and potential energy of the particle.</p><div class="equation-box"><div class="equation small">d²ψ/dx² + [8π²m(E − V)/h²]ψ = 0</div></div></div>
+</section>
+
+<section class="lesson-section" id="significance">
+<div class="lesson-heading"><span class="label">SIGNIFICANCE</span><h2>Physical Significance</h2><p>Why the time-independent equation is important.</p></div>
+<div class="content-card"><ul><li>The Schrödinger equation describes the wave nature of microscopic particles.</li><li>Its solution gives the wave function ψ of the particle.</li><li>The square of the wave function |ψ|² gives the probability of finding the particle at a particular position.</li><li>It helps determine the allowed energy levels of atoms, molecules and solids.</li><li>It forms a basis for understanding atomic structure, chemical bonding, semiconductor physics and nanotechnology.</li></ul></div>
+<div class="content-card"><h3>Important Equations</h3>
+<div class="equation-box"><div class="equation small">ψ(x) = 2A sin(2πx/λ)</div></div>
+<div class="equation-box"><div class="equation small">d²ψ(x)/dx² = − (4π²/λ²)ψ(x)</div></div>
+<div class="equation-box"><div class="equation small">λ = h/mv</div></div>
+<div class="equation-box"><div class="equation small">E = ½mv² + V</div></div>
+<div class="equation-box"><div class="equation small">d²ψ/dx² + [8π²m(E − V)/h²]ψ = 0</div></div>
+<div class="equation-box"><div class="equation small">[−h²/(8π²m)]∇²ψ + Vψ = Eψ</div></div>
+</div>
+</section>
+
+<section class="lesson-section" id="practice">
+<div class="lesson-heading"><span class="label">PRACTICE</span><h2>Quick Check</h2><p>Test the main concepts and equations.</p></div>
+<div class="question"><p>1. The time-independent Schrödinger equation is applicable when:</p><button class="option" onclick="ans(this,true,'q1')">A. Potential energy does not change with time</button><button class="option" onclick="ans(this,false,'q1')">B. Particle has zero mass</button><button class="option" onclick="ans(this,false,'q1')">C. Wavelength is zero</button><div class="answer" id="q1">Correct: <b>A</b>.</div></div>
+<div class="question"><p>2. The de Broglie relation used in the derivation is:</p><button class="option" onclick="ans(this,false,'q2')">A. λ = mv/h</button><button class="option" onclick="ans(this,true,'q2')">B. λ = h/mv</button><button class="option" onclick="ans(this,false,'q2')">C. λ = hmv</button><div class="answer" id="q2">Correct: <b>B</b>.</div></div>
+<div class="question"><p>3. The one-dimensional time-independent Schrödinger equation in the prescribed form is:</p><button class="option" onclick="ans(this,true,'q3')">A. d²ψ/dx² + [8π²m(E−V)/h²]ψ = 0</button><button class="option" onclick="ans(this,false,'q3')">B. dψ/dx = 0</button><button class="option" onclick="ans(this,false,'q3')">C. ψ = E/V</button><div class="answer" id="q3">Correct: <b>A</b>.</div></div>
+<div class="question"><p>4. |ψ|² represents:</p><button class="option" onclick="ans(this,false,'q4')">A. Wavelength</button><button class="option" onclick="ans(this,true,'q4')">B. Probability density</button><button class="option" onclick="ans(this,false,'q4')">C. Potential energy</button><div class="answer" id="q4">Correct: <b>B</b>.</div></div>
+<div class="question"><p>5. The general three-dimensional equation contains:</p><button class="option" onclick="ans(this,false,'q5')">A. Only d²/dx²</button><button class="option" onclick="ans(this,true,'q5')">B. Second derivatives with respect to x, y and z</button><button class="option" onclick="ans(this,false,'q5')">C. Only a time derivative</button><div class="answer" id="q5">Correct: <b>B</b>.</div></div>
+</section>
+
+<section class="lesson-section" id="revision">
+<div class="lesson-heading"><span class="label">QUICK REVISION</span><h2>Remember These Points</h2><p>Compact examination-oriented summary.</p></div>
+<div class="revision">
+<div><strong>Applicability</strong><p>Used when potential energy does not change with time.</p></div>
+<div><strong>Starting wave function</strong><p>ψ(x) = 2A sin(2πx/λ)</p></div>
+<div><strong>de Broglie relation</strong><p>λ = h/mv</p></div>
+<div><strong>Total energy</strong><p>E = ½mv² + V</p></div>
+<div><strong>1-D equation</strong><p>d²ψ/dx² + [8π²m(E−V)/h²]ψ = 0</p></div>
+<div><strong>3-D equation</strong><p>[−h²/(8π²m)]∇²ψ + Vψ = Eψ</p></div>
+<div><strong>Physical meaning</strong><p>|ψ|² gives probability density.</p></div>
+<div><strong>Applications</strong><p>Atomic structure, energy levels, solids, semiconductors and nanotechnology.</p></div>
+</div>
+<div class="content-card" style="margin-top:18px"><h3>Exam focus</h3><div class="key-box">Remember the derivation sequence: <b>wave function → first derivative → second derivative → de Broglie relation → total energy relation → rearrangement → 1-D equation → 3-D equation.</b></div></div>
+<div class="complete"><button onclick="completeTopic6()">✓ Mark Topic as Completed</button></div>
+</section>
+
+</main>
+
+<footer class="site-footer"><div><strong>Interactive Engineering Physics</strong><p>Unit I • Topic 06 • Quantum Mechanics</p></div><div><a href="index.html">← Unit I</a></div></footer>
+
+<script>
+const tabs=document.querySelectorAll(".lesson-tab"),sections=document.querySelectorAll(".lesson-section");
+tabs.forEach(t=>t.addEventListener("click",()=>{tabs.forEach(x=>x.classList.remove("active"));sections.forEach(x=>x.classList.remove("active"));t.classList.add("active");document.getElementById(t.dataset.target).classList.add("active");}));
+
+const ks=document.getElementById("kSlider"),as=document.getElementById("aSlider"),kv=document.getElementById("kValue"),av=document.getElementById("aValue"),wp=document.getElementById("wave"),wm=document.getElementById("waveMessage");
+function updateWave(){const k=+ks.value,A=+as.value;kv.textContent=k.toFixed(1);av.textContent=A.toFixed(2);let d="",N=500;for(let i=0;i<=N;i++){let x=55+695*i/N,y=150-70*A*Math.sin(2*Math.PI*k*i/N);d+=(i?" L ":"M ")+x.toFixed(1)+" "+y.toFixed(1)}wp.setAttribute("d",d);wm.innerHTML="Increasing the wave number increases the number of oscillations across the displayed region. In the Schrödinger equation, the curvature of ψ is directly related to the energy and potential terms."}
+[ks,as].forEach(x=>x.addEventListener("input",updateWave));updateWave();
+
+function ans(b,c,id){b.closest(".question").querySelectorAll(".option").forEach(x=>x.disabled=true);b.classList.add(c?"correct":"wrong");document.getElementById(id).classList.add("show")}
+function completeTopic6(){localStorage.setItem("physics-unit1-schrodinger-time-independent","true");alert("Topic completed ✓")}
+</script>
+</body>
+</html>
