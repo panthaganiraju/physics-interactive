@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Classification of Solids | Interactive Physics</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7f9fb;color:#314657}
+header{height:65px;background:#fff;border-bottom:1px solid #dfe7ee;display:flex;align-items:center}.nav{width:min(1180px,100%);margin:auto;padding:0 22px;display:flex;justify-content:space-between;align-items:center}.brand{font-size:20px;font-weight:700;color:#173f7a;text-decoration:none}.brand span{display:inline-flex;width:40px;height:40px;background:#173f7a;color:#fff;border-radius:11px;align-items:center;justify-content:center;margin-right:10px}
+.hero{background:linear-gradient(135deg,#102f5d,#173f7a 55%,#236795);color:#fff;padding:42px 22px 48px}.hero>div{max-width:1180px;margin:auto}.back{color:#dce7f2;text-decoration:none;font-size:13px}.label{font-size:10px;letter-spacing:1.6px;opacity:.75;margin-top:20px}.hero h1{font-size:clamp(32px,5vw,50px);line-height:1.1;margin:8px 0 12px}.hero p{max-width:850px;color:#dce7f2;font-size:15px;line-height:1.7}
+.menu{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #dfe7ee}.menu-inner{max-width:1180px;margin:auto;display:flex;overflow-x:auto;padding:0 22px}.tab{border:0;background:none;white-space:nowrap;padding:14px 15px;color:#687887;font-size:12px;font-weight:700;border-bottom:3px solid transparent;cursor:pointer}.tab.active{color:#173f7a;border-color:#2868a9}
+.container{max-width:1080px;margin:auto;padding:40px 22px 90px}.section{display:none}.section.active{display:block}.heading{margin-bottom:25px}.heading .tag{color:#2868a9;font-size:10px;font-weight:700;letter-spacing:1.5px}.heading h2{color:#173f7a;font-size:30px;margin:5px 0 8px}.heading p,.card p,.card li{font-size:14px;line-height:1.8;color:#536575}
+.card{background:#fff;border:1px solid #dfe7ee;border-radius:13px;padding:25px;margin-bottom:18px;box-shadow:0 4px 18px rgba(30,65,100,.04)}.card h3{color:#245b91;font-size:19px;margin:0 0 10px}.key{padding:20px 24px;border-left:5px solid #2868a9;background:#f4f8fb;border-radius:10px;line-height:1.7}
+.figure{padding:18px;border:1px solid #dfe7ee;border-radius:12px;background:#fff;text-align:center;margin:22px 0}.figure svg{display:block;width:100%;height:auto}.caption{font-size:12px!important;color:#687887!important;text-align:center;margin:10px 0 0!important}
+.bandgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.bandcard{background:#fff;border:1px solid #dfe7ee;border-radius:13px;overflow:hidden}.bandcard h3{margin:0;padding:16px;text-align:center;color:#173f7a;font-size:18px}.bandcard .desc{padding:14px 18px 20px;font-size:12px;line-height:1.7;color:#536575}.bandcard svg{display:block;width:100%;background:#fbfdff}
+.compare{width:100%;border-collapse:collapse;background:#fff;border:1px solid #dfe7ee;border-radius:10px;overflow:hidden;font-size:13px}.compare th,.compare td{padding:13px;border-bottom:1px solid #e2e8ed;text-align:left;vertical-align:top}.compare th{background:#f2f7fb;color:#173f7a}.compare td:first-child{font-weight:700;color:#245b91}
+.question{padding:20px;border:1px solid #dfe7ee;border-radius:11px;margin-bottom:15px}.question p{font-size:13px;font-weight:700}.option{display:block;width:100%;margin:7px 0;padding:10px;border:1px solid #dfe7ee;border-radius:7px;background:#f5f8fb;color:#536575;text-align:left;cursor:pointer;font-size:12px}.correct{background:#e8f5ee!important;color:#197044!important}.wrong{background:#fbeeee!important;color:#9b4040!important}.answer{display:none;margin-top:10px;padding:9px;background:#f4f8fb;color:#647586;font-size:11px}.show{display:block}
+.revision{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.revision div{padding:16px;border:1px solid #dfe7ee;border-radius:9px}.revision strong{color:#245b91;font-size:13px}.revision p{margin:5px 0 0!important;font-size:11px!important}
+footer{background:#173f7a;color:#dce7f2;padding:25px;text-align:center;font-size:12px}
+@media(max-width:800px){.bandgrid,.revision{grid-template-columns:1fr}.compare{font-size:11px}.eq{font-size:21px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><a class="brand" href="index.html"><span>⚛</span>Interactive Physics</a><nav><a href="../index.html" style="color:#687887;text-decoration:none;font-size:12px;margin-right:18px">Home</a><a href="index.html" style="color:#687887;text-decoration:none;font-size:12px">Unit I</a></nav></div></header>
+
+<section class="hero"><div>
+<a class="back" href="index.html">← Unit I — Quantum Mechanics</a>
+<div class="label">TOPIC 13</div>
+<h1>Classification of Solids</h1>
+<p>Understanding conductors, semiconductors and insulators from their energy-band structures and forbidden energy gaps.</p>
+</div></section>
+
+<nav class="menu"><div class="menu-inner">
+<button class="tab active" data-target="learn">📖 Learn</button>
+<button class="tab" data-target="bands">⚡ Band Diagrams</button>
+<button class="tab" data-target="compare">📊 Compare</button>
+<button class="tab" data-target="visualize">👁 Visualize</button>
+<button class="tab" data-target="temperature">🌡 Temperature</button>
+<button class="tab" data-target="practice">✏ Practice</button>
+<button class="tab" data-target="revision">🎯 Revision</button>
+</div></nav>
+
+<main class="container">
+
+<section class="section active" id="learn">
+<div class="heading"><span class="tag">LEARN</span><h2>Classification of Solids</h2><p>According to the energy-band picture, solids are broadly classified as <b>conductors, semiconductors and insulators</b>.</p></div>
+<div class="card"><h3>Basic idea</h3><p>The electrical behaviour of a solid depends mainly on the availability of electrons that can acquire energy and move through the material. The relationship between the <b>valence band</b>, <b>conduction band</b>, and <b>forbidden energy gap \(E_g\)</b> provides a simple way to understand this behaviour.</p><div class="key"><b>Key idea:</b> The smaller the effective energy separation between occupied and available states, the easier it is for charge carriers to participate in electrical conduction.</div></div>
+<div class="card"><h3>Three classes</h3><div class="bandgrid">
+<div class="bandcard"><h3>Conductor</h3><svg viewBox="0 0 330 230"><rect width="330" height="230" fill="#fff"/><text x="165" y="25" text-anchor="middle" fill="#173f7a" font-size="15" font-weight="700">Overlapping bands</text><rect x="75" y="75" width="180" height="80" rx="9" fill="#dceef9" stroke="#2868a9" stroke-width="2"/><text x="165" y="112" text-anchor="middle" fill="#245b91" font-size="15" font-weight="700">Valence +</text><text x="165" y="135" text-anchor="middle" fill="#245b91" font-size="15" font-weight="700">Conduction</text></svg><div class="desc">The valence and conduction bands overlap, or the Fermi level crosses an allowed band. Electrons can move readily.</div></div>
+<div class="bandcard"><h3>Semiconductor</h3><svg viewBox="0 0 330 230"><rect width="330" height="230" fill="#fff"/><text x="165" y="25" text-anchor="middle" fill="#173f7a" font-size="15" font-weight="700">Small bandgap</text><rect x="75" y="55" width="180" height="55" rx="8" fill="#dceef9" stroke="#2868a9" stroke-width="2"/><rect x="75" y="135" width="180" height="55" rx="8" fill="#dceef9" stroke="#2868a9" stroke-width="2"/><rect x="75" y="110" width="180" height="25" fill="#f4e4e4" stroke="#9b5555"/><text x="165" y="88" text-anchor="middle" fill="#245b91" font-size="13" font-weight="700">Conduction band</text><text x="165" y="126" text-anchor="middle" fill="#8c4d4d" font-size="11" font-weight="700">E<tspan baseline-shift="sub">g</tspan></text><text x="165" y="168" text-anchor="middle" fill="#245b91" font-size="13" font-weight="700">Valence band</text></svg><div class="desc">A relatively small forbidden gap separates the bands. Thermal or optical energy can excite carriers.</div></div>
+<div class="bandcard"><h3>Insulator</h3><svg viewBox="0 0 330 230"><rect width="330" height="230" fill="#fff"/><text x="165" y="25" text-anchor="middle" fill="#173f7a" font-size="15" font-weight="700">Large bandgap</text><rect x="75" y="45" width="180" height="45" rx="8" fill="#dceef9" stroke="#2868a9" stroke-width="2"/><rect x="75" y="165" width="180" height="45" rx="8" fill="#dceef9" stroke="#2868a9" stroke-width="2"/><rect x="75" y="90" width="180" height="75" fill="#f4e4e4" stroke="#9b5555"/><text x="165" y="73" text-anchor="middle" fill="#245b91" font-size="12" font-weight="700">Conduction band</text><text x="165" y="130" text-anchor="middle" fill="#8c4d4d" font-size="12" font-weight="700">Large E<tspan baseline-shift="sub">g</tspan></text><text x="165" y="194" text-anchor="middle" fill="#245b91" font-size="12" font-weight="700">Valence band</text></svg><div class="desc">A large forbidden gap makes excitation into the conduction band difficult under ordinary conditions.</div></div>
+</div></div>
+</section>
+
+<section class="section" id="bands">
+<div class="heading"><span class="tag">BAND DIAGRAMS</span><h2>Correct Energy-Band Picture</h2><p>Compare the three materials using the same energy scale. Notice that the forbidden gap is always <b>between the conduction and valence bands</b>.</p></div>
+<div class="card"><div class="figure">
+<svg viewBox="0 0 1100 600" role="img" aria-label="Side by side energy band diagrams for conductor semiconductor and insulator">
+<rect width="1100" height="600" fill="#fff"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="550" y="35" text-anchor="middle" font-size="24" font-weight="700" fill="#173f7a">Classification of Solids from Energy Bands</text>
+<text x="550" y="63" text-anchor="middle" font-size="14" fill="#687887">Conduction band, forbidden gap and valence band</text>
+
+<!-- conductor -->
+<rect x="40" y="95" width="315" height="450" rx="12" fill="#f8fbfd" stroke="#dfe7ee"/>
+<text x="197" y="130" text-anchor="middle" font-size="20" font-weight="700" fill="#173f7a">Conductor</text>
+<line x1="90" y1="490" x2="305" y2="490" stroke="#596b79" stroke-width="2"/><line x1="90" y1="175" x2="90" y2="490" stroke="#596b79" stroke-width="2"/>
+<rect x="120" y="245" width="155" height="110" rx="9" fill="#dceef9" stroke="#2868a9" stroke-width="2"/>
+<text x="197" y="292" text-anchor="middle" font-size="16" font-weight="700" fill="#245b91">Allowed band</text>
+<text x="197" y="318" text-anchor="middle" font-size="14" fill="#245b91">bands overlap</text>
+<line x1="105" y1="305" x2="290" y2="305" stroke="#9b5555" stroke-width="3" stroke-dasharray="7 5"/>
+<text x="197" y="520" text-anchor="middle" font-size="13" fill="#687887">No effective forbidden gap at E<tspan baseline-shift="sub">F</tspan></text>
+
+<!-- semiconductor -->
+<rect x="392" y="95" width="315" height="450" rx="12" fill="#f8fbfd" stroke="#dfe7ee"/>
+<text x="550" y="130" text-anchor="middle" font-size="20" font-weight="700" fill="#173f7a">Semiconductor</text>
+<line x1="440" y1="490" x2="655" y2="490" stroke="#596b79" stroke-width="2"/><line x1="440" y1="175" x2="440" y2="490" stroke="#596b79" stroke-width="2"/>
+<rect x="470" y="185" width="155" height="75" rx="9" fill="#dceef9" stroke="#2868a9" stroke-width="2"/>
+<rect x="470" y="335" width="155" height="75" rx="9" fill="#dceef9" stroke="#2868a9" stroke-width="2"/>
+<rect x="470" y="260" width="155" height="75" fill="#f4e4e4" stroke="#9b5555" stroke-width="2"/>
+<text x="550" y="225" text-anchor="middle" font-size="15" font-weight="700" fill="#245b91">Conduction band</text>
+<text x="550" y="303" text-anchor="middle" font-size="15" font-weight="700" fill="#8c4d4d">E<tspan baseline-shift="sub">g</tspan> — small gap</text>
+<text x="550" y="377" text-anchor="middle" font-size="15" font-weight="700" fill="#245b91">Valence band</text>
+<text x="550" y="520" text-anchor="middle" font-size="13" fill="#687887">Carriers can be thermally/optically excited</text>
+
+<!-- insulator -->
+<rect x="745" y="95" width="315" height="450" rx="12" fill="#f8fbfd" stroke="#dfe7ee"/>
+<text x="902" y="130" text-anchor="middle" font-size="20" font-weight="700" fill="#173f7a">Insulator</text>
+<line x1="792" y1="490" x2="1007" y2="490" stroke="#596b79" stroke-width="2"/><line x1="792" y1="175" x2="792" y2="490" stroke="#596b79" stroke-width="2"/>
+<rect x="822" y="180" width="155" height="60" rx="9" fill="#dceef9" stroke="#2868a9" stroke-width="2"/>
+<rect x="822" y="390" width="155" height="60" rx="9" fill="#dceef9" stroke="#2868a9" stroke-width="2"/>
+<rect x="822" y="240" width="155" height="150" fill="#f4e4e4" stroke="#9b5559" stroke-width="2"/>
+<text x="900" y="217" text-anchor="middle" font-size="14" font-weight="700" fill="#245b91">Conduction band</text>
+<text x="900" y="320" text-anchor="middle" font-size="15" font-weight="700" fill="#8c4d4d">Large E<tspan baseline-shift="sub">g</tspan></text>
+<text x="900" y="425" text-anchor="middle" font-size="14" font-weight="700" fill="#245b91">Valence band</text>
+<text x="900" y="520" text-anchor="middle" font-size="13" fill="#687887">Very difficult excitation</text>
+</g></svg>
+<p class="caption"><b>Fig. 1:</b> Qualitative energy-band classification of conductors, semiconductors and insulators. The forbidden gap lies between the valence and conduction bands.</p>
+</div></div>
+</section>
+
+<section class="section" id="compare">
+<div class="heading"><span class="tag">COMPARE</span><h2>Conductor vs Semiconductor vs Insulator</h2><p>A compact comparison for examination and concept revision.</p></div>
+<div class="card"><table class="compare"><thead><tr><th>Property</th><th>Conductor</th><th>Semiconductor</th><th>Insulator</th></tr></thead><tbody>
+<tr><td>Band relation</td><td>Valence and conduction bands overlap or an allowed band is partially filled.</td><td>Valence and conduction bands are separated by a small finite gap.</td><td>Valence and conduction bands are separated by a large gap.</td></tr>
+<tr><td>Bandgap</td><td>Approximately zero effective gap</td><td>Small</td><td>Large</td></tr>
+<tr><td>Free carriers</td><td>Many available carriers</td><td>Limited at low temperature; increases with temperature</td><td>Very few under ordinary conditions</td></tr>
+<tr><td>Electrical conductivity</td><td>High</td><td>Intermediate and strongly temperature dependent</td><td>Very low</td></tr>
+<tr><td>Temperature effect</td><td>Conductivity generally decreases as temperature rises</td><td>Conductivity generally increases as temperature rises</td><td>Usually remains very low under ordinary conditions</td></tr>
+<tr><td>Examples</td><td>Cu, Al, Ag</td><td>Si, Ge</td><td>Glass, mica, diamond</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="section" id="visualize">
+<div class="heading"><span class="tag">VISUALIZE</span><h2>Change the Bandgap</h2><p>Move the slider to compare a small-gap and large-gap material. The diagram is qualitative and intended for teaching.</p></div>
+<div class="card"><div class="figure">
+<svg viewBox="0 0 900 500">
+<rect width="900" height="500" fill="#fff"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="450" y="35" text-anchor="middle" font-size="22" font-weight="700" fill="#173f7a">Bandgap Visualization</text>
+<line x1="110" y1="430" x2="110" y2="70" stroke="#596b79" stroke-width="2"/><text x="82" y="82" fill="#536575">E</text>
+<rect id="vband" x="270" y="330" width="360" height="70" rx="10" fill="#dceef9" stroke="#2868a9" stroke-width="2"/>
+<rect id="cband" x="270" y="120" width="360" height="70" rx="10" fill="#dceef9" stroke="#2868a9" stroke-width="2"/>
+<rect id="vgap" x="270" y="190" width="360" height="140" fill="#f4e4e4" stroke="#9b5559" stroke-width="2"/>
+<text x="450" y="160" text-anchor="middle" font-size="17" font-weight="700" fill="#245b91">Conduction Band</text>
+<text x="450" y="370" text-anchor="middle" font-size="17" font-weight="700" fill="#245b91">Valence Band</text>
+<text id="gapTextSvg" x="650" y="265" font-size="15" font-weight="700" fill="#8c4d4d">E<tspan baseline-shift="sub">g</tspan></text>
+</g></svg></div>
+<div style="margin:15px 10px"><label style="display:flex;justify-content:space-between;font-size:12px;color:#536575"><span>Bandgap</span><b id="gapVal" style="color:#173f7a">Small</b></label><input id="gapSlider" type="range" min="1" max="3" value="2" style="width:100%;accent-color:#2868a9"></div><div class="key" id="gapInfo"></div></div>
+</section>
+
+<section class="section" id="temperature">
+<div class="heading"><span class="tag">TEMPERATURE</span><h2>Effect of Temperature</h2><p>Temperature changes carrier populations differently in conductors and semiconductors.</p></div>
+<div class="card"><h3>Semiconductors</h3><p>As temperature rises, more electrons can acquire enough thermal energy to cross the relatively small bandgap and reach the conduction band. Hence, the number of mobile charge carriers increases and conductivity generally increases.</p><div class="eq small">Thermal energy ↑ → carrier concentration ↑ → conductivity ↑</div></div>
+<div class="card"><h3>Conductors</h3><p>Conductors already possess many mobile carriers. Increasing temperature increases lattice vibrations and electron scattering, so electrical resistance generally increases and conductivity decreases.</p><div class="eq small">Temperature ↑ → lattice scattering ↑ → conductivity ↓</div></div>
+<div class="card"><h3>Insulators</h3><p>The large bandgap makes thermal excitation across the gap difficult at ordinary temperatures, so the number of free carriers remains extremely small.</p></div>
+</section>
+
+<section class="section" id="practice">
+<div class="heading"><span class="tag">PRACTICE</span><h2>Quick Check</h2><p>Test the key band-theory concepts.</p></div>
+<div class="question"><p>1. In a conductor, the valence and conduction bands may:</p><button class="option" onclick="ans(this,true,'q1')">A. Overlap</button><button class="option" onclick="ans(this,false,'q1')">B. Always have a very large gap</button><button class="option" onclick="ans(this,false,'q1')">C. Never contain electrons</button><div class="answer" id="q1">Correct: <b>A</b>.</div></div>
+<div class="question"><p>2. A semiconductor has:</p><button class="option" onclick="ans(this,true,'q2')">A. A small finite bandgap</button><button class="option" onclick="ans(this,false,'q2')">B. An infinitely large gap</button><button class="option" onclick="ans(this,false,'q2')">C. No energy bands</button><div class="answer" id="q2">Correct: <b>A</b>.</div></div>
+<div class="question"><p>3. An insulator generally has:</p><button class="option" onclick="ans(this,true,'q3')">A. A large forbidden energy gap</button><button class="option" onclick="ans(this,false,'q3')">B. Overlapping bands</button><button class="option" onclick="ans(this,false,'q3')">C. No valence band</button><div class="answer" id="q3">Correct: <b>A</b>.</div></div>
+<div class="question"><p>4. Semiconductor conductivity generally:</p><button class="option" onclick="ans(this,true,'q4')">A. Increases with temperature</button><button class="option" onclick="ans(this,false,'q4')">B. Always becomes zero with temperature</button><button class="option" onclick="ans(this,false,'q4')">C. Is independent of temperature</button><div class="answer" id="q4">Correct: <b>A</b>.</div></div>
+<div class="question"><p>5. The forbidden gap is located:</p><button class="option" onclick="ans(this,true,'q5')">A. Between the valence and conduction bands</button><button class="option" onclick="ans(this,false,'q5')">B. Below the valence band only</button><button class="option" onclick="ans(this,false,'q5')">C. Above every possible energy state</button><div class="answer" id="q5">Correct: <b>A</b>.</div></div>
+</section>
+
+<section class="section" id="revision">
+<div class="heading"><span class="tag">QUICK REVISION</span><h2>Remember These Points</h2><p>Compact examination-oriented summary.</p></div>
+<div class="revision">
+<div><strong>Conductor</strong><p>Allowed band is partially filled or valence and conduction bands overlap.</p></div>
+<div><strong>Semiconductor</strong><p>Small finite forbidden gap separates valence and conduction bands.</p></div>
+<div><strong>Insulator</strong><p>Large forbidden gap separates valence and conduction bands.</p></div>
+<div><strong>Bandgap</strong><p>E<sub>g</sub> = E<sub>C</sub> − E<sub>V</sub>.</p></div>
+<div><strong>Temperature</strong><p>Semiconductor conductivity generally increases with temperature.</p></div>
+<div><strong>Examples</strong><p>Cu/Al: conductors; Si/Ge: semiconductors; glass/mica: insulators.</p></div>
+</div>
+<div class="card" style="margin-top:18px"><h3>Exam focus</h3><div class="key"><b>Classification by energy bands:</b> Conductors have overlapping or partially filled allowed bands, semiconductors have a small forbidden gap, and insulators have a large forbidden gap between the valence and conduction bands.</div></div>
+<div style="text-align:center;margin-top:30px"><button onclick="complete()" style="border:0;border-radius:8px;padding:12px 22px;background:#173f7a;color:#fff;font-weight:600">✓ Mark Topic as Completed</button></div>
+</section>
+
+</main>
+<footer><strong>Interactive Engineering Physics</strong><br>Unit I • Topic 13 • Quantum Mechanics</footer>
+<script>
+const tabs=document.querySelectorAll(".tab"),sections=document.querySelectorAll(".section");
+tabs.forEach(t=>t.addEventListener("click",()=>{tabs.forEach(x=>x.classList.remove("active"));sections.forEach(x=>x.classList.remove("active"));t.classList.add("active");document.getElementById(t.dataset.target).classList.add("active");}));
+const s=document.getElementById("gapSlider"),v=document.getElementById("gapVal"),g=document.getElementById("vgap"),ct=document.getElementById("gapTextSvg"),info=document.getElementById("gapInfo");
+function updateGap(){let n=+s.value, names=["Small","Medium","Large"], h=[65,125,185][n-1], top=260-h/2,bottom=260+h/2;v.textContent=names[n-1];g.setAttribute("y",top);g.setAttribute("height",h);document.getElementById("cband").setAttribute("height",Math.max(45,top-120));document.getElementById("vband").setAttribute("y",bottom);document.getElementById("vband").setAttribute("height",Math.max(45,400-bottom));ct.setAttribute("y",260);info.innerHTML=n===1?"<b>Small gap:</b> characteristic of a semiconductor. Thermal energy can promote some carriers across the gap.":n===2?"<b>Intermediate gap:</b> the separation is larger, so carrier excitation is more difficult.":"<b>Large gap:</b> characteristic of an insulating material; ordinary thermal energy produces very few conduction electrons."}
+s.addEventListener("input",updateGap);updateGap();
+function ans(b,c,id){b.closest(".question").querySelectorAll(".option").forEach(x=>x.disabled=true);b.classList.add(c?"correct":"wrong");document.getElementById(id).classList.add("show")}
+function complete(){localStorage.setItem("physics-unit1-classification-solids","true");alert("Topic completed ✓")}
+</script>
+</body>
+</html>
