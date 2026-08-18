@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Particle in a 1D Box | Interactive Physics</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7f9fb;color:#314657}
+.site-header{height:65px;background:#fff;border-bottom:1px solid #dfe7ee;display:flex;align-items:center}
+.nav-container{width:min(1180px,100%);margin:auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#173f7a;font-weight:700;font-size:20px}
+.brand-icon{width:40px;height:40px;border-radius:11px;background:#173f7a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}
+.main-nav a{margin-left:18px;color:#687887;text-decoration:none;font-size:12px;font-weight:600}
+.lesson-hero{background:linear-gradient(135deg,#102f5d,#173f7a 55%,#236795);color:#fff;padding:42px 22px 48px}
+.lesson-hero-inner,.lesson-nav-inner{max-width:1180px;margin:auto}
+.lesson-back{color:#dce7f2;text-decoration:none;font-size:13px}
+.lesson-label{font-size:10px;letter-spacing:1.5px;opacity:.75;margin-top:20px}
+.lesson-hero h1{font-size:clamp(32px,5vw,50px);margin:8px 0 12px;line-height:1.1}
+.lesson-hero p{max-width:850px;color:#dce7f2;font-size:15px;line-height:1.7}
+.lesson-nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #dfe7ee}
+.lesson-nav-inner{display:flex;overflow-x:auto;padding:0 22px}
+.lesson-tab{flex-shrink:0;border:0;background:none;padding:14px 15px;color:#687887;font-size:12px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent}
+.lesson-tab.active{color:#173f7a;border-bottom-color:#2868a9}
+.lesson-container{max-width:1000px;margin:auto;padding:40px 22px 90px}
+.lesson-section{display:none}.lesson-section.active{display:block}
+.lesson-heading{margin-bottom:25px}
+.lesson-heading .label{color:#2868a9;font-size:10px;font-weight:700;letter-spacing:1.5px}
+.lesson-heading h2{color:#173f7a;font-size:30px;margin:5px 0 8px}
+.lesson-heading p,.content-card p,.content-card li{color:#536575;font-size:14px;line-height:1.8}
+.content-card{background:#fff;border:1px solid #dfe7ee;border-radius:13px;padding:25px;margin-bottom:18px;box-shadow:0 4px 18px rgba(30,65,100,.04)}
+.content-card h3{color:#245b91;font-size:19px;margin:0 0 10px}
+.key-box{padding:22px 26px;border-left:5px solid #2868a9;background:#f4f8fb;border-radius:10px;color:#314657;line-height:1.7}
+.figure-card{margin:22px 0;padding:18px;background:#fff;border:1px solid #dfe7ee;border-radius:12px;text-align:center}
+.physics-figure{display:block;width:100%;max-width:900px;height:auto;margin:0 auto;border-radius:6px}
+.figure-caption{margin:12px 0 0!important;color:#687887!important;font-size:12px!important;line-height:1.6!important}
+.equation-box{margin:17px 0;padding:20px;text-align:center;border-radius:11px;background:#f5f8fb;border:1px solid #dfe7ee}
+.equation{font-family:Georgia,serif;color:#173f7a;font-size:28px}.equation.small{font-size:21px}
+.derivation-step{position:relative;margin:0 0 16px;padding:22px 24px 22px 72px;background:#fff;border:1px solid #dfe7ee;border-radius:12px}
+.derivation-step:before{content:attr(data-step);position:absolute;left:20px;top:22px;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#173f7a;color:#fff;font-size:11px;font-weight:700}
+.derivation-step:after{content:"";position:absolute;left:36px;top:56px;bottom:-17px;width:1px;background:#d7e3ec}
+.derivation-step:last-child:after{display:none}.derivation-step h3{margin:0 0 8px;color:#173f7a;font-size:18px}
+.final-step{border:2px solid #2868a9;background:#f5f9fd}.final-step:before{background:#2868a9}
+.sim-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:16px}
+.control{background:#f4f8fb;border:1px solid #d9e6ef;border-radius:12px;padding:20px}
+.control h3,.output h3{color:#245b91;font-size:18px;margin:0 0 15px}
+.row{margin:18px 0}.row label{display:flex;justify-content:space-between;color:#536575;font-size:12px;margin-bottom:7px}
+.row input{width:100%;accent-color:#2868a9}.value{font-weight:700;color:#173f7a}
+.output{border:1px solid #dfe7ee;border-radius:12px;padding:20px}
+.box-svg{width:100%;height:330px;background:#fbfdff;border:1px solid #dfe7ee;border-radius:10px}
+.box-svg svg{width:100%;height:100%}.wall{stroke:#173f7a;stroke-width:8}.axis{stroke:#b9c6d0}
+.wave{fill:none;stroke:#2868a9;stroke-width:3}.prob{fill:rgba(40,104,169,.12);stroke:#7ea6c3;stroke-width:1.5}
+.svgtext{font:12px Arial;fill:#71808d}.svgtitle{font:700 14px Arial;fill:#245b91}
+.level-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.level{padding:15px 8px;text-align:center;background:#f5f8fb;border:1px solid #dfe7ee;border-radius:9px;color:#245b91}
+.level strong{font-family:Georgia,serif;font-size:18px}.level span{display:block;font-size:10px;color:#71808d;margin-top:5px}
+.revision{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.revision div{padding:16px;border:1px solid #dfe7ee;border-radius:9px}.revision strong{color:#245b91;font-size:13px}
+.revision p{margin:5px 0 0;color:#71808d;font-size:11px}
+.question{padding:20px;margin-bottom:15px;border:1px solid #dfe7ee;border-radius:11px}.question p{font-weight:600;font-size:13px}
+.option{display:block;width:100%;margin:7px 0;padding:10px;text-align:left;background:#f5f8fb;border:1px solid #dfe7ee;border-radius:7px;cursor:pointer;color:#536575;font-size:12px}
+.option.correct{background:#e8f5ee;color:#197044}.option.wrong{background:#fbeeee;color:#9b4040}
+.answer{display:none;margin-top:10px;padding:9px;background:#f4f8fb;color:#647586;font-size:11px}.answer.show{display:block}
+.complete{text-align:center;margin-top:30px}.complete button{border:0;border-radius:8px;padding:12px 22px;background:#173f7a;color:#fff;font-weight:600}
+footer{background:#173f7a;color:#dce7f2;padding:24px;text-align:center;font-size:12px}footer a{color:#fff}
+@media(max-width:760px){.sim-grid,.revision{grid-template-columns:1fr}.level-grid{grid-template-columns:1fr 1fr}.derivation-step{padding-left:58px}.derivation-step:before{left:14px}.derivation-step:after{left:30px}.equation{font-size:22px}.main-nav{display:none}}
+</style>
+</head>
+<body>
+
+<header class="site-header"><div class="nav-container">
+<a href="index.html" class="brand"><span class="brand-icon">⚛</span><span>Interactive Physics</span></a>
+<nav class="main-nav"><a href="index.html">Home</a><a href="index.html">Unit I</a></nav>
+</div></header>
+
+<section class="lesson-hero"><div class="lesson-hero-inner">
+<a href="index.html" class="lesson-back">← Unit I — Quantum Mechanics</a>
+<div class="lesson-label">TOPIC 07</div>
+<h1>Particle in a 1D Box</h1>
+<p>Derivation of the wave function and quantized energy levels for a particle confined to a one-dimensional infinite potential well.</p>
+</div></section>
+
+<nav class="lesson-nav"><div class="lesson-nav-inner">
+<button class="lesson-tab active" data-target="learn">📖 Learn</button>
+<button class="lesson-tab" data-target="derivation">∫ Derivation</button>
+<button class="lesson-tab" data-target="visualize">👁 Visualize</button>
+<button class="lesson-tab" data-target="energy">⚡ Energy Levels</button>
+<button class="lesson-tab" data-target="practice">✏ Practice</button>
+<button class="lesson-tab" data-target="revision">🎯 Revision</button>
+</div></nav>
+
+<main class="lesson-container">
+
+<section class="lesson-section active" id="learn">
+<div class="lesson-heading"><span class="label">LEARN</span><h2>Particle in a One-Dimensional Box</h2><p>A simple model that demonstrates confinement and quantization of energy.</p></div>
+
+<div class="content-card"><h3>Physical Model</h3>
+<p>Consider a particle confined between two impenetrable walls separated by a distance <b>L</b>. The particle can move only along the x-axis inside the box.</p>
+
+<div class="figure-card">
+<svg viewBox="0 0 900 420" role="img" aria-label="Infinite potential well for a particle in a one-dimensional box" xmlns="http://www.w3.org/2000/svg">
+<rect width="900" height="420" fill="#fff"/>
+<g font-family="Arial, Helvetica, sans-serif" fill="#314657">
+  <text x="450" y="42" text-anchor="middle" font-size="22" font-weight="700" fill="#173f7a">Infinite Potential Well</text>
+  <text x="450" y="70" text-anchor="middle" font-size="14" fill="#687887">Particle confined between x = 0 and x = L</text>
+</g>
+<!-- outside regions -->
+<rect x="90" y="105" width="235" height="220" fill="#e7ebee"/>
+<rect x="575" y="105" width="235" height="220" fill="#e7ebee"/>
+<!-- box interior -->
+<rect x="325" y="105" width="250" height="220" fill="#f8fbfd"/>
+<!-- walls -->
+<line x1="325" y1="75" x2="325" y2="335" stroke="#173f7a" stroke-width="8"/>
+<line x1="575" y1="75" x2="575" y2="335" stroke="#173f7a" stroke-width="8"/>
+<!-- x axis -->
+<line x1="75" y1="350" x2="830" y2="350" stroke="#596b79" stroke-width="2"/>
+<polygon points="830,350 818,344 818,356" fill="#596b79"/>
+<!-- labels -->
+<g font-family="Arial, Helvetica, sans-serif">
+ <text x="195" y="165" text-anchor="middle" font-size="25" font-weight="700" fill="#687887">V = ∞</text>
+ <text x="700" y="165" text-anchor="middle" font-size="25" font-weight="700" fill="#687887">V = ∞</text>
+ <text x="450" y="205" text-anchor="middle" font-size="27" font-weight="700" fill="#245b91">V = 0</text>
+ <text x="325" y="382" text-anchor="middle" font-size="18" fill="#314657">0</text>
+ <text x="575" y="382" text-anchor="middle" font-size="18" fill="#314657">L</text>
+ <text x="842" y="356" font-size="18" font-style="italic" fill="#314657">x</text>
+ <text x="300" y="88" text-anchor="end" font-size="16" fill="#687887">impenetrable wall</text>
+ <text x="600" y="88" font-size="16" fill="#687887">impenetrable wall</text>
+</g>
+</svg>
+<p class="figure-caption"><b>Fig. 1:</b> Infinite potential well for a particle in a one-dimensional box.</p>
+</div>
+
+<div class="key-box"><b>Inside the box:</b> V = 0<br><b>Outside the box:</b> V → ∞</div>
+</div>
+
+<div class="content-card"><h3>Wave Functions and Probability Densities</h3>
+<p>The allowed wave functions of the particle are represented by different quantum states. The corresponding probability density is given by <b>|ψₙ|²</b>.</p>
+
+<div class="figure-card">
+<svg viewBox="0 0 1000 560" role="img" aria-label="Wave functions and probability densities for n equals 1, 2 and 3 in a one-dimensional box" xmlns="http://www.w3.org/2000/svg">
+<rect width="1000" height="560" fill="#fff"/>
+<g font-family="Arial, Helvetica, sans-serif">
+ <text x="250" y="35" text-anchor="middle" font-size="20" font-weight="700" fill="#173f7a">Wave Functions ψₙ(x)</text>
+ <text x="750" y="35" text-anchor="middle" font-size="20" font-weight="700" fill="#173f7a">Probability Densities |ψₙ(x)|²</text>
+ <!-- left and right frames -->
+ <rect x="55" y="60" width="390" height="420" rx="4" fill="#fbfdff" stroke="#dfe7ee"/>
+ <rect x="555" y="60" width="390" height="420" rx="4" fill="#fbfdff" stroke="#dfe7ee"/>
+ <!-- rows -->
+ <g stroke="#aebdca" stroke-width="1">
+  <line x1="75" y1="185" x2="425" y2="185"/><line x1="75" y1="310" x2="425" y2="310"/><line x1="75" y1="435" x2="425" y2="435"/>
+  <line x1="575" y1="185" x2="925" y2="185"/><line x1="575" y1="310" x2="925" y2="310"/><line x1="575" y1="435" x2="925" y2="435"/>
+ </g>
+ <!-- axes -->
+ <g stroke="#596b79" stroke-width="2">
+  <line x1="75" y1="435" x2="425" y2="435"/><line x1="75" y1="435" x2="75" y2="95"/>
+  <line x1="575" y1="435" x2="925" y2="435"/><line x1="575" y1="435" x2="575" y2="95"/>
+ </g>
+ <!-- left wave functions -->
+ <path d="M75 435 C120 350 165 350 250 435 C335 520 380 520 425 435" fill="none" stroke="#2868a9" stroke-width="4"/>
+ <path d="M75 310 C120 225 165 225 250 310 C335 395 380 395 425 310" fill="none" stroke="#2868a9" stroke-width="4"/>
+ <path d="M75 185 C115 115 145 115 185 185 C225 255 275 255 315 185 C355 115 385 115 425 185" fill="none" stroke="#2868a9" stroke-width="4"/>
+ <!-- right probability densities -->
+ <path d="M75 435 C120 355 165 355 250 435 C335 355 380 355 425 435 L425 435 L75 435 Z" fill="#dcebf5" stroke="#2868a9" stroke-width="3"/>
+ <path d="M575 310 C620 235 665 235 750 310 C835 235 880 235 925 310 L925 310 L575 310 Z" fill="#dcebf5" stroke="#2868a9" stroke-width="3"/>
+ <path d="M575 185 C615 125 645 125 685 185 C725 245 775 245 815 185 C855 125 885 125 925 185 L925 185 L575 185 Z" fill="#dcebf5" stroke="#2868a9" stroke-width="3"/>
+ <!-- labels -->
+ <g font-size="18" font-weight="700" fill="#245b91">
+  <text x="395" y="420">ψ₁</text><text x="395" y="295">ψ₂</text><text x="395" y="170">ψ₃</text>
+  <text x="875" y="420">ψ₁²</text><text x="875" y="295">ψ₂²</text><text x="875" y="170">ψ₃²</text>
+ </g>
+ <g font-size="16" fill="#536575">
+  <text x="42" y="442">0</text><text x="425" y="458">L</text>
+  <text x="542" y="442">0</text><text x="925" y="458">L</text>
+  <text x="450" y="520" text-anchor="middle">x</text><text x="950" y="520" text-anchor="middle">x</text>
+  <text x="42" y="180">n=3</text><text x="42" y="305">n=2</text><text x="42" y="430">n=1</text>
+  <text x="942" y="180">n=3</text><text x="942" y="305">n=2</text><text x="942" y="430">n=1</text>
+ </g>
+</g>
+</svg>
+<p class="figure-caption"><b>Fig. 2:</b> Wave functions and probability densities in a one-dimensional particle-in-a-box.</p>
+</div>
+
+<div class="key-box"><b>Remember:</b> ψ describes the quantum state, while |ψ|² gives the probability density.</div>
+</div>
+
+<div class="content-card"><h3>Boundary Conditions</h3>
+<ul><li>At x = 0, ψ = 0.</li><li>At x = L, ψ = 0.</li><li>The particle cannot exist outside the box.</li><li>Therefore, the wave function must vanish at the walls.</li></ul></div>
+
+<div class="content-card"><h3>Why is this Important?</h3>
+<p>The particle-in-a-box model demonstrates one of the most important ideas of quantum mechanics: a confined particle cannot possess arbitrary energy. Only certain discrete energy values are allowed.</p></div>
+</section>
+
+<section class="lesson-section" id="derivation">
+<div class="lesson-heading"><span class="label">DERIVATION</span><h2>Complete Derivation</h2><p>All steps remain visible for classroom explanation; there is no fading or automatic progression.</p></div>
+
+<article class="derivation-step" data-step="1"><h3>Step 1: Schrödinger Equation Inside the Box</h3><p>For a particle inside the box, the potential energy is zero:</p><div class="equation-box"><div class="equation">V = 0</div></div><p>The one-dimensional time-independent Schrödinger equation is</p><div class="equation-box"><div class="equation small">−(h²/8π²m)(d²ψ/dx²) + Vψ = Eψ</div></div><p>Since V = 0,</p><div class="equation-box"><div class="equation">d²ψ/dx² + (8π²mE/h²)ψ = 0</div></div></article>
+
+<article class="derivation-step" data-step="2"><h3>Step 2: Standard Form</h3><p>Put</p><div class="equation-box"><div class="equation">k² = 8π²mE/h²</div></div><p>Then the equation becomes</p><div class="equation-box"><div class="equation">d²ψ/dx² + k²ψ = 0</div></div></article>
+
+<article class="derivation-step" data-step="3"><h3>Step 3: General Solution</h3><p>The general solution of this differential equation is</p><div class="equation-box"><div class="equation">ψ(x) = A sin(kx) + B cos(kx)</div></div></article>
+
+<article class="derivation-step" data-step="4"><h3>Step 4: Apply the First Boundary Condition</h3><p>At x = 0, the wave function must vanish:</p><div class="equation-box"><div class="equation">ψ(0) = 0</div></div><p>Therefore</p><div class="equation-box"><div class="equation">0 = A sin(0) + B cos(0) = B</div></div><div class="key-box">Hence <b>B = 0</b>.</div><p>The wave function becomes</p><div class="equation-box"><div class="equation">ψ(x) = A sin(kx)</div></div></article>
+
+<article class="derivation-step" data-step="5"><h3>Step 5: Apply the Second Boundary Condition</h3><p>At x = L, the wave function must also vanish:</p><div class="equation-box"><div class="equation">ψ(L) = 0</div></div><p>Therefore</p><div class="equation-box"><div class="equation">A sin(kL) = 0</div></div><p>For a non-zero wave function,</p><div class="equation-box"><div class="equation">sin(kL) = 0</div></div><p>Hence</p><div class="equation-box"><div class="equation">kL = nπ</div></div><div class="key-box">where <b>n = 1, 2, 3, ...</b></div></article>
+
+<article class="derivation-step" data-step="6"><h3>Step 6: Allowed Wave Numbers</h3><p>Therefore</p><div class="equation-box"><div class="equation">k = nπ/L</div></div><p>Using k² = 8π²mE/h²,</p><div class="equation-box"><div class="equation small">n²π²/L² = 8π²mE/h²</div></div></article>
+
+<article class="derivation-step" data-step="7"><h3>Step 7: Quantized Energy</h3><p>Solving for E gives</p><div class="equation-box"><div class="equation">Eₙ = n²h²/(8mL²)</div></div><div class="key-box"><b>The energy is quantized.</b> Only the discrete values corresponding to n = 1, 2, 3, ... are allowed.</div></article>
+
+<article class="derivation-step final-step" data-step="8"><h3>Step 8: Normalized Wave Function</h3><p>The normalized wave function for the particle in the box is</p><div class="equation-box"><div class="equation">ψₙ(x) = √(2/L) sin(nπx/L)</div></div><p>where n = 1, 2, 3, ...</p><div class="key-box"><b>Final results:</b> ψₙ(x) = √(2/L)sin(nπx/L) and Eₙ = n²h²/(8mL²).</div></article>
+</section>
+
+<section class="lesson-section" id="visualize">
+<div class="lesson-heading"><span class="label">VISUALIZE</span><h2>Particle in the Box</h2><p>Change the quantum number and observe the wave function and probability density.</p></div>
+<div class="content-card"><div class="sim-grid"><div class="control">
+<h3>Quantum state</h3><div class="row"><label><span>Quantum number n</span><span class="value" id="nValue">1</span></label><input id="nSlider" type="range" min="1" max="6" value="1"></div>
+<p style="font-size:11px">The vertical scale is normalized for visualization. Increasing n increases the number of nodes and the energy.</p>
+</div>
+<div class="output"><h3 id="stateTitle">Ground state: n = 1</h3><div class="box-svg"><svg viewBox="0 0 800 330" preserveAspectRatio="none">
+<line x1="70" y1="275" x2="730" y2="275" class="axis"/><line x1="70" y1="50" x2="70" y2="275" class="wall"/><line x1="730" y1="50" x2="730" y2="275" class="wall"/>
+<path id="probPath" class="prob" d=""></path><path id="wavePath" class="wave" d=""></path>
+<text x="90" y="30" class="svgtitle">ψₙ(x) and |ψₙ(x)|²</text><text x="680" y="300" class="svgtext">x →</text><text x="45" y="55" class="svgtext">V → ∞</text><text x="720" y="55" class="svgtext">V → ∞</text>
+</svg></div><div class="result" id="stateMessage"></div></div></div></div>
+</section>
+
+<section class="lesson-section" id="energy">
+<div class="lesson-heading"><span class="label">ENERGY LEVELS</span><h2>Quantized Energy</h2><p>Energy is proportional to n² for a fixed box length and particle mass.</p></div>
+<div class="content-card"><div class="equation-box"><div class="equation">Eₙ = n²h²/(8mL²)</div></div><p>Thus</p><div class="equation-box"><div class="equation small">E₁ : E₂ : E₃ : E₄ = 1 : 4 : 9 : 16</div></div></div>
+<div class="content-card"><h3>First four energy levels</h3><div class="level-grid"><div class="level"><strong>n = 1</strong><span>E₁ = E₁</span></div><div class="level"><strong>n = 2</strong><span>E₂ = 4E₁</span></div><div class="level"><strong>n = 3</strong><span>E₃ = 9E₁</span></div><div class="level"><strong>n = 4</strong><span>E₄ = 16E₁</span></div></div></div>
+<div class="content-card"><h3>Ground state and zero-point energy</h3><p>The lowest allowed state corresponds to <b>n = 1</b>. Therefore the minimum energy is</p><div class="equation-box"><div class="equation">E₁ = h²/(8mL²)</div></div><div class="key-box">The particle cannot have E = 0 while confined in the box. The lowest energy is finite and is called the <b>zero-point energy</b>.</div></div>
+</section>
+
+<section class="lesson-section" id="practice">
+<div class="lesson-heading"><span class="label">PRACTICE</span><h2>Quick Check</h2><p>Test the main ideas of the particle-in-a-box model.</p></div>
+<div class="question"><p>1. What is the potential energy inside an infinite potential well?</p><button class="option" onclick="ans(this,true,'q1')">A. V = 0</button><button class="option" onclick="ans(this,false,'q1')">B. V = ∞</button><button class="option" onclick="ans(this,false,'q1')">C. V = E²</button><div class="answer" id="q1">Correct: <b>A</b>. Inside the ideal box, V = 0.</div></div>
+<div class="question"><p>2. The boundary condition at the walls is:</p><button class="option" onclick="ans(this,true,'q2')">A. ψ = 0</button><button class="option" onclick="ans(this,false,'q2')">B. ψ = 1</button><button class="option" onclick="ans(this,false,'q2')">C. ψ = ∞</button><div class="answer" id="q2">Correct: <b>A</b>.</div></div>
+<div class="question"><p>3. The allowed energy values are proportional to:</p><button class="option" onclick="ans(this,false,'q3')">A. n</button><button class="option" onclick="ans(this,true,'q3')">B. n²</button><button class="option" onclick="ans(this,false,'q3')">C. 1/n</button><div class="answer" id="q3">Correct: <b>B</b>. Eₙ ∝ n².</div></div>
+<div class="question"><p>4. The normalized wave function is:</p><button class="option" onclick="ans(this,true,'q4')">A. √(2/L) sin(nπx/L)</button><button class="option" onclick="ans(this,false,'q4')">B. √(L/2) sin(nπx/L)</button><button class="option" onclick="ans(this,false,'q4')">C. sin(2πx/L) only</button><div class="answer" id="q4">Correct: <b>A</b>.</div></div>
+<div class="question"><p>5. The lowest possible quantum number is:</p><button class="option" onclick="ans(this,true,'q5')">A. n = 1</button><button class="option" onclick="ans(this,false,'q5')">B. n = 0</button><button class="option" onclick="ans(this,false,'q5')">C. n = −1</button><div class="answer" id="q5">Correct: <b>A</b>. n = 1 gives the ground state.</div></div>
+</section>
+
+<section class="lesson-section" id="revision">
+<div class="lesson-heading"><span class="label">QUICK REVISION</span><h2>Remember These Points</h2><p>Compact examination-oriented summary.</p></div>
+<div class="revision">
+<div><strong>Model</strong><p>Particle confined between two impenetrable walls separated by L.</p></div><div><strong>Potential</strong><p>V = 0 inside; V → ∞ outside.</p></div>
+<div><strong>Boundary conditions</strong><p>ψ(0) = ψ(L) = 0.</p></div><div><strong>Wave number</strong><p>k = nπ/L.</p></div>
+<div><strong>Wave function</strong><p>ψₙ(x) = √(2/L)sin(nπx/L).</p></div><div><strong>Energy</strong><p>Eₙ = n²h²/(8mL²).</p></div>
+<div><strong>Energy ratios</strong><p>1 : 4 : 9 : 16 for n = 1, 2, 3, 4.</p></div><div><strong>Ground state</strong><p>n = 1; E₁ = h²/(8mL²).</p></div>
+</div>
+<div class="content-card" style="margin-top:18px"><h3>Exam focus</h3><div class="key-box"><b>Derivation sequence:</b> Schrödinger equation → V = 0 → k² definition → general solution → boundary conditions → k = nπ/L → quantized energy → normalization.</div></div>
+<div class="complete"><button onclick="completeTopic7()">✓ Mark Topic as Completed</button></div>
+</section>
+
+</main>
+
+<footer><strong>Interactive Engineering Physics</strong><br>Unit I • Topic 07 • Quantum Mechanics</footer>
+
+<script>
+const tabs=document.querySelectorAll(".lesson-tab"),sections=document.querySelectorAll(".lesson-section");
+tabs.forEach(t=>t.addEventListener("click",()=>{tabs.forEach(x=>x.classList.remove("active"));sections.forEach(x=>x.classList.remove("active"));t.classList.add("active");document.getElementById(t.dataset.target).classList.add("active");}));
+
+const ns=document.getElementById("nSlider"),nv=document.getElementById("nValue"),wp=document.getElementById("wavePath"),pp=document.getElementById("probPath"),st=document.getElementById("stateTitle"),sm=document.getElementById("stateMessage");
+function drawBox(){const n=+ns.value;nv.textContent=n;st.textContent=(n===1?"Ground state":"Excited state")+" : n = "+n;let dw="",dp="",N=500;for(let i=0;i<=N;i++){let u=i/N,x=70+660*u,psi=Math.sqrt(2)*Math.sin(n*Math.PI*u),y=275-psi*78,p=psi*psi,py=275-p*55;dw+=(i?" L ":"M ")+x.toFixed(1)+" "+y.toFixed(1);dp+=(i?" L ":"M ")+x.toFixed(1)+" "+py.toFixed(1)}wp.setAttribute("d",dw);pp.setAttribute("d",dp+" L 730 275 L 70 275 Z");const nodes=n-1;sm.innerHTML="<b>n = "+n+"</b>: "+(nodes===0?"There are no internal nodes.":"There are "+nodes+" internal node"+(nodes>1?"s":"")+".")+" The energy is <b>"+n*n+"E₁</b>. Higher n means more oscillations, more nodes and higher energy."}
+ns.addEventListener("input",drawBox);drawBox();
+function ans(b,c,id){b.closest(".question").querySelectorAll(".option").forEach(x=>x.disabled=true);b.classList.add(c?"correct":"wrong");document.getElementById(id).classList.add("show")}
+function completeTopic7(){localStorage.setItem("physics-unit1-particle-1d-box","true");alert("Topic completed ✓")}
+</script>
+</body>
+</html>
