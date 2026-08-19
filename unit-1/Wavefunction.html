@@ -90,6 +90,34 @@
 @media(max-width:760px){
     .symbol-grid,.process,.sim-grid,.compare,.revision-grid{grid-template-columns:1fr}
 }
+
+/* ===== Reference-inspired wave-function visualization ===== */
+.wf-reference{background:#fff;border:1px solid #dfe7ee;border-radius:14px;padding:20px}
+.wf-stage{background:#fff;border:1px solid #dfe7ee;border-radius:11px;padding:10px}
+.wf-stage svg{display:block;width:100%;height:auto}
+.wf-controls{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.wf-control{background:#f5f8fb;border:1px solid #dfe7ee;border-radius:10px;padding:15px}
+.wf-control label{display:flex;justify-content:space-between;color:#536575;font-size:12px;margin-bottom:8px;font-weight:600}
+.wf-control input{width:100%;accent-color:#2868a9}
+.wf-prob-card{margin-top:14px;padding:15px;border-radius:10px;background:#f2f8ef;border:1px solid #9ac58f;text-align:center}
+.wf-prob-card strong{display:block;color:#245b91;font:24px Georgia,serif;margin-top:4px}
+.wf-note{margin-top:12px;padding:12px 14px;border:1px dashed #8b65b3;background:#fbf8ff;border-radius:9px;color:#536575;font-size:12px;line-height:1.6}
+.measure-grid{display:grid;grid-template-columns:330px 1fr;gap:16px}
+.measure-panel{background:#f4f8fb;border:1px solid #d9e6ef;border-radius:12px;padding:20px}
+.measure-panel h3{margin:0 0 15px;color:#245b91}
+.measure-row{margin:17px 0}
+.measure-row label{display:flex;justify-content:space-between;color:#536575;font-size:12px;margin-bottom:7px}
+.measure-row input{width:100%;accent-color:#2868a9}
+.measure-btn{border:none;border-radius:8px;padding:11px 16px;background:#173f7a;color:#fff;font-weight:700;cursor:pointer}
+.measure-btn.secondary{background:#fff;color:#173f7a;border:1px solid #b8cbd9;margin-left:6px}
+.measure-output{background:#fff;border:1px solid #dfe7ee;border-radius:12px;padding:15px}
+.measure-output svg{width:100%;height:auto;display:block}
+.measure-result{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.measure-result div{background:#f5f8fb;border:1px solid #dfe7ee;border-radius:9px;padding:12px;text-align:center}
+.measure-result span{display:block;font-size:10px;color:#71808d}
+.measure-result strong{display:block;margin-top:4px;color:#173f7a;font-size:18px}
+@media(max-width:760px){.wf-controls,.measure-grid{grid-template-columns:1fr}.measure-result{grid-template-columns:1fr}}
+
 </style>
 </head>
 
@@ -249,135 +277,157 @@
 </section>
 
 
+
 <section class="lesson-section" id="visualize">
     <div class="lesson-heading">
         <span class="label">VISUALIZE</span>
-        <h2>ψ(x) and |ψ(x)|²</h2>
-        <p>See visually why the sign of ψ is not the probability: the probability density is obtained from |ψ|².</p>
+        <h2>Wave Function ψ(x) and Probability Density |ψ(x)|²</h2>
+        <p>
+            The visualization follows the reference concept: the upper graph shows ψ(x),
+            while the lower graph shows |ψ(x)|². The shaded region represents the
+            probability of finding the particle between x₁ and x₂.
+        </p>
     </div>
 
     <div class="content-card">
-        <div class="probability-visual">
-            <div class="graph-wrap">
-                <svg viewBox="0 0 900 330" preserveAspectRatio="none">
-                    <line x1="65" y1="285" x2="860" y2="285" class="axis"/>
-                    <line x1="65" y1="30" x2="65" y2="285" class="axis"/>
+        <div class="wf-reference">
+            <div class="wf-stage">
+                <svg id="wfVisualSvg" viewBox="0 0 1000 650" aria-label="Interactive wavefunction and probability density">
+                    <rect x="0" y="0" width="1000" height="650" fill="#ffffff"/>
+                    <text x="500" y="35" text-anchor="middle" font-size="22" font-weight="700" fill="#173f7a">
+                        Wavefunction ψ(x) and Probability Density |ψ(x)|²
+                    </text>
 
-                    <path class="probability-fill"
-                          d="M65,285
-                             C120,205 160,95 220,75
-                             C280,55 320,160 375,215
-                             C430,270 470,260 520,180
-                             C570,100 620,55 675,90
-                             C730,125 765,210 810,235
-                             C830,245 845,260 860,285 Z"/>
+                    <!-- ψ graph -->
+                    <line x1="80" y1="190" x2="930" y2="190" stroke="#aebdca" stroke-width="1.5"/>
+                    <line x1="80" y1="75" x2="80" y2="205" stroke="#aebdca" stroke-width="1.5"/>
+                    <text x="92" y="78" font-size="18" font-family="Georgia" fill="#173f7a">ψ(x)</text>
+                    <text x="945" y="196" font-size="17" font-family="Georgia" fill="#536575">x</text>
+                    <text x="62" y="195" font-size="13" fill="#71808d">0</text>
+                    <path id="wfPsiPath" fill="none" stroke="#173f7a" stroke-width="4"/>
 
-                    <path class="wave-line"
-                          d="M65,285
-                             C105,250 145,100 195,75
-                             C245,50 275,185 320,230
-                             C365,275 410,255 455,190
-                             C500,125 545,45 600,75
-                             C655,105 690,220 735,240
-                             C780,260 825,250 860,285"/>
-
-                    <text x="75" y="45" class="graph-title">Wave function ψ(x)</text>
-                    <text x="75" y="70" class="graph-text">Amplitude may be positive or negative</text>
-
-                    <text x="650" y="45" class="graph-title">Probability density |ψ(x)|²</text>
-                    <text x="650" y="70" class="graph-text">Always non-negative</text>
-
-                    <text x="70" y="310" class="graph-text">Position x →</text>
-                    <text x="8" y="45" class="graph-text">ψ</text>
-                    <text x="8" y="65" class="graph-text">|ψ|²</text>
+                    <!-- probability graph -->
+                    <line x1="80" y1="465" x2="930" y2="465" stroke="#aebdca" stroke-width="1.5"/>
+                    <line x1="80" y1="315" x2="80" y2="480" stroke="#aebdca" stroke-width="1.5"/>
+                    <text x="92" y="318" font-size="18" font-family="Georgia" fill="#4b2380">|ψ(x)|²</text>
+                    <text x="945" y="471" font-size="17" font-family="Georgia" fill="#536575">x</text>
+                    <text x="62" y="470" font-size="13" fill="#71808d">0</text>
+                    <path id="wfProbFill" fill="#d9c8e8" stroke="none"/>
+                    <path id="wfProbPath" fill="none" stroke="#4b2380" stroke-width="4"/>
+                    <line id="x1Line" x1="0" y1="315" x2="0" y2="480" stroke="#6d4b91" stroke-width="2" stroke-dasharray="6 5"/>
+                    <line id="x2Line" x1="0" y1="315" x2="0" y2="480" stroke="#6d4b91" stroke-width="2" stroke-dasharray="6 5"/>
+                    <text id="x1Label" x="0" y="495" text-anchor="middle" font-size="14" fill="#4b2380">x₁</text>
+                    <text id="x2Label" x="0" y="495" text-anchor="middle" font-size="14" fill="#4b2380">x₂</text>
+                    <text x="500" y="550" text-anchor="middle" font-size="16" fill="#536575">
+                        Shaded area = probability of finding the particle between x₁ and x₂
+                    </text>
                 </svg>
             </div>
 
-            <div class="legend">
-                <span><i class="legend-dot"></i> ψ(x)</span>
-                <span><i class="legend-fill"></i> |ψ(x)|² conceptually shown as probability density</span>
+            <div class="wf-controls">
+                <div class="wf-control">
+                    <label><span>Wave mode n</span><span id="wfModeValue">n = 2</span></label>
+                    <input id="wfModeSlider" type="range" min="1" max="4" step="1" value="2">
+                </div>
+                <div class="wf-control">
+                    <label><span>x₁</span><span id="wfX1Value">0.25L</span></label>
+                    <input id="wfX1Slider" type="range" min="5" max="70" value="25">
+                </div>
+                <div class="wf-control">
+                    <label><span>x₂</span><span id="wfX2Value">0.75L</span></label>
+                    <input id="wfX2Slider" type="range" min="30" max="95" value="75">
+                </div>
+                <div class="wf-prob-card">
+                    <span>Probability between x₁ and x₂</span>
+                    <strong id="wfProbability">50.0%</strong>
+                </div>
+            </div>
+
+            <div class="wf-note">
+                <b>Teaching point:</b> ψ(x) may be positive or negative, but |ψ(x)|² is
+                always non-negative. Moving x₁ and x₂ changes only the region over which
+                the probability density is integrated.
             </div>
         </div>
     </div>
-
-    <div class="content-card">
-        <h3>Important observation</h3>
-        <ul>
-            <li>ψ may be positive, negative or complex.</li>
-            <li>|ψ|² is real and non-negative.</li>
-            <li>Large |ψ|² means a greater probability density.</li>
-            <li>Small |ψ|² means a smaller probability density.</li>
-            <li>At a node, ψ = 0 and therefore |ψ|² = 0.</li>
-        </ul>
-    </div>
 </section>
+
+
 
 <section class="lesson-section" id="simulate">
     <div class="lesson-heading">
         <span class="label">SIMULATION</span>
-        <h2>Probability Density Explorer</h2>
+        <h2>Quantum Position Measurement</h2>
         <p>
-            Change the width of a localized wave packet and observe how
-            probability density changes.
+            Use repeated measurements to see Born's interpretation in action.
+            The simulation selects a particle position according to the probability
+            density |ψ|². With more measurements, the distribution follows |ψ|².
         </p>
     </div>
 
     <div class="content-card">
-        <div class="sim-grid">
-            <div class="control-panel">
-                <h3>Wave Function</h3>
+        <div class="measure-grid">
+            <div class="measure-panel">
+                <h3>Experiment Controls</h3>
 
-                <div class="control-row">
-                    <label>
-                        <span>Localization</span>
-                        <span class="value" id="widthValue">Moderate</span>
-                    </label>
-                    <input type="range" id="widthSlider" min="1" max="100" value="55">
+                <div class="measure-row">
+                    <label><span>Wave mode n</span><span id="simModeValue">n = 1</span></label>
+                    <input id="simModeSlider" type="range" min="1" max="4" value="1">
                 </div>
 
-                <div class="control-row">
-                    <label>
-                        <span>Wave amplitude</span>
-                        <span class="value" id="ampValue">1.00</span>
-                    </label>
-                    <input type="range" id="ampSlider" min="40" max="100" value="80">
+                <div class="measure-row">
+                    <label><span>Number of measurements</span><span id="simCountValue">50</span></label>
+                    <input id="simCountSlider" type="range" min="10" max="300" step="10" value="50">
                 </div>
 
-                <div class="sim-note">
-                    The display is a teaching visualization. The actual
-                    probability is obtained by integrating |ψ|² over a region.
+                <button class="measure-btn" id="measureBtn">Measure Particle</button>
+                <button class="measure-btn secondary" id="clearMeasureBtn">Reset</button>
+
+                <div class="wf-note" style="margin-top:18px">
+                    Each click represents a measurement of position. The exact position
+                    is unpredictable, but the collection of many measurements follows
+                    the probability density |ψ|².
                 </div>
             </div>
 
-            <div class="sim-output">
-                <h3>What changes?</h3>
+            <div class="measure-output">
+                <svg id="measurementSvg" viewBox="0 0 900 500" aria-label="Quantum measurement simulation">
+                    <rect width="900" height="500" fill="#fff"/>
+                    <text x="450" y="30" text-anchor="middle" font-size="20" font-weight="700" fill="#173f7a">
+                        Measurement Results
+                    </text>
+                    <line x1="70" y1="405" x2="850" y2="405" stroke="#aebdca" stroke-width="1.5"/>
+                    <line x1="70" y1="70" x2="70" y2="405" stroke="#aebdca" stroke-width="1.5"/>
+                    <path id="simDensity" fill="rgba(75,35,128,.10)" stroke="#4b2380" stroke-width="3"/>
+                    <g id="measurementDots"></g>
+                    <text x="455" y="440" text-anchor="middle" font-size="14" fill="#536575">Position x</text>
+                    <text x="18" y="90" font-size="14" fill="#536575">Probability</text>
+                    <text x="450" y="475" text-anchor="middle" font-size="13" fill="#71808d">
+                        Repeated measurements build up the probability distribution
+                    </text>
+                </svg>
 
-                <div class="result-box">
-                    <span>Current localization</span>
-                    <strong id="localizationText">Moderate</strong>
-                </div>
-
-                <div class="equation-box">
-                    <div class="equation small">Probability density = |ψ|²</div>
-                </div>
-
-                <div class="sim-note" id="simulationMessage">
-                    A localized wave packet concentrates probability in a smaller region.
+                <div class="measure-result">
+                    <div><span>Measurements</span><strong id="measurementTotal">0</strong></div>
+                    <div><span>Most likely region</span><strong id="measurementPeak">—</strong></div>
+                    <div><span>Last position</span><strong id="lastPosition">—</strong></div>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="content-card">
-        <h3>Teaching point</h3>
-        <p>
-            Ask students: <b>"Where is the particle most likely to be found?"</b>
-            The answer is not obtained from the sign of ψ. We look at
-            <b>|ψ|²</b>. The region where |ψ|² is larger corresponds to a
-            greater probability density.
-        </p>
+        <h3>What the simulation demonstrates</h3>
+        <ul>
+            <li>A single measurement gives one particular position.</li>
+            <li>The result cannot be predicted exactly from ψ alone.</li>
+            <li>Repeated measurements reveal the probability distribution.</li>
+            <li>Regions where |ψ|² is large produce more measurement results.</li>
+            <li>Regions where |ψ|² is zero produce no measurement results.</li>
+        </ul>
     </div>
 </section>
+
 
 
 <section class="lesson-section" id="meaning">
@@ -538,43 +588,158 @@ tabs.forEach(tab => {
     });
 });
 
-/* =========================================================
-   PROBABILITY DENSITY SIMULATION
-   ========================================================= */
-const widthSlider = document.getElementById("widthSlider");
-const ampSlider = document.getElementById("ampSlider");
-const widthValue = document.getElementById("widthValue");
-const ampValue = document.getElementById("ampValue");
-const localizationText = document.getElementById("localizationText");
-const simulationMessage = document.getElementById("simulationMessage");
 
-function updateWaveFunctionSimulation() {
-    const width = Number(widthSlider.value);
-    const amplitude = Number(ampSlider.value) / 80;
+/* ===== Wavefunction visualization ===== */
+const wfModeSlider = document.getElementById("wfModeSlider");
+const wfX1Slider = document.getElementById("wfX1Slider");
+const wfX2Slider = document.getElementById("wfX2Slider");
 
-    let label;
-    let message;
-
-    if (width < 30) {
-        label = "Highly localized";
-        message = "A narrow packet represents a more localized position distribution.";
-    } else if (width < 70) {
-        label = "Moderate";
-        message = "The probability is distributed over a moderate region.";
-    } else {
-        label = "Broad";
-        message = "A broad packet represents greater positional spread.";
+function waveProbability(x, n) {
+    const s = Math.sin(n * Math.PI * x);
+    return s * s;
+}
+function normalizedWave(x, n) {
+    return Math.sqrt(2) * Math.sin(n * Math.PI * x);
+}
+function integrateProbability(a, b, n) {
+    const steps = 1000;
+    let sum = 0;
+    for (let i = 0; i < steps; i++) {
+        const x = a + (b-a) * (i + 0.5) / steps;
+        sum += waveProbability(x,n) * (b-a)/steps * 2;
+    }
+    return Math.max(0, Math.min(1, sum));
+}
+function makePath(fn, x0, x1, y0, yScale, samples=260) {
+    let d = "";
+    for(let i=0;i<=samples;i++){
+        const x = x0 + (x1-x0)*i/samples;
+        const y = y0 - fn(i/samples)*yScale;
+        d += (i===0 ? "M " : " L ") + x.toFixed(2) + " " + y.toFixed(2);
+    }
+    return d;
+}
+function updateWaveVisual() {
+    const n = Number(wfModeSlider.value);
+    let a = Number(wfX1Slider.value)/100;
+    let b = Number(wfX2Slider.value)/100;
+    if (a >= b - 0.05) {
+        b = Math.min(0.95, a + 0.05);
+        wfX2Slider.value = Math.round(b*100);
     }
 
-    widthValue.textContent = label;
-    ampValue.textContent = amplitude.toFixed(2);
-    localizationText.textContent = label;
-    simulationMessage.textContent = message;
+    const left=80, right=930, width=right-left;
+    const psi = document.getElementById("wfPsiPath");
+    const prob = document.getElementById("wfProbPath");
+    const fill = document.getElementById("wfProbFill");
+
+    psi.setAttribute("d", makePath(x => normalizedWave(x,n)/Math.sqrt(2), left,right,190,95));
+
+    let pd = makePath(x => waveProbability(x,n), left,right,465,115);
+    prob.setAttribute("d",pd);
+
+    const xA=left+width*a, xB=left+width*b;
+    let fillPath = `M ${xA} 465`;
+    const samples=120;
+    for(let i=0;i<=samples;i++){
+        const x=a+(b-a)*i/samples;
+        const sx=left+width*x;
+        const sy=465-waveProbability(x,n)*115;
+        fillPath += ` L ${sx.toFixed(2)} ${sy.toFixed(2)}`;
+    }
+    fillPath += ` L ${xB} 465 Z`;
+    fill.setAttribute("d",fillPath);
+
+    document.getElementById("x1Line").setAttribute("x1",xA);
+    document.getElementById("x1Line").setAttribute("x2",xA);
+    document.getElementById("x2Line").setAttribute("x1",xB);
+    document.getElementById("x2Line").setAttribute("x2",xB);
+    document.getElementById("x1Label").setAttribute("x",xA);
+    document.getElementById("x2Label").setAttribute("x",xB);
+
+    document.getElementById("wfModeValue").textContent=`n = ${n}`;
+    document.getElementById("wfX1Value").textContent=`${a.toFixed(2)}L`;
+    document.getElementById("wfX2Value").textContent=`${b.toFixed(2)}L`;
+    document.getElementById("wfProbability").textContent=`${(integrateProbability(a,b,n)*100).toFixed(1)}%`;
+}
+if(wfModeSlider){
+    wfModeSlider.addEventListener("input",updateWaveVisual);
+    wfX1Slider.addEventListener("input",updateWaveVisual);
+    wfX2Slider.addEventListener("input",updateWaveVisual);
+    updateWaveVisual();
 }
 
-widthSlider.addEventListener("input", updateWaveFunctionSimulation);
-ampSlider.addEventListener("input", updateWaveFunctionSimulation);
-updateWaveFunctionSimulation();
+/* ===== Quantum position measurement simulation ===== */
+const simModeSlider=document.getElementById("simModeSlider");
+const simCountSlider=document.getElementById("simCountSlider");
+const measurementDots=document.getElementById("measurementDots");
+const simDensity=document.getElementById("simDensity");
+let measurements=[];
+
+function updateSimulationDensity(){
+    const n=Number(simModeSlider.value);
+    const left=70,right=850,width=right-left;
+    let d=`M ${left} 405`;
+    for(let i=0;i<=240;i++){
+        const x=i/240;
+        const sx=left+width*x;
+        const sy=405-waveProbability(x,n)*280;
+        d+=` L ${sx.toFixed(2)} ${sy.toFixed(2)}`;
+    }
+    d+=` L ${right} 405 Z`;
+    simDensity.setAttribute("d",d);
+    document.getElementById("simModeValue").textContent=`n = ${n}`;
+}
+function drawMeasurements(){
+    measurementDots.innerHTML="";
+    const left=70,right=850,width=right-left;
+    measurements.forEach((x,i)=>{
+        const cx=left+width*x;
+        const cy=395-(i%28)*10;
+        const dot=document.createElementNS("http://www.w3.org/2000/svg","circle");
+        dot.setAttribute("cx",cx);
+        dot.setAttribute("cy",cy);
+        dot.setAttribute("r","3.4");
+        dot.setAttribute("fill","#2868a9");
+        dot.setAttribute("opacity","0.75");
+        measurementDots.appendChild(dot);
+    });
+    document.getElementById("measurementTotal").textContent=measurements.length;
+    if(measurements.length){
+        const bins=new Array(10).fill(0);
+        measurements.forEach(x=>bins[Math.min(9,Math.floor(x*10))]++);
+        const max= Math.max(...bins), peak=bins.indexOf(max);
+        document.getElementById("measurementPeak").textContent=`${(peak/10).toFixed(1)}–${((peak+1)/10).toFixed(1)}L`;
+        document.getElementById("lastPosition").textContent=`${measurements[measurements.length-1].toFixed(2)}L`;
+    }else{
+        document.getElementById("measurementPeak").textContent="—";
+        document.getElementById("lastPosition").textContent="—";
+    }
+}
+function samplePosition(n){
+    // Rejection sampling from p(x)=2 sin²(nπx), maximum = 2.
+    while(true){
+        const x=Math.random();
+        if(Math.random()*2 <= waveProbability(x,n)*2) return x;
+    }
+}
+if(simModeSlider){
+    simModeSlider.addEventListener("input",()=>{updateSimulationDensity(); measurements=[]; drawMeasurements();});
+    simCountSlider.addEventListener("input",()=>document.getElementById("simCountValue").textContent=simCountSlider.value);
+    document.getElementById("measureBtn").addEventListener("click",()=>{
+        const n=Number(simModeSlider.value);
+        const count=Number(simCountSlider.value);
+        for(let i=0;i<count;i++) measurements.push(samplePosition(n));
+        if(measurements.length>300) measurements=measurements.slice(-300);
+        drawMeasurements();
+    });
+    document.getElementById("clearMeasureBtn").addEventListener("click",()=>{
+        measurements=[]; drawMeasurements();
+    });
+    updateSimulationDensity();
+    drawMeasurements();
+}
+
 
 /* =========================================================
    QUIZ
