@@ -112,7 +112,7 @@
     <div class="lesson-hero-inner">
         <a href="index.html" class="lesson-back">← Unit I — Quantum Mechanics</a>
         <div class="lesson-label">TOPIC 04</div>
-        <h1>Physical Significance of Wave Function</h1>
+        <h1>Physical Significance of Wave Function (Born's Interpretation)</h1>
         <p>
             Understand what the wave function ψ means physically, why ψ itself
             is not directly observable, and how |ψ|² gives the probability
@@ -134,113 +134,126 @@
 
 <main class="lesson-container">
 
+
 <section class="lesson-section active" id="learn">
     <div class="lesson-heading">
         <span class="label">LEARN</span>
-        <h2>Physical Significance of Wave Function</h2>
+        <h2>Physical Significance of Wave Function (Born's Interpretation)</h2>
         <p>Born's interpretation of the wave function.</p>
     </div>
 
     <div class="content-card">
-        <h3>What is the wave function?</h3>
-        <p>
-            In quantum mechanics, the state of a microscopic particle is
-            represented by a mathematical function called the <b>wave function</b>,
-            denoted by <b>ψ</b> (psi).
-        </p>
-        <p>
-            The wave function contains the information needed to describe the
-            quantum state of the particle. It may depend on position and time,
-            so it can be written generally as <b>ψ(x,t)</b>.
-        </p>
+        <p>The wave function, represented by the symbol <b>ψ (psi)</b>, is a mathematical function used to describe the quantum state of a microscopic particle such as an electron.</p>
+        <p>The wave function itself has no direct physical meaning. It is generally a complex quantity and cannot be measured experimentally.</p>
+        <p>In 1926, Max Born explained that the square of the wave function gives the probability of finding a particle at a particular position in space.</p>
     </div>
 
     <div class="content-card">
-        <h3>Born's Interpretation</h3>
-        <div class="key-box">
-            The wave function itself does not directly represent a measurable
-            physical quantity. The quantity <b>|ψ|²</b> represents the
-            <b>probability density</b> of finding the particle at a particular
-            position.
-        </div>
-
+        <h3>Probability Density</h3>
+        <p>The quantity</p>
         <div class="equation-box">
-            <div class="equation">P(x) = |ψ(x)|²</div>
-            <div class="equation-note">Probability density at position x</div>
+            <div class="equation">|ψ|² = ψ*ψ</div>
         </div>
+        <p>is called the <b>probability density</b>.</p>
+        <p>It represents the probability of finding the particle at a particular point in space.</p>
+        <ul>
+            <li><b>Higher value of |ψ|²</b> → Greater probability of finding the particle.</li>
+            <li><b>Lower value of |ψ|²</b> → Smaller probability of finding the particle.</li>
+            <li><b>|ψ|² = 0</b> → The particle cannot be found at that position.</li>
+        </ul>
     </div>
 
     <div class="content-card">
-        <h3>Probability of finding the particle</h3>
-        <p>
-            If the particle is described by ψ(x), then the probability of
-            finding it between x and x + dx is
-        </p>
-
+        <h3>Probability of Finding a Particle</h3>
+        <p>The probability of finding a particle within a small volume element <b>dx dy dz</b> is</p>
         <div class="equation-box">
-            <div class="equation">dP = |ψ(x)|² dx</div>
+            <div class="equation small">Probability = ψ*ψ dx dy dz</div>
         </div>
-
-        <p>
-            Therefore, the probability of finding the particle between two
-            positions x₁ and x₂ is
-        </p>
-
-        <div class="equation-box">
-            <div class="equation small">
-                P(x₁ ≤ x ≤ x₂) = ∫<sub>x₁</sub><sup>x₂</sup> |ψ(x)|² dx
-            </div>
-        </div>
+        <p>where</p>
+        <ul>
+            <li><b>ψ*</b> = Complex conjugate of the wave function</li>
+            <li><b>ψ</b> = Wave function</li>
+            <li><b>dx dy dz</b> = Small volume element</li>
+        </ul>
     </div>
 
     <div class="content-card">
         <h3>Normalization Condition</h3>
-        <p>
-            Since the particle must be found somewhere in the allowed region,
-            the total probability of finding it must be equal to one.
-        </p>
-
+        <p>Since a particle must exist somewhere in space, the total probability of finding it must always be equal to <b>1</b>.</p>
+        <p>This condition is called the <b>normalization condition</b>.</p>
         <div class="equation-box">
-            <div class="equation">∫ |ψ|² dτ = 1</div>
-            <div class="equation-note">Integration is over the complete space.</div>
+            <div class="equation small">∫ ψ*ψ dx dy dz = 1</div>
         </div>
-
-        <p>
-            A wave function satisfying this condition is said to be
-            <b>normalized</b>.
-        </p>
+        <p>A wave function satisfying this condition is called a <b>normalized wave function</b>.</p>
     </div>
 
     <div class="content-card">
-        <h3>Probability Interpretation at a Glance</h3>
+        <h3>Normalization in Three Dimensions</h3>
+        <div class="equation-box">
+            <div class="equation small">∫∫∫ |ψ(x, y, z)|² dx dy dz = 1</div>
+        </div>
+        <p>This equation represents the probability of finding the particle anywhere in three-dimensional space.</p>
+    </div>
 
-        <div class="process">
-            <div class="process-card">
-                <div class="process-number">1</div>
-                <h3>Wave function</h3>
-                <p>ψ describes the quantum state mathematically.</p>
-            </div>
+    <div class="content-card">
+        <h3>Normalization in Two Dimensions</h3>
+        <div class="equation-box">
+            <div class="equation small">∫∫ |ψ(x, y)|² dx dy = 1</div>
+        </div>
+        <p>This equation is used when the particle is confined to the x–y plane.</p>
+    </div>
 
-            <div class="process-card">
-                <div class="process-number">2</div>
-                <h3>Modulus squared</h3>
-                <p>|ψ|² gives probability density.</p>
-            </div>
+    <div class="content-card">
+        <h3>Normalization in One Dimension</h3>
+        <div class="equation-box">
+            <div class="equation small">∫ |ψ(x)|² dx = 1</div>
+        </div>
+        <p>This equation is used when the particle is confined to move only along the x-axis.</p>
+    </div>
 
-            <div class="process-card">
-                <div class="process-number">3</div>
-                <h3>Probability</h3>
-                <p>Integrating |ψ|² gives probability over a region.</p>
-            </div>
+    <div class="content-card">
+        <h3>Important Points</h3>
+        <ul>
+            <li>The wave function describes the quantum state of a particle.</li>
+            <li>The wave function itself has no direct physical meaning.</li>
+            <li>The quantity <b>|ψ|²</b> represents the probability density.</li>
+            <li>The total probability of finding the particle in all space is always equal to 1.</li>
+            <li>A wave function satisfying this condition is called a <b>normalized wave function</b>.</li>
+            <li>The wave function cannot be measured directly, but its probability density can be used to predict the location of a particle.</li>
+        </ul>
+    </div>
+
+    <div class="content-card">
+        <h3>Limitations (Conditions) of a Wave Function</h3>
+        <p>For a wave function to be an acceptable solution of Schrödinger's wave equation, it must satisfy the following conditions:</p>
+        <ol>
+            <li>The wave function <b>must be finite</b> at every point in space.</li>
+            <li>The wave function must be <b>single-valued</b>; that is, it should have only one value at any given point.</li>
+            <li>The wave function must be <b>continuous everywhere except where the potential energy is infinite</b>.</li>
+            <li>The first derivative of the wave function must also be <b>continuous and finite</b>.</li>
+            <li>The wave function should <b>approach zero at the boundaries</b> (vanish at infinity).</li>
+        </ol>
+    </div>
+
+    <div class="content-card">
+        <h3>Quick Revision</h3>
+        <div class="revision-grid">
+            <div class="revision-item"><strong>Wave Function</strong><p>Mathematical description of a quantum particle.</p></div>
+            <div class="revision-item"><strong>Probability Density</strong><p>|ψ|²</p></div>
+            <div class="revision-item"><strong>Probability</strong><p>ψ*ψ dx dy dz</p></div>
+            <div class="revision-item"><strong>Normalization Condition</strong><p>Total probability = 1</p></div>
+            <div class="revision-item"><strong>Normalized Wave Function</strong><p>A wave function satisfying the normalization condition.</p></div>
+            <div class="revision-item"><strong>Acceptable Wave Function</strong><p>Finite, single-valued, continuous as required, with a continuous finite first derivative where applicable.</p></div>
         </div>
     </div>
 </section>
 
+
 <section class="lesson-section" id="visualize">
     <div class="lesson-heading">
         <span class="label">VISUALIZE</span>
-        <h2>ψ and |ψ|²</h2>
-        <p>See how a wave function is connected to probability density.</p>
+        <h2>ψ(x) and |ψ(x)|²</h2>
+        <p>See visually why the sign of ψ is not the probability: the probability density is obtained from |ψ|².</p>
     </div>
 
     <div class="content-card">
@@ -366,63 +379,49 @@
     </div>
 </section>
 
+
 <section class="lesson-section" id="meaning">
     <div class="lesson-heading">
         <span class="label">SIGNIFICANCE</span>
-        <h2>Physical Significance</h2>
-        <p>What the wave function tells us—and what it does not.</p>
+        <h2>Physical Significance & Conditions</h2>
+        <p>What ψ means according to Born's interpretation and the conditions required for an acceptable wave function.</p>
     </div>
 
     <div class="content-card">
-        <h3>Meaning of ψ</h3>
-        <p>
-            The wave function is a mathematical description of the quantum
-            state. It is not itself directly observed in an experiment.
-            Measurable predictions are obtained from appropriate quantities
-            constructed from the wave function.
-        </p>
-    </div>
-
-    <div class="compare">
-        <div class="compare-card">
-            <h3>ψ</h3>
-            <p>
-                The probability amplitude. It may be positive, negative or
-                complex and is not itself interpreted as a probability.
-            </p>
+        <h3>Meaning of ψ and |ψ|²</h3>
+        <div class="compare">
+            <div class="compare-card">
+                <h3>ψ — Wave Function</h3>
+                <p>The wave function is a mathematical function used to describe the quantum state. It has no direct physical meaning and may generally be complex.</p>
+            </div>
+            <div class="compare-card">
+                <h3>|ψ|² — Probability Density</h3>
+                <p>The quantity |ψ|² = ψ*ψ represents the probability density of finding the particle at a particular position.</p>
+            </div>
         </div>
-
-        <div class="compare-card">
-            <h3>|ψ|²</h3>
-            <p>
-                The probability density. It is real, non-negative and gives
-                the probability density of finding the particle.
-            </p>
-        </div>
-    </div>
-
-    <div class="content-card" style="margin-top:16px">
-        <h3>Conditions for an acceptable wave function</h3>
-        <ul>
-            <li>It should be finite.</li>
-            <li>It should be single-valued.</li>
-            <li>It should be continuous where physically required.</li>
-            <li>Its first derivative should be continuous where the potential is finite.</li>
-            <li>It should be normalizable so that the total probability is finite and can be made equal to one.</li>
-        </ul>
     </div>
 
     <div class="content-card">
-        <h3>Why normalization matters</h3>
-        <p>
-            Probability must add up to one because the particle must be found
-            somewhere in the complete allowed space.
-        </p>
+        <h3>Conditions of an Acceptable Wave Function</h3>
+        <ol>
+            <li>The wave function must be <b>finite</b> at every point in space.</li>
+            <li>The wave function must be <b>single-valued</b>.</li>
+            <li>The wave function must be <b>continuous</b> everywhere except where the potential energy is infinite.</li>
+            <li>The first derivative of the wave function must also be <b>continuous and finite</b>.</li>
+            <li>The wave function should <b>approach zero at the boundaries</b> (vanish at infinity).</li>
+        </ol>
+    </div>
+
+    <div class="content-card">
+        <h3>Normalization</h3>
+        <p>Because a particle must exist somewhere in space, the total probability of finding it must be one.</p>
         <div class="equation-box">
             <div class="equation small">∫ |ψ|² dτ = 1</div>
         </div>
+        <p>A wave function satisfying this condition is called a normalized wave function.</p>
     </div>
 </section>
+
 
 <section class="lesson-section" id="practice">
     <div class="lesson-heading">
