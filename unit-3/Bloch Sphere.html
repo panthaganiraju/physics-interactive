@@ -1,0 +1,309 @@
+<div class="bloch-container">
+
+<h2>Bloch Sphere Representation of a Qubit</h2>
+
+<div class="sphere">
+
+<div class="circle"></div>
+
+<div class="equator"></div>
+
+<div class="axis zaxis"></div>
+
+<div class="axis xaxis"></div>
+
+<div class="state-vector"></div>
+
+<div class="center"></div>
+
+<div class="label top">|0⟩</div>
+
+<div class="label bottom">|1⟩</div>
+
+<div class="label right">+X</div>
+
+<div class="label left">−X</div>
+
+<div class="psi">|ψ⟩</div>
+
+</div>
+
+<p class="caption">
+
+The red vector represents the quantum state of the qubit. Unlike a classical
+bit, the state can point in any direction on the Bloch sphere.
+
+</p>
+
+</div>
+
+<style>
+
+.bloch-container{
+
+max-width:900px;
+margin:40px auto;
+padding:30px;
+background:#fff;
+border-radius:15px;
+box-shadow:0 6px 18px rgba(0,0,0,.15);
+text-align:center;
+
+}
+
+.sphere{
+
+position:relative;
+width:320px;
+height:320px;
+margin:auto;
+
+}
+
+.circle{
+
+position:absolute;
+width:260px;
+height:260px;
+left:30px;
+top:30px;
+border:4px solid #1565c0;
+border-radius:50%;
+
+}
+
+.equator{
+
+position:absolute;
+width:260px;
+height:90px;
+left:30px;
+top:115px;
+border:3px dashed #777;
+border-radius:50%;
+
+}
+
+.zaxis{
+
+position:absolute;
+left:158px;
+top:10px;
+width:4px;
+height:300px;
+background:#444;
+
+}
+
+.xaxis{
+
+position:absolute;
+top:158px;
+left:20px;
+width:280px;
+height:4px;
+background:#444;
+
+}
+
+.center{
+
+position:absolute;
+width:10px;
+height:10px;
+background:#000;
+border-radius:50%;
+left:155px;
+top:155px;
+
+}
+
+.state-vector{
+
+position:absolute;
+width:120px;
+height:4px;
+background:#e53935;
+left:158px;
+top:158px;
+transform-origin:left center;
+
+animation:rotateVector 6s linear infinite;
+
+}
+
+.state-vector::after{
+
+content:"";
+
+position:absolute;
+
+right:-8px;
+
+top:-6px;
+
+border-left:12px solid #e53935;
+
+border-top:8px solid transparent;
+
+border-bottom:8px solid transparent;
+
+}
+
+.psi{
+
+position:absolute;
+
+left:250px;
+
+top:110px;
+
+font-weight:bold;
+
+color:#e53935;
+
+animation:labelRotate 6s linear infinite;
+
+}
+
+.label{
+
+position:absolute;
+
+font-weight:bold;
+
+font-size:18px;
+
+}
+
+.top{
+
+top:0;
+
+left:145px;
+
+}
+
+.bottom{
+
+bottom:0;
+
+left:145px;
+
+}
+
+.left{
+
+left:0;
+
+top:150px;
+
+}
+
+.right{
+
+right:0;
+
+top:150px;
+
+}
+
+.caption{
+
+margin-top:25px;
+
+font-size:17px;
+
+}
+
+@keyframes rotateVector{
+
+0%{
+
+transform:rotate(20deg);
+
+}
+
+25%{
+
+transform:rotate(90deg);
+
+}
+
+50%{
+
+transform:rotate(170deg);
+
+}
+
+75%{
+
+transform:rotate(260deg);
+
+}
+
+100%{
+
+transform:rotate(380deg);
+
+}
+
+}
+
+@keyframes labelRotate{
+
+0%{
+
+left:250px;
+
+top:110px;
+
+}
+
+25%{
+
+left:170px;
+
+top:40px;
+
+}
+
+50%{
+
+left:70px;
+
+top:120px;
+
+}
+
+75%{
+
+left:150px;
+
+top:240px;
+
+}
+
+100%{
+
+left:250px;
+
+top:110px;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.sphere{
+
+transform:scale(.8);
+
+transform-origin:top center;
+
+}
+
+}
+
+</style>
