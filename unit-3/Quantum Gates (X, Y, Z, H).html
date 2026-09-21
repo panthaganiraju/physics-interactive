@@ -1,0 +1,219 @@
+<div class="gate-container">
+
+<h2>Quantum Gates</h2>
+
+<div class="circuit">
+
+<div class="wire"></div>
+
+<div id="qubit">|0⟩</div>
+
+</div>
+
+<div class="buttons">
+
+<button onclick="applyGate('X')">X Gate</button>
+
+<button onclick="applyGate('Y')">Y Gate</button>
+
+<button onclick="applyGate('Z')">Z Gate</button>
+
+<button onclick="applyGate('H')">Hadamard</button>
+
+<button onclick="resetGate()">Reset</button>
+
+</div>
+
+<div id="description">
+
+Initial State : |0⟩
+
+</div>
+
+</div>
+
+<style>
+
+.gate-container{
+
+max-width:900px;
+margin:40px auto;
+padding:30px;
+background:white;
+border-radius:15px;
+box-shadow:0 5px 18px rgba(0,0,0,.15);
+text-align:center;
+
+}
+
+.circuit{
+
+position:relative;
+height:130px;
+margin-bottom:30px;
+
+}
+
+.wire{
+
+position:absolute;
+top:60px;
+left:10%;
+width:80%;
+height:4px;
+background:#444;
+
+}
+
+#qubit{
+
+position:absolute;
+top:35px;
+left:45%;
+width:70px;
+height:70px;
+border-radius:50%;
+background:#1976d2;
+color:white;
+font-size:26px;
+font-weight:bold;
+display:flex;
+justify-content:center;
+align-items:center;
+transition:.5s;
+
+}
+
+.buttons button{
+
+margin:8px;
+padding:12px 22px;
+font-size:16px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+background:#1565c0;
+color:white;
+
+}
+
+.buttons button:hover{
+
+background:#0d47a1;
+
+}
+
+#description{
+
+margin-top:25px;
+font-size:20px;
+font-weight:bold;
+color:#1565c0;
+
+}
+
+.rotate{
+
+animation:spin .8s linear;
+
+}
+
+@keyframes spin{
+
+0%{
+
+transform:rotate(0deg);
+
+}
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+@media(max-width:700px){
+
+#qubit{
+
+left:40%;
+
+}
+
+}
+
+</style>
+
+<script>
+
+let current="0";
+
+function animate(){
+
+let q=document.getElementById("qubit");
+
+q.classList.remove("rotate");
+
+void q.offsetWidth;
+
+q.classList.add("rotate");
+
+}
+
+function applyGate(g){
+
+animate();
+
+let q=document.getElementById("qubit");
+
+let d=document.getElementById("description");
+
+if(g==="X"){
+
+current=(current==="0")?"1":"0";
+
+q.innerHTML="|"+current+"⟩";
+
+d.innerHTML="<b>X Gate</b><br>Bit-flip : |0⟩ ↔ |1⟩";
+
+}
+
+if(g==="Y"){
+
+q.innerHTML="i|"+((current==="0")?"1":"0")+"⟩";
+
+d.innerHTML="<b>Y Gate</b><br>Bit and phase flip";
+
+}
+
+if(g==="Z"){
+
+q.innerHTML=(current==="0")?"|0⟩":"−|1⟩";
+
+d.innerHTML="<b>Z Gate</b><br>Phase Flip";
+
+}
+
+if(g==="H"){
+
+q.innerHTML="(|0⟩+|1⟩)/√2";
+
+d.innerHTML="<b>Hadamard Gate</b><br>Creates Superposition";
+
+}
+
+}
+
+function resetGate(){
+
+current="0";
+
+document.getElementById("qubit").innerHTML="|0⟩";
+
+document.getElementById("description").innerHTML="Initial State : |0⟩";
+
+}
+
+</script>
