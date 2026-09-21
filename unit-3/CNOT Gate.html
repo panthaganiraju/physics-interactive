@@ -1,0 +1,299 @@
+<div class="cnot-container">
+
+<h2>Controlled-NOT (CNOT) Gate</h2>
+
+<div class="circuit">
+
+<div class="wire top"></div>
+<div class="wire bottom"></div>
+
+<div id="control" class="qubit control">|0⟩</div>
+
+<div class="dot"></div>
+
+<div class="line"></div>
+
+<div class="plusGate">
+⊕
+</div>
+
+<div id="target" class="qubit target">|0⟩</div>
+
+</div>
+
+<div class="buttons">
+
+<button onclick="toggleControl()">
+Toggle Control
+</button>
+
+<button onclick="runCNOT()">
+Apply CNOT
+</button>
+
+<button onclick="resetCircuit()">
+Reset
+</button>
+
+</div>
+
+<div id="status">
+
+Control = |0⟩
+
+Target = |0⟩
+
+</div>
+
+</div>
+
+<style>
+
+.cnot-container{
+
+max-width:900px;
+margin:40px auto;
+padding:30px;
+background:white;
+border-radius:15px;
+box-shadow:0 6px 18px rgba(0,0,0,.15);
+text-align:center;
+
+}
+
+.circuit{
+
+position:relative;
+height:220px;
+
+}
+
+.wire{
+
+position:absolute;
+left:10%;
+width:80%;
+height:4px;
+background:#444;
+
+}
+
+.top{
+
+top:70px;
+
+}
+
+.bottom{
+
+top:150px;
+
+}
+
+.qubit{
+
+position:absolute;
+left:10%;
+width:70px;
+height:70px;
+border-radius:50%;
+background:#1976d2;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+font-size:24px;
+transition:.4s;
+
+}
+
+.control{
+
+top:35px;
+
+}
+
+.target{
+
+top:115px;
+
+}
+
+.dot{
+
+position:absolute;
+left:50%;
+top:62px;
+width:16px;
+height:16px;
+background:black;
+border-radius:50%;
+
+}
+
+.line{
+
+position:absolute;
+left:50.8%;
+top:70px;
+width:4px;
+height:80px;
+background:black;
+
+}
+
+.plusGate{
+
+position:absolute;
+left:49%;
+top:130px;
+width:36px;
+height:36px;
+border:3px solid black;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+font-weight:bold;
+background:white;
+
+}
+
+.buttons button{
+
+margin:10px;
+padding:12px 24px;
+font-size:17px;
+background:#1565c0;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+
+}
+
+.buttons button:hover{
+
+background:#0d47a1;
+
+}
+
+#status{
+
+margin-top:25px;
+font-size:20px;
+font-weight:bold;
+color:#1565c0;
+
+}
+
+.flash{
+
+animation:flash .8s;
+
+}
+
+@keyframes flash{
+
+0%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.2);
+
+background:#ff9800;
+
+}
+
+100%{
+
+transform:scale(1);
+
+}
+
+}
+
+@media(max-width:700px){
+
+.qubit{
+
+left:5%;
+
+}
+
+.wire{
+
+left:5%;
+width:90%;
+
+}
+
+}
+
+</style>
+
+<script>
+
+let control=0;
+
+let target=0;
+
+function update(){
+
+document.getElementById("control").innerHTML="|"+control+"⟩";
+
+document.getElementById("target").innerHTML="|"+target+"⟩";
+
+document.getElementById("status").innerHTML=
+
+"Control = |"+control+"⟩ &nbsp;&nbsp;&nbsp; Target = |"+target+"⟩";
+
+}
+
+function toggleControl(){
+
+control=(control==0)?1:0;
+
+update();
+
+}
+
+function runCNOT(){
+
+let t=document.getElementById("target");
+
+t.classList.remove("flash");
+
+void t.offsetWidth;
+
+t.classList.add("flash");
+
+if(control==1){
+
+target=(target==0)?1:0;
+
+}
+
+update();
+
+}
+
+function resetCircuit(){
+
+control=0;
+
+target=0;
+
+update();
+
+}
+
+update();
+
+</script>
