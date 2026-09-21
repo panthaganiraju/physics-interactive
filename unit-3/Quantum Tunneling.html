@@ -1,0 +1,196 @@
+<div class="tunnel-container">
+
+<h2>Quantum Tunneling</h2>
+
+<div class="animation">
+
+<div class="barrier"></div>
+
+<div id="incident" class="wave incident"></div>
+
+<div id="transmitted" class="wave transmitted"></div>
+
+<div id="reflected" class="wave reflected"></div>
+
+</div>
+
+<p class="caption">
+
+A particle with energy lower than the barrier can still penetrate
+through it due to its wave nature. This phenomenon is called
+<b>Quantum Tunneling</b>.
+
+</p>
+
+</div>
+
+<style>
+
+.tunnel-container{
+
+max-width:1000px;
+margin:40px auto;
+padding:30px;
+background:#fff;
+border-radius:15px;
+box-shadow:0 6px 18px rgba(0,0,0,.15);
+text-align:center;
+
+}
+
+.animation{
+
+position:relative;
+width:100%;
+height:220px;
+background:#f4f8fc;
+overflow:hidden;
+border-radius:10px;
+
+}
+
+.barrier{
+
+position:absolute;
+left:48%;
+top:20px;
+width:60px;
+height:180px;
+background:#d32f2f;
+border-radius:8px;
+z-index:2;
+
+}
+
+.wave{
+
+position:absolute;
+height:6px;
+top:110px;
+background:repeating-linear-gradient(
+90deg,
+#1565c0 0 12px,
+transparent 12px 24px
+);
+
+}
+
+.incident{
+
+width:420px;
+left:-420px;
+animation:incidentWave 5s linear infinite;
+
+}
+
+.reflected{
+
+width:180px;
+left:300px;
+opacity:0;
+animation:reflectWave 5s linear infinite;
+
+}
+
+.transmitted{
+
+width:180px;
+left:560px;
+opacity:0;
+background:repeating-linear-gradient(
+90deg,
+#43a047 0 10px,
+transparent 10px 20px
+);
+animation:transmitWave 5s linear infinite;
+
+}
+
+.caption{
+
+margin-top:25px;
+font-size:18px;
+
+}
+
+@keyframes incidentWave{
+
+0%{
+
+left:-420px;
+
+}
+
+60%{
+
+left:40px;
+
+}
+
+100%{
+
+left:40px;
+
+}
+
+}
+
+@keyframes reflectWave{
+
+0%,60%{
+
+opacity:0;
+
+}
+
+65%{
+
+opacity:1;
+left:330px;
+
+}
+
+100%{
+
+opacity:1;
+left:120px;
+
+}
+
+}
+
+@keyframes transmitWave{
+
+0%,60%{
+
+opacity:0;
+
+}
+
+65%{
+
+opacity:1;
+left:560px;
+
+}
+
+100%{
+
+opacity:1;
+left:820px;
+
+}
+
+}
+
+@media(max-width:700px){
+
+.barrier{
+
+left:45%;
+
+}
+
+}
+
+</style>
