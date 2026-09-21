@@ -1,0 +1,287 @@
+<div class="entangle-container">
+
+<h2>Quantum Entanglement</h2>
+
+<div class="entangle-box">
+
+<div class="qubit qubitA">
+
+<div class="label">Qubit A</div>
+
+<div id="qa" class="state">?</div>
+
+</div>
+
+<div class="link">
+
+<div class="wave"></div>
+
+</div>
+
+<div class="qubit qubitB">
+
+<div class="label">Qubit B</div>
+
+<div id="qb" class="state">?</div>
+
+</div>
+
+</div>
+
+<button onclick="measureEntangled()">
+
+Measure Qubit A
+
+</button>
+
+<h3 id="bell">
+
+Bell State
+
+|Φ⁺⟩ = (|00⟩ + |11⟩)/√2
+
+</h3>
+
+</div>
+
+<style>
+
+.entangle-container{
+
+max-width:1000px;
+margin:40px auto;
+padding:30px;
+background:white;
+border-radius:15px;
+box-shadow:0 5px 18px rgba(0,0,0,.15);
+text-align:center;
+
+}
+
+.entangle-box{
+
+display:flex;
+justify-content:center;
+align-items:center;
+gap:40px;
+margin:40px 0;
+
+}
+
+.qubit{
+
+width:150px;
+height:150px;
+background:#eef7ff;
+border-radius:50%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+border:4px solid #1976d2;
+
+}
+
+.label{
+
+font-weight:bold;
+margin-bottom:10px;
+
+}
+
+.state{
+
+font-size:42px;
+font-weight:bold;
+color:#1565c0;
+animation:blink 1s infinite;
+
+}
+
+.link{
+
+position:relative;
+width:220px;
+height:6px;
+background:#ccc;
+overflow:hidden;
+border-radius:10px;
+
+}
+
+.wave{
+
+position:absolute;
+width:80px;
+height:6px;
+background:#00bcd4;
+box-shadow:0 0 20px cyan;
+animation:travel 1.5s linear infinite;
+
+}
+
+button{
+
+padding:12px 30px;
+font-size:18px;
+background:#1976d2;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#0d47a1;
+
+}
+
+#bell{
+
+margin-top:25px;
+color:#1565c0;
+
+}
+
+@keyframes travel{
+
+0%{
+
+left:-80px;
+
+}
+
+100%{
+
+left:220px;
+
+}
+
+}
+
+@keyframes blink{
+
+50%{
+
+opacity:.4;
+
+}
+
+}
+
+@media(max-width:700px){
+
+.entangle-box{
+
+flex-direction:column;
+
+}
+
+.link{
+
+width:6px;
+height:120px;
+
+}
+
+.wave{
+
+width:6px;
+height:60px;
+animation:travelVertical 1.5s linear infinite;
+
+}
+
+@keyframes travelVertical{
+
+0%{
+
+top:-60px;
+
+}
+
+100%{
+
+top:120px;
+
+}
+
+}
+
+}
+
+</style>
+
+<script>
+
+let toggle=true;
+
+setInterval(function(){
+
+const qa=document.getElementById("qa");
+
+const qb=document.getElementById("qb");
+
+if(qa.style.animation!="none"){
+
+if(toggle){
+
+qa.innerHTML="0";
+
+qb.innerHTML="0";
+
+}
+
+else{
+
+qa.innerHTML="1";
+
+qb.innerHTML="1";
+
+}
+
+toggle=!toggle;
+
+}
+
+},700);
+
+function measureEntangled(){
+
+const qa=document.getElementById("qa");
+
+const qb=document.getElementById("qb");
+
+qa.style.animation="none";
+
+qb.style.animation="none";
+
+if(Math.random()<0.5){
+
+qa.innerHTML="0";
+
+qb.innerHTML="0";
+
+document.getElementById("bell").innerHTML=
+
+"Measured Bell State = |00⟩";
+
+}
+
+else{
+
+qa.innerHTML="1";
+
+qb.innerHTML="1";
+
+document.getElementById("bell").innerHTML=
+
+"Measured Bell State = |11⟩";
+
+}
+
+}
+
+</script>
