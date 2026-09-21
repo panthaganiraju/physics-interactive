@@ -1,0 +1,134 @@
+<div class="qubit-demo">
+
+<h2>Classical Bit vs Quantum Bit</h2>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>Classical Bit</h3>
+
+<div class="bit">
+0
+</div>
+
+<p>Only one state at a time.</p>
+
+</div>
+
+<div class="card">
+
+<h3>Quantum Bit (Qubit)</h3>
+
+<div class="qubit">
+
+<div class="state zero">|0⟩</div>
+
+<div class="state one">|1⟩</div>
+
+<div class="orbit"></div>
+
+</div>
+
+<p>Exists in a superposition of both states.</p>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+.qubit-demo{
+max-width:1000px;
+margin:40px auto;
+padding:30px;
+background:white;
+border-radius:15px;
+box-shadow:0 5px 18px rgba(0,0,0,.15);
+text-align:center;
+}
+
+.cards{
+display:flex;
+justify-content:space-around;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.card{
+width:350px;
+}
+
+.bit{
+width:120px;
+height:120px;
+margin:auto;
+background:#1976d2;
+color:white;
+font-size:50px;
+font-weight:bold;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:15px;
+animation:blink 2s infinite;
+}
+
+.qubit{
+position:relative;
+width:160px;
+height:160px;
+margin:auto;
+}
+
+.orbit{
+position:absolute;
+width:120px;
+height:120px;
+border:3px dashed #1976d2;
+border-radius:50%;
+left:20px;
+top:20px;
+animation:spin 6s linear infinite;
+}
+
+.state{
+position:absolute;
+font-size:24px;
+font-weight:bold;
+}
+
+.zero{
+top:0;
+left:60px;
+color:#1565c0;
+}
+
+.one{
+bottom:0;
+left:60px;
+color:#e53935;
+}
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+@keyframes blink{
+50%{
+opacity:.5;
+}
+}
+
+@media(max-width:800px){
+.cards{
+flex-direction:column;
+align-items:center;
+}
+}
+
+</style>
