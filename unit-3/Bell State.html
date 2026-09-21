@@ -1,0 +1,273 @@
+<div class="bell-container">
+
+<h2>Bell State Generation</h2>
+
+<div class="circuit">
+
+<div class="wire top"></div>
+<div class="wire bottom"></div>
+
+<div id="q1" class="qubit q1">|0⟩</div>
+<div id="q2" class="qubit q2">|0⟩</div>
+
+<div class="gate H">H</div>
+
+<div class="dot"></div>
+<div class="vline"></div>
+<div class="cnot">⊕</div>
+
+</div>
+
+<div class="buttons">
+
+<button onclick="step1()">
+Step 1 : Hadamard
+</button>
+
+<button onclick="step2()">
+Step 2 : CNOT
+</button>
+
+<button onclick="resetBell()">
+Reset
+</button>
+
+</div>
+
+<div id="result">
+
+Initial State
+
+|00⟩
+
+</div>
+
+</div>
+
+<style>
+
+.bell-container{
+
+max-width:950px;
+margin:40px auto;
+padding:30px;
+background:white;
+border-radius:15px;
+box-shadow:0 5px 18px rgba(0,0,0,.15);
+text-align:center;
+
+}
+
+.circuit{
+
+position:relative;
+height:220px;
+margin-bottom:25px;
+
+}
+
+.wire{
+
+position:absolute;
+left:10%;
+width:80%;
+height:4px;
+background:#444;
+
+}
+
+.top{top:70px;}
+.bottom{top:150px;}
+
+.qubit{
+
+position:absolute;
+left:6%;
+width:65px;
+height:65px;
+border-radius:50%;
+background:#1976d2;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+font-weight:bold;
+transition:.6s;
+
+}
+
+.q1{top:38px;}
+.q2{top:118px;}
+
+.gate{
+
+position:absolute;
+left:30%;
+top:48px;
+width:45px;
+height:45px;
+background:#4caf50;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+font-size:22px;
+border-radius:6px;
+
+}
+
+.dot{
+
+position:absolute;
+left:63%;
+top:63px;
+width:16px;
+height:16px;
+background:black;
+border-radius:50%;
+
+}
+
+.vline{
+
+position:absolute;
+left:63.7%;
+top:70px;
+width:3px;
+height:80px;
+background:black;
+
+}
+
+.cnot{
+
+position:absolute;
+left:61.7%;
+top:128px;
+width:36px;
+height:36px;
+border:3px solid black;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+background:white;
+
+}
+
+.buttons button{
+
+margin:10px;
+padding:12px 24px;
+font-size:17px;
+border:none;
+border-radius:8px;
+background:#1565c0;
+color:white;
+cursor:pointer;
+
+}
+
+.buttons button:hover{
+
+background:#0d47a1;
+
+}
+
+#result{
+
+margin-top:25px;
+font-size:22px;
+font-weight:bold;
+color:#1565c0;
+
+}
+
+.highlight{
+
+animation:pulse .8s;
+
+}
+
+@keyframes pulse{
+
+0%{transform:scale(1);}
+50%{transform:scale(1.2);}
+100%{transform:scale(1);}
+
+}
+
+@media(max-width:700px){
+
+.wire{left:5%;width:90%;}
+
+}
+
+</style>
+
+<script>
+
+let hadamard=false;
+
+function pulse(id){
+
+let e=document.getElementById(id);
+
+e.classList.remove("highlight");
+
+void e.offsetWidth;
+
+e.classList.add("highlight");
+
+}
+
+function step1(){
+
+hadamard=true;
+
+pulse("q1");
+
+document.getElementById("q1").innerHTML="(|0⟩+|1⟩)/√2";
+
+document.getElementById("result").innerHTML=
+
+"After Hadamard<br><br>|ψ⟩=(|00⟩+|10⟩)/√2";
+
+}
+
+function step2(){
+
+if(!hadamard){
+
+alert("Apply Hadamard first!");
+
+return;
+
+}
+
+pulse("q2");
+
+document.getElementById("q2").innerHTML="Entangled";
+
+document.getElementById("result").innerHTML=
+
+"<span style='color:#2e7d32;'>Bell State Generated</span><br><br>|Φ⁺⟩=(|00⟩+|11⟩)/√2";
+
+}
+
+function resetBell(){
+
+hadamard=false;
+
+document.getElementById("q1").innerHTML="|0⟩";
+
+document.getElementById("q2").innerHTML="|0⟩";
+
+document.getElementById("result").innerHTML="Initial State<br><br>|00⟩";
+
+}
+
+</script>
