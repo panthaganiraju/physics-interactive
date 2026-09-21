@@ -1,0 +1,195 @@
+<div class="measurement-container">
+
+<h2>Quantum Measurement</h2>
+
+<div class="quantum-box">
+
+<div class="states">
+
+<div class="state left">|0⟩</div>
+
+<div class="state right">|1⟩</div>
+
+<div id="qubit"></div>
+
+</div>
+
+<button onclick="measureQubit()">
+Measure Qubit
+</button>
+
+<h3 id="result">
+Superposition:
+|ψ⟩ = α|0⟩ + β|1⟩
+</h3>
+
+</div>
+
+</div>
+
+<style>
+
+.measurement-container{
+
+max-width:900px;
+margin:40px auto;
+padding:30px;
+background:#fff;
+border-radius:15px;
+box-shadow:0 5px 18px rgba(0,0,0,.15);
+text-align:center;
+
+}
+
+.quantum-box{
+
+padding:20px;
+
+}
+
+.states{
+
+position:relative;
+width:420px;
+height:120px;
+margin:auto;
+
+}
+
+.state{
+
+position:absolute;
+font-size:34px;
+font-weight:bold;
+
+}
+
+.left{
+
+left:0;
+top:40px;
+color:#1565c0;
+
+}
+
+.right{
+
+right:0;
+top:40px;
+color:#d32f2f;
+
+}
+
+#qubit{
+
+position:absolute;
+width:24px;
+height:24px;
+background:#ff9800;
+border-radius:50%;
+top:48px;
+left:0;
+box-shadow:0 0 18px orange;
+animation:moveQubit 3s ease-in-out infinite alternate;
+
+}
+
+button{
+
+margin-top:30px;
+padding:12px 28px;
+font-size:18px;
+background:#1976d2;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#0d47a1;
+
+}
+
+#result{
+
+margin-top:25px;
+color:#1565c0;
+
+}
+
+@keyframes moveQubit{
+
+0%{
+
+left:0;
+
+}
+
+50%{
+
+left:190px;
+
+}
+
+100%{
+
+left:390px;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.states{
+
+width:300px;
+
+}
+
+@keyframes moveQubit{
+
+0%{left:0;}
+
+50%{left:130px;}
+
+100%{left:275px;}
+
+}
+
+}
+
+</style>
+
+<script>
+
+function measureQubit(){
+
+const q=document.getElementById("qubit");
+
+const r=document.getElementById("result");
+
+q.style.animation="none";
+
+if(Math.random()<0.5){
+
+q.style.left="0px";
+
+r.innerHTML="<span style='color:#1565c0'>Measured State = |0⟩</span>";
+
+}
+
+else{
+
+q.style.left="390px";
+
+r.innerHTML="<span style='color:#d32f2f'>Measured State = |1⟩</span>";
+
+}
+
+}
+
+</script>
