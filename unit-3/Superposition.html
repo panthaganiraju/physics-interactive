@@ -1,0 +1,314 @@
+<div class="superposition-container">
+
+<h2>Quantum Superposition</h2>
+
+<div class="super-box">
+
+<div class="states">
+
+<div class="state zero">|0⟩</div>
+
+<div class="wave"></div>
+
+<div class="state one">|1⟩</div>
+
+<div class="qubit"></div>
+
+</div>
+
+<div class="probability">
+
+<div class="label">Probability</div>
+
+<div class="bar">
+
+<div class="fill0"></div>
+
+</div>
+
+<p>P(|0⟩)</p>
+
+<div class="bar">
+
+<div class="fill1"></div>
+
+</div>
+
+<p>P(|1⟩)</p>
+
+</div>
+
+</div>
+
+<p class="caption">
+
+A qubit can exist in a superposition of |0⟩ and |1⟩.
+The probabilities continuously evolve until a measurement is performed.
+
+</p>
+
+</div>
+
+<style>
+
+.superposition-container{
+
+max-width:950px;
+
+margin:40px auto;
+
+padding:30px;
+
+background:#fff;
+
+border-radius:15px;
+
+box-shadow:0 5px 18px rgba(0,0,0,.15);
+
+text-align:center;
+
+}
+
+.super-box{
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+flex-wrap:wrap;
+
+gap:40px;
+
+}
+
+.states{
+
+position:relative;
+
+width:420px;
+
+height:220px;
+
+}
+
+.state{
+
+position:absolute;
+
+font-size:34px;
+
+font-weight:bold;
+
+}
+
+.zero{
+
+left:10px;
+
+top:90px;
+
+color:#1565c0;
+
+}
+
+.one{
+
+right:10px;
+
+top:90px;
+
+color:#d32f2f;
+
+}
+
+.wave{
+
+position:absolute;
+
+left:50px;
+
+top:105px;
+
+width:320px;
+
+height:4px;
+
+background:repeating-linear-gradient(
+90deg,
+#1565c0 0 12px,
+transparent 12px 24px
+);
+
+animation:waveMove 1.2s linear infinite;
+
+}
+
+.qubit{
+
+position:absolute;
+
+width:24px;
+
+height:24px;
+
+border-radius:50%;
+
+background:#ff9800;
+
+top:93px;
+
+left:10px;
+
+box-shadow:0 0 18px orange;
+
+animation:qubitMove 6s ease-in-out infinite alternate;
+
+}
+
+.probability{
+
+width:260px;
+
+}
+
+.bar{
+
+height:24px;
+
+background:#ddd;
+
+border-radius:20px;
+
+overflow:hidden;
+
+margin:12px 0;
+
+}
+
+.fill0{
+
+height:100%;
+
+background:#1565c0;
+
+animation:p0 6s infinite alternate;
+
+}
+
+.fill1{
+
+height:100%;
+
+background:#d32f2f;
+
+animation:p1 6s infinite alternate;
+
+}
+
+.label{
+
+font-size:22px;
+
+font-weight:bold;
+
+margin-bottom:15px;
+
+}
+
+.caption{
+
+margin-top:25px;
+
+font-size:17px;
+
+}
+
+@keyframes qubitMove{
+
+0%{
+
+left:10px;
+
+}
+
+50%{
+
+left:180px;
+
+}
+
+100%{
+
+left:350px;
+
+}
+
+}
+
+@keyframes waveMove{
+
+100%{
+
+background-position:40px;
+
+}
+
+}
+
+@keyframes p0{
+
+0%{
+
+width:100%;
+
+}
+
+50%{
+
+width:50%;
+
+}
+
+100%{
+
+width:0%;
+
+}
+
+}
+
+@keyframes p1{
+
+0%{
+
+width:0%;
+
+}
+
+50%{
+
+width:50%;
+
+}
+
+100%{
+
+width:100%;
+
+}
+
+}
+
+@media(max-width:700px){
+
+.super-box{
+
+flex-direction:column;
+
+}
+
+}
+
+</style>
