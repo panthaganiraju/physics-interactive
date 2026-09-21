@@ -1,0 +1,255 @@
+<div class="grover-container">
+
+<h2>Grover's Search Algorithm</h2>
+
+<div class="database">
+
+<div id="i0" class="item">00</div>
+<div id="i1" class="item">01</div>
+<div id="i2" class="item target">10</div>
+<div id="i3" class="item">11</div>
+
+</div>
+
+<div class="buttons">
+
+<button onclick="oracle()">
+Step 1 : Oracle
+</button>
+
+<button onclick="amplify()">
+Step 2 : Amplitude Amplification
+</button>
+
+<button onclick="measure()">
+Step 3 : Measure
+</button>
+
+<button onclick="resetGrover()">
+Reset
+</button>
+
+</div>
+
+<div class="bars">
+
+<div class="barBox">
+<label>00</label>
+<div class="bar"><div id="b0" class="fill"></div></div>
+</div>
+
+<div class="barBox">
+<label>01</label>
+<div class="bar"><div id="b1" class="fill"></div></div>
+</div>
+
+<div class="barBox">
+<label>10</label>
+<div class="bar"><div id="b2" class="fill targetFill"></div></div>
+</div>
+
+<div class="barBox">
+<label>11</label>
+<div class="bar"><div id="b3" class="fill"></div></div>
+</div>
+
+</div>
+
+<h3 id="status">
+
+Initial State
+
+All items have equal probability.
+
+</h3>
+
+</div>
+
+<style>
+
+.grover-container{
+
+max-width:950px;
+margin:40px auto;
+padding:30px;
+background:white;
+border-radius:15px;
+box-shadow:0 6px 18px rgba(0,0,0,.15);
+text-align:center;
+
+}
+
+.database{
+
+display:flex;
+justify-content:center;
+gap:25px;
+flex-wrap:wrap;
+margin-bottom:30px;
+
+}
+
+.item{
+
+width:90px;
+height:90px;
+border-radius:12px;
+background:#1976d2;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+font-weight:bold;
+transition:.5s;
+
+}
+
+.target{
+
+border:4px solid orange;
+
+}
+
+.buttons button{
+
+margin:8px;
+padding:12px 20px;
+font-size:16px;
+background:#1565c0;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+
+}
+
+.buttons button:hover{
+
+background:#0d47a1;
+
+}
+
+.bars{
+
+margin-top:35px;
+
+}
+
+.barBox{
+
+margin:18px auto;
+width:300px;
+text-align:left;
+
+}
+
+.bar{
+
+height:22px;
+background:#ddd;
+border-radius:12px;
+overflow:hidden;
+
+}
+
+.fill{
+
+height:100%;
+width:25%;
+background:#64b5f6;
+transition:1s;
+
+}
+
+.targetFill{
+
+background:#ff9800;
+
+}
+
+.highlight{
+
+background:#ff9800 !important;
+transform:scale(1.1);
+
+}
+
+#status{
+
+margin-top:30px;
+color:#1565c0;
+
+}
+
+@media(max-width:600px){
+
+.barBox{
+
+width:90%;
+
+}
+
+}
+
+</style>
+
+<script>
+
+function oracle(){
+
+document.getElementById("i2").classList.add("highlight");
+
+document.getElementById("status").innerHTML=
+
+"Oracle identifies the target state |10⟩.";
+
+}
+
+function amplify(){
+
+document.getElementById("b0").style.width="10%";
+document.getElementById("b1").style.width="10%";
+document.getElementById("b3").style.width="10%";
+
+document.getElementById("b2").style.width="80%";
+
+document.getElementById("status").innerHTML=
+
+"Amplitude amplification increases the probability of the target state.";
+
+}
+
+function measure(){
+
+document.getElementById("i2").style.background="#2e7d32";
+
+document.getElementById("status").innerHTML=
+
+"<span style='color:#2e7d32'>Measurement Result : Target Found → |10⟩</span>";
+
+}
+
+function resetGrover(){
+
+["b0","b1","b2","b3"].forEach(id=>{
+
+document.getElementById(id).style.width="25%";
+
+});
+
+["i0","i1","i2","i3"].forEach(id=>{
+
+document.getElementById(id).classList.remove("highlight");
+
+document.getElementById(id).style.background="#1976d2";
+
+});
+
+document.getElementById("status").innerHTML=
+
+"Initial State<br>All items have equal probability.";
+
+}
+
+</script>
