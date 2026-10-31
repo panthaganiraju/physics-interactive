@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Quantum Algorithm Simulations</title>
+<style>
+:root{--ink:#172554;--blue:#2563eb;--purple:#6d28d9;--cyan:#0891b2;--paper:#f8fafc;--line:#cbd5e1;--green:#15803d;--amber:#b45309}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#eff6ff,#f5f3ff);font:16px/1.5 system-ui,Segoe UI,Arial,sans-serif;color:#172033}
+header{background:#172554;color:white;padding:28px 18px;text-align:center}header h1{margin:0 0 6px;font-size:clamp(1.5rem,4vw,2.4rem)}header p{margin:0;color:#dbeafe}
+main{max-width:1100px;margin:22px auto;padding:0 14px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tab{border:1px solid #c4b5fd;background:white;color:#4c1d95;padding:10px 15px;border-radius:10px;font-weight:700;cursor:pointer}.tab[aria-selected=true]{background:#5b21b6;color:white;border-color:#5b21b6}
+.panel{display:none;background:white;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 8px 25px #1e293b0d}.panel.active{display:block}.panel h2{margin-top:0;color:var(--ink)}.intro{color:#475569;margin-top:-6px}.controls{display:flex;gap:12px;align-items:end;flex-wrap:wrap;background:#f8fafc;padding:14px;border-radius:12px;margin:16px 0}.field{display:flex;flex-direction:column;gap:5px}.field label{font-weight:700;font-size:.9rem}select,input,button{font:inherit}select,input[type=number]{padding:9px 10px;border:1px solid #94a3b8;border-radius:8px;background:white;min-width:130px}button.action{background:var(--blue);border:0;color:white;border-radius:8px;padding:10px 15px;font-weight:700;cursor:pointer}button.action:hover{filter:brightness(.92)}.result{padding:13px 15px;border-radius:10px;background:#eff6ff;border-left:4px solid var(--blue);margin:14px 0}.good{background:#f0fdf4;border-color:#16a34a}.warn{background:#fffbeb;border-color:#d97706}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.card{border:1px solid #dbeafe;border-radius:12px;padding:13px;background:#fbfdff}.card h3{margin:0 0 8px;color:#3730a3;font-size:1rem}.math{font-family:Georgia,serif;font-size:1.12rem;overflow-wrap:anywhere}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.95rem}th,td{padding:9px 10px;border-bottom:1px solid #e2e8f0;text-align:center}th{background:#eef2ff;color:#312e81}.barrow{display:grid;grid-template-columns:55px 1fr 62px;gap:9px;align-items:center;margin:9px 0}.track{height:18px;background:#e2e8f0;border-radius:99px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,#2563eb,#8b5cf6);width:0%;transition:width .25s}.bar.target{background:linear-gradient(90deg,#16a34a,#84cc16)}.small{font-size:.88rem;color:#64748b}.steps{padding-left:20px}.steps li{margin:6px 0}.pill{display:inline-block;border-radius:99px;padding:3px 9px;background:#ede9fe;color:#5b21b6;font-weight:700;font-size:.8rem}.formula{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:12px;margin:10px 0}.footer{text-align:center;color:#64748b;font-size:.85rem;padding:20px}
+@media(max-width:600px){.panel{padding:14px}.controls{align-items:stretch}.field{width:100%}select,input[type=number]{width:100%}}
+</style>
+</head>
+<body>
+<header><h1>Quantum Algorithms: Interactive Simulations</h1><p>Deutsch–Jozsa • Shor • Grover | Beginner-friendly B.Tech learning tools</p></header>
+<main>
+<nav class="tabs" aria-label="Choose algorithm">
+<button class="tab" data-tab="dj" aria-selected="true">1. Deutsch–Jozsa</button>
+<button class="tab" data-tab="shor" aria-selected="false">2. Shor</button>
+<button class="tab" data-tab="grover" aria-selected="false">3. Grover</button>
+</nav>
+
+<section id="dj" class="panel active">
+<h2>1. Deutsch–Jozsa: Is the hidden function constant or balanced?</h2>
+<p class="intro">For a one-bit input, a constant function gives the same output for both inputs; a balanced function gives different outputs. Under this promise, the ideal quantum algorithm distinguishes them with one oracle query.</p>
+<div class="controls">
+<div class="field"><label for="djOracle">Choose the hidden function</label><select id="djOracle"><option value="c0">Constant: f(0)=0, f(1)=0</option><option value="c1">Constant: f(0)=1, f(1)=1</option><option value="b0">Balanced: f(0)=0, f(1)=1</option><option value="b1">Balanced: f(0)=1, f(1)=0</option></select></div>
+<button class="action" id="runDJ">Run quantum query</button>
+</div>
+<div class="grid">
+<div class="card"><h3>Oracle truth table</h3><div class="tablewrap"><table><thead><tr><th>Input x</th><th>Output f(x)</th></tr></thead><tbody id="djTable"></tbody></table></div></div>
+<div class="card"><h3>Ideal final measurement</h3><div id="djOutcome" class="math">Choose a function and run the simulation.</div><p class="small">For one input qubit: measuring 0 indicates constant; measuring 1 indicates balanced.</p></div>
+</div>
+<div class="formula"><strong>Key idea:</strong> Hadamard → oracle → Hadamard → measurement. Quantum interference makes the function type visible in the final result.</div>
+<div class="small">This is the one-input-bit version of Deutsch–Jozsa, shown to make the logic easy to follow. It is an ideal, noiseless simulation.</div>
+</section>
+
+<section id="shor" class="panel">
+<h2>2. Shor: Find factors using a repeating modular pattern</h2>
+<p class="intro">Shor’s quantum algorithm uses period finding. This teaching demo displays the modular arithmetic for a small example; the table itself is calculated classically, not by simulating a quantum circuit.</p>
+<div class="controls">
+<div class="field"><label for="shorN">Number to factor, N</label><select id="shorN"><option value="15">15</option><option value="21">21</option><option value="33">33</option><option value="35">35</option></select></div>
+<div class="field"><label for="shorA">Choose a, with gcd(a,N)=1</label><select id="shorA"><option value="2">2</option><option value="4">4</option><option value="7">7</option><option value="8">8</option></select></div>
+<button class="action" id="runShor">Calculate period</button>
+</div>
+<div id="shorWarning" class="result warn" hidden></div>
+<div class="card"><h3>Calculate f(x) = a<sup>x</sup> mod N</h3><div class="tablewrap"><table><thead><tr><th>x</th><th>a<sup>x</sup></th><th>a<sup>x</sup> mod N</th></tr></thead><tbody id="shorTable"></tbody></table></div><div id="shorPeriod" class="result">Select N and a, then calculate.</div></div>
+<div class="grid" style="margin-top:12px"><div class="card"><h3>What does “mod” mean?</h3><p><span class="math">17 mod 5 = 2</span>, because dividing 17 by 5 leaves remainder 2.</p></div><div class="card"><h3>Why find the period?</h3><p>The period r is the smallest positive integer for which <span class="math">a<sup>r</sup> mod N = 1</span>. When suitable, r helps calculate non-trivial factors using GCD.</p></div></div>
+<div class="small">The displayed factor extraction is a simplified textbook demonstration. Shor’s full quantum algorithm estimates the period using quantum superposition and the Quantum Fourier Transform.</div>
+</section>
+
+<section id="grover" class="panel">
+<h2>3. Grover: Search an unsorted list</h2>
+<p class="intro">Imagine one marked item hidden among equally likely choices. Grover’s algorithm uses an oracle and diffusion operation to amplify the marked item’s probability.</p>
+<div class="controls">
+<div class="field"><label for="gSize">Number of items</label><select id="gSize"><option value="4">4 items</option><option value="8">8 items</option><option value="16">16 items</option></select></div>
+<div class="field"><label for="gTarget">Hidden target</label><select id="gTarget"><option value="0">Item 0</option><option value="1">Item 1</option><option value="2">Item 2</option><option value="3">Item 3</option></select></div>
+<button class="action" id="gStep">Apply one Grover iteration</button><button class="action" id="gReset" style="background:#475569">Reset</button>
+</div>
+<div class="result"><strong>Iteration:</strong> <span id="gCount">0</span> &nbsp; | &nbsp; <strong>Target probability:</strong> <span id="gProb">25.00%</span></div>
+<div class="card"><h3>Measurement probabilities</h3><div id="gBars"></div></div>
+<div class="formula"><strong>Grover steps:</strong> (1) Prepare equal superposition. (2) Oracle flips the target amplitude’s sign. (3) Diffusion reflects amplitudes about their mean. (4) Repeat an appropriate number of times, then measure.</div>
+<p class="small">The bars show the ideal state-vector simulation. The algorithm’s query complexity is O(√N), compared with O(N) for classical unstructured search. Too many iterations can reduce the target probability again.</p>
+</section>
+<div class="footer">Educational models only • Ideal quantum operations • No external libraries required</div>
+</main>
+<script>
+// Tab navigation
+const tabs=[...document.querySelectorAll('.tab')];
+tabs.forEach(b=>b.addEventListener('click',()=>{tabs.forEach(t=>t.setAttribute('aria-selected',String(t===b)));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===b.dataset.tab));}));
+
+// Deutsch–Jozsa, one input bit
+function updateDJ(run=false){const v=document.getElementById('djOracle').value;const vals={c0:[0,0],c1:[1,1],b0:[0,1],b1:[1,0]}[v];document.getElementById('djTable').innerHTML=vals.map((y,x)=>`<tr><td>${x}</td><td>${y}</td></tr>`).join('');const out=document.getElementById('djOutcome');if(run){const balanced=vals[0]!==vals[1];out.innerHTML=`<span class="pill">Measurement: ${balanced?1:0}</span><p><strong>${balanced?'BALANCED function':'CONSTANT function'}</strong></p><p>${balanced?'The two outputs differ.':'Both outputs are identical.'}</p>`;out.parentElement.classList.add('good');}else{out.textContent='Choose a function and run the simulation.';out.parentElement.classList.remove('good');}}
+document.getElementById('djOracle').addEventListener('change',()=>updateDJ(false));document.getElementById('runDJ').addEventListener('click',()=>updateDJ(true));updateDJ();
+
+// Shor period-finding arithmetic demonstration
+function gcd(a,b){while(b){[a,b]=[b,a%b]}return Math.abs(a)}
+function runShor(){const N=+document.getElementById('shorN').value,a=+document.getElementById('shorA').value;const warning=document.getElementById('shorWarning');const table=document.getElementById('shorTable');const periodBox=document.getElementById('shorPeriod');warning.hidden=true;table.innerHTML='';if(gcd(a,N)!==1){warning.hidden=false;warning.textContent=`gcd(${a}, ${N}) is ${gcd(a,N)}, not 1. Choose a value relatively prime to N, or use this GCD as a factor if it is non-trivial.`;periodBox.textContent='A period is not needed in this case.';return;}let value=1,r=0,rows=[];do{r++;value=(value*a)%N;rows.push({x:r,pow:BigInt(a)**BigInt(r),rem:value});if(r>500)break;}while(value!==1);table.innerHTML=rows.map(o=>`<tr><td>${o.x}</td><td>${o.pow.toString()}</td><td>${o.rem}</td></tr>`).join('');let text=`The first return to 1 occurs at r = ${r}.`;let factors=[];if(r%2===0){const half=Number((BigInt(a)**BigInt(r/2))%BigInt(N));const f1=gcd(half-1,N),f2=gcd(half+1,N);if(half!==N-1&&f1>1&&f1<N&&f2>1&&f2<N){factors=[f1,f2];text+=` Since r is even and a^(r/2) mod N = ${half}, the factors are gcd(${half} − 1, ${N}) = ${f1} and gcd(${half} + 1, ${N}) = ${f2}.`; }else{text+=' This period does not directly give two non-trivial factors with the standard step; try another a.';}}else{text+=' The period is odd, so this choice does not give factors through the standard Shor post-processing step; try another a.';}periodBox.innerHTML=`<strong>${text}</strong>${factors.length?`<p class="math">${N} = ${factors[0]} × ${factors[1]}</p>`:''}`;}
+document.getElementById('runShor').addEventListener('click',runShor);document.getElementById('shorN').addEventListener('change',()=>{const n=+document.getElementById('shorN').value;const sel=document.getElementById('shorA');const choices=[...sel.options].map(o=>+o.value).filter(a=>a<n&&gcd(a,n)===1);sel.innerHTML=choices.map(a=>`<option value="${a}">${a}</option>`).join('');runShor();});runShor();
+
+// Grover state-vector simulation with one marked item
+let gAmps=[],gIter=0,gN=4,gTarget=0;
+function setupGrover(){gN=+document.getElementById('gSize').value;gTarget=+document.getElementById('gTarget').value;if(gTarget>=gN)gTarget=0;document.getElementById('gTarget').innerHTML=Array.from({length:gN},(_,i)=>`<option value="${i}">Item ${i}</option>`).join('');document.getElementById('gTarget').value=String(gTarget);gAmps=Array(gN).fill(1/Math.sqrt(gN));gIter=0;renderGrover();}
+function groverStep(){// Oracle: phase flip the marked amplitude.
+gAmps[gTarget]*=-1;// Diffusion: reflect each amplitude about the mean.
+const mean=gAmps.reduce((s,x)=>s+x,0)/gN;gAmps=gAmps.map(x=>2*mean-x);gIter++;renderGrover();}
+function renderGrover(){const probs=gAmps.map(x=>x*x);document.getElementById('gCount').textContent=gIter;document.getElementById('gProb').textContent=(probs[gTarget]*100).toFixed(2)+'%';document.getElementById('gBars').innerHTML=probs.map((p,i)=>`<div class="barrow"><strong>${i===gTarget?'★ ':''}${i}</strong><div class="track"><div class="bar ${i===gTarget?'target':''}" style="width:${Math.max(0,Math.min(100,p*100))}%"></div></div><span>${(p*100).toFixed(2)}%</span></div>`).join('');}
+document.getElementById('gStep').addEventListener('click',groverStep);document.getElementById('gReset').addEventListener('click',setupGrover);document.getElementById('gSize').addEventListener('change',setupGrover);document.getElementById('gTarget').addEventListener('change',setupGrover);setupGrover();
+</script>
+</body>
+</html>
